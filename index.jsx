@@ -52,6 +52,7 @@ const ORBIT_DATA = [
         title: 'Runic Rush',
         desc: 'Strategic 2048-Roguelike',
         content: [
+          { type: 'image', url: 'runic-rush-header.png', height: 'h-32', fit: 'contain', text: 'Runic Rush' },
           {
             type: 'columns',
             left: [
@@ -60,7 +61,7 @@ const ORBIT_DATA = [
               { type: 'button', text: 'Play on itch.io', url: 'https://indeptus-entertainment.itch.io/runic-rush' },
               { type: 'header', text: 'Iterative Design: The Merge Mechanics' },
               { type: 'paragraph', text: 'The rune merging took a few iterations to get right. Initially, you drag out runes on the top of the board to damage, drag out off the bottom of the board to heal. But that quickly became too limiting and I opted to just double tap to use.' },
-              { type: 'image', url: '', height: 'h-40', text: 'GAMEPLAY GIF PENDING' },
+              { type: 'image', url: 'runic-rush-attack.gif', height: 'h-56', fit: 'contain', text: 'Gameplay' },
               { type: 'header', text: 'Procedural Enemies & Strict Rulesets' },
               { type: 'paragraph', text: 'Initially designed a pool of abilities where each enemy randomly draws from to save time, but the end result created interesting puzzles to solve. Normal enemies have 2 abilities and elites have 3.' },
               { type: 'paragraph', text: '3 random abilities could result in 2 support + 1 high pressure ability which is unplayable. I imposed a rule: at most 1 support ability, which fixed the balance perfectly.' },
@@ -73,7 +74,7 @@ const ORBIT_DATA = [
               { type: 'header', text: 'Strategic Planning: The Preview System' },
               { type: 'paragraph', text: 'I built a preview system where hovering a rune shows projected damage or healing output (factoring in all active effects). The same system applies to enemy abilities.' },
               { type: 'paragraph', text: 'This was built to aid strategic planning. Unfortunately the system remained slightly buggy in the final build, especially during boss fights — a known issue for future iteration.' },
-              { type: 'image', url: '', height: 'h-32', text: 'TOOLTIP UI GIF PENDING' },
+              { type: 'image', url: 'runic-rush-preview.gif', height: 'h-56', fit: 'contain', text: 'Preview System' },
             ],
             right: [
               {
@@ -94,20 +95,21 @@ const ORBIT_DATA = [
       {
         id: 'gd-3',
         title: 'Unannounced Live Service Game',
-        desc: 'Systems & Economy Design',
+        desc: 'Core Gameplay Design',
         content: [
           {
             type: 'columns',
             left: [
               { type: 'header', text: 'Under NDA' },
-              { type: 'paragraph', text: 'I was brought in as a Systems & Economy Designer on a live service title currently in development. Due to an active NDA, specific details about the project cannot be disclosed.' },
-              { type: 'paragraph', text: 'My work covered economy architecture, progression pacing, and monetisation loop design — connecting player engagement data to tunable systems built for long-term retention.' },
+              { type: 'paragraph', text: 'Brought in as a designer on a live service title currently in development — despite holding an official title as game programmer. Trusted with ownership of core gameplay design on the ground level.' },
+              { type: 'paragraph', text: 'Due to an active NDA, specific details about the project cannot be disclosed.' },
             ],
             right: [
               {
                 type: 'metadata',
                 items: [
-                  { label: 'Role', value: 'Systems & Economy Designer' },
+                  { label: 'Role', value: 'Gameplay Designer' },
+                  { label: 'Official Title', value: 'Game Programmer' },
                   { label: 'Genre', value: 'Live Service' },
                   { label: 'Status', value: 'In Development' },
                   { label: 'Disclosure', value: 'NDA Active' },
@@ -155,7 +157,7 @@ const ORBIT_DATA = [
         title: 'Metal Genesis',
         desc: 'Ability Framework',
         content: [
-          { type: 'image', url: '', height: 'h-56', text: 'METAL GENESIS HERO ART' },
+          { type: 'image', url: 'metal-genesis.png', height: 'h-56', fit: 'contain', text: 'Metal Genesis' },
           {
             type: 'columns',
             left: [
@@ -174,7 +176,7 @@ const ORBIT_DATA = [
               {
                 type: 'metadata',
                 items: [
-                  { label: 'Role', value: 'Technical Designer' },
+                  { label: 'Role', value: 'Game Programmer' },
                   { label: 'Engine', value: 'Unreal Engine 5' },
                   { label: 'Status', value: 'Demo Released' },
                 ]
@@ -188,13 +190,13 @@ const ORBIT_DATA = [
         title: 'Animara World',
         desc: 'React + Konva R&D',
         content: [
-          { type: 'image', url: '', height: 'h-64', text: 'ANIMARA WORLD MAP PREVIEW' },
+          { type: 'image', url: 'animara.png', height: 'h-56', text: 'Animara World' },
           {
             type: 'columns',
             left: [
               { type: 'header', text: 'Living World on the Web' },
               { type: 'paragraph', text: 'Led a team of 2 junior developers and an outsource team to deliver a media-heavy marketing website. While the team handled core development, I owned the R&D for the flagship "World" section — a massive, living world map densely packed with animating elements.' },
-              { type: 'button', text: 'Explore the World', url: 'https://www.animara.world/' },
+              { type: 'button', text: 'Explore the World', url: 'https://www.animara.world/animara' },
               { type: 'header', text: 'Technical Contributions' },
               { type: 'list', items: [
                 'R&D: Architected the interactive world map using React + Konva, balancing visual richness with performance under high element density.',
@@ -207,7 +209,7 @@ const ORBIT_DATA = [
               {
                 type: 'metadata',
                 items: [
-                  { label: 'Role', value: 'Technical Lead (R&D)' },
+                  { label: 'Role', value: 'Tech Lead' },
                   { label: 'Tech', value: 'React / Konva' },
                   { label: 'Infra', value: 'Cloudflare CDN' },
                   { label: 'Team', value: '2 Juniors + Outsource' },
@@ -222,6 +224,7 @@ const ORBIT_DATA = [
         title: 'Casino Conqueror',
         desc: 'Card-based Roguelike',
         content: [
+          { type: 'image', url: 'casino-conqueror-0.png', height: 'h-40', text: 'Casino Conqueror Banner' },
           {
             type: 'columns',
             left: [
@@ -236,6 +239,7 @@ const ORBIT_DATA = [
               ]},
             ],
             right: [
+              { type: 'image', url: 'casino-conqueror-title.jpg', height: 'h-24', text: 'Casino Conqueror Title' },
               {
                 type: 'metadata',
                 items: [
@@ -246,7 +250,9 @@ const ORBIT_DATA = [
                 ]
               }
             ]
-          }
+          },
+          { type: 'image', url: 'casino-conqueror-1.png', height: 'h-52', text: 'Casino Conqueror Screenshot' },
+          { type: 'image', url: 'casino-conqueror-2.jpg', height: 'h-52', text: 'Casino Conqueror Screenshot 2' },
         ]
       },
       {
@@ -1069,32 +1075,37 @@ const PlanetView = ({ orb, onBack, onSelectSubNode }) => {
 
           {/* Sub-Nodes */}
           <div className="flex flex-col gap-10 md:gap-12">
-            {orb.subNodes.map((node, i) => (
-              <motion.button
-                key={node.id}
-                initial={{ opacity: 0, x: 50 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.5 + (i * 0.1), duration: 0.8, ease: gameEase }}
-                onClick={() => onSelectSubNode(node)}
-                className="group relative flex items-center"
-              >
-                {/* SVG Connecting Line to Planet */}
-                <svg className="absolute right-full w-32 h-20 pointer-events-none opacity-30 group-hover:opacity-100 transition-opacity" style={{ top: '50%', transform: 'translateY(-50%)' }}>
-                  <path d="M 0 10 Q 64 10 128 40" fill="transparent" stroke="currentColor" strokeWidth="1" strokeDasharray="4 4" className="text-white" />
-                </svg>
-                {/* Node Icon */}
-                <div className="relative flex items-center justify-center w-8 h-8 mr-4 bg-black/80 border border-white/20 rotate-45 group-hover:border-white group-hover:bg-white/10 transition-all flex-shrink-0">
-                  <div
-                    className="absolute inset-0 border-2 opacity-0 scale-125 group-hover:opacity-100 group-hover:scale-100 transition-all duration-300 ease-out pointer-events-none"
-                    style={{ borderColor: orb.color }}
-                  />
-                  <div className="w-1.5 h-1.5" style={{ backgroundColor: orb.color }} />
-                </div>
-                {/* Node Text */}
-                <div className="flex flex-col text-left">
-                  <span className="text-lg md:text-xl font-bold tracking-wider text-white group-hover:text-[#ffb000] transition-colors">{node.title}</span>
-                  <span className="text-[10px] tracking-[0.2em] text-white/50 uppercase">{node.desc}</span>
-                </div>
-              </motion.button>
-            ))}
+            {orb.subNodes.map((node, i) => {
+              const isUnclickable = node.isUnclickable;
+              return (
+                <motion.button
+                  key={node.id}
+                  initial={{ opacity: 0, x: 50 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.5 + (i * 0.1), duration: 0.8, ease: gameEase }}
+                  onClick={() => !isUnclickable && onSelectSubNode(node)}
+                  className={`group relative flex items-center ${isUnclickable ? 'cursor-default' : 'cursor-pointer'}`}
+                >
+                  {/* SVG Connecting Line to Planet */}
+                  <svg className={`absolute right-full w-32 h-20 pointer-events-none transition-opacity ${isUnclickable ? 'opacity-10' : 'opacity-30 group-hover:opacity-100'}`} style={{ top: '50%', transform: 'translateY(-50%)' }}>
+                    <path d="M 0 10 Q 64 10 128 40" fill="transparent" stroke="currentColor" strokeWidth="1" strokeDasharray="4 4" className="text-white" />
+                  </svg>
+                  {/* Node Icon */}
+                  <div className={`relative flex items-center justify-center w-8 h-8 mr-4 border rotate-45 transition-all flex-shrink-0 ${isUnclickable ? 'bg-transparent border-white/10' : 'bg-black/80 border-white/20 group-hover:border-white group-hover:bg-white/10'}`}>
+                    {!isUnclickable && (
+                      <div
+                        className="absolute inset-0 border-2 opacity-0 scale-125 group-hover:opacity-100 group-hover:scale-100 transition-all duration-300 ease-out pointer-events-none"
+                        style={{ borderColor: orb.color }}
+                      />
+                    )}
+                    <div className="w-1.5 h-1.5" style={{ backgroundColor: isUnclickable ? 'transparent' : orb.color }} />
+                  </div>
+                  {/* Node Text */}
+                  <div className="flex flex-col text-left">
+                    <span className={`text-lg md:text-xl font-bold tracking-wider transition-colors ${isUnclickable ? 'text-gray-600' : 'text-white group-hover:text-[#ffb000]'}`}>{node.title}</span>
+                    <span className={`text-[10px] tracking-[0.2em] uppercase ${isUnclickable ? 'text-gray-600' : 'text-white/50'}`}>{node.desc}</span>
+                  </div>
+                </motion.button>
+              );
+            })}
           </div>
         </div>
       </div>
@@ -1393,12 +1404,17 @@ const renderBlock = (block, idx, color) => {
   );
   if (block.type === 'list') return (
     <ul key={idx} className="flex flex-col gap-2">
-      {block.items.map((item, i) => (
-        <li key={i} className="flex items-start gap-3 text-sm text-gray-300 font-mono leading-relaxed">
-          <span className="mt-1.5 w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ backgroundColor: color }} />
-          {item}
-        </li>
-      ))}
+      {block.items.map((item, i) => {
+        const colonIdx = item.indexOf(': ');
+        const label = colonIdx !== -1 ? item.slice(0, colonIdx) : null;
+        const body  = colonIdx !== -1 ? item.slice(colonIdx + 2) : item;
+        return (
+          <li key={i} className="flex items-start gap-3 text-sm text-gray-300 font-mono leading-relaxed">
+            <span className="mt-1.5 w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ backgroundColor: color }} />
+            <span>{label && <span className="font-bold" style={{ color }}>{label}: </span>}{body}</span>
+          </li>
+        );
+      })}
     </ul>
   );
   if (block.type === 'button') return (
@@ -1412,7 +1428,11 @@ const renderBlock = (block, idx, color) => {
       {block.text}
     </a>
   );
-  if (block.type === 'image') return (
+  if (block.type === 'image') return block.url ? (
+    <div key={idx} className={`w-full ${block.height || 'h-40'} mt-2 overflow-hidden rounded-sm border border-white/10 bg-black/40`}>
+      <img src={block.url} alt={block.text} className={`w-full h-full ${block.fit === 'contain' ? 'object-contain' : 'object-cover'} object-center`} />
+    </div>
+  ) : (
     <div key={idx} className={`w-full ${block.height || 'h-40'} bg-black/60 border border-white/10 flex items-center justify-center rounded-sm mt-2`}>
       <span className="text-white/20 text-[10px] uppercase tracking-widest">{block.text}</span>
     </div>
@@ -1602,15 +1622,18 @@ export default function App() {
           initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }}
           className="absolute top-0 left-0 w-full p-6 md:p-8 z-50 flex justify-between items-start pointer-events-none"
         >
-          <div>
+          <button
+            onClick={() => appState !== 'hub' && handleBackToHub()}
+            className={`text-left group ${appState !== 'hub' ? 'pointer-events-auto cursor-pointer' : 'pointer-events-none cursor-default'}`}
+          >
             <h1
-              className="text-xl md:text-2xl font-bold tracking-widest uppercase drop-shadow-[0_0_10px_rgba(255,255,255,0.3)]"
+              className="text-xl md:text-2xl font-bold tracking-widest uppercase drop-shadow-[0_0_10px_rgba(255,255,255,0.3)] transition-opacity group-hover:opacity-70"
               style={{ color: themeColor }}
             >
               Jack Yeoh
             </h1>
-            <div className="text-[10px] tracking-widest text-white/50 uppercase mt-1">{`SYS.VER.${getSysVer()} // STATUS: NOMINAL`}</div>
-          </div>
+            <div className="text-[10px] tracking-widest text-white/50 uppercase mt-1 transition-opacity group-hover:opacity-70">{`SYS.VER.${getSysVer()} // STATUS: NOMINAL`}</div>
+          </button>
           <button
             onClick={replayIntro}
             className="pointer-events-auto flex items-center text-white/30 hover:text-white transition-colors group"
