@@ -512,8 +512,8 @@ const getOrbitRadii = (index, isMobile) => {
 // 1. The Ambient Blueprint Grid — DOM dots with per-row CSS animation phase for row-glow effect
 // isVisible = false during boot so the dots don't crossfade — they instant-swap on transition
 const GRID_SPACING = 80;
-const PULSE_CYCLE = 18;   // seconds per full cycle
-const PULSE_STEP = 0.16;  // seconds between each row's pulse
+const PULSE_CYCLE = 12;   // seconds per full cycle
+const PULSE_STEP = 0.64;  // seconds between each row's pulse
 
 const AmbientGrid = ({ isZoomed, isVisible }) => {
   const [dims, setDims] = useState({ w: 0, h: 0 });
@@ -529,8 +529,13 @@ const AmbientGrid = ({ isZoomed, isVisible }) => {
 
   const cols = Math.ceil(dims.w / GRID_SPACING) + 2;
   const rows = Math.ceil(dims.h / GRID_SPACING) + 2;
-  const offsetX = -((cols * GRID_SPACING - dims.w) / 2);
-  const offsetY = -((rows * GRID_SPACING - dims.h) / 2);
+  // Align dots with the title screen's background-image grid:
+  // background-position-x:center puts a dot at screen_center ± n×80.
+  // background-position-y:0 puts dots at 0, 80, 160, …
+  // We derive offsetX so a cell-center lands exactly on screen_center,
+  // and fix offsetY so dots start at y=0 (not half-cell shifted).
+  const offsetX = (dims.w / 2 - GRID_SPACING / 2) % GRID_SPACING - 2 * GRID_SPACING;
+  const offsetY = -GRID_SPACING / 2;
 
   return (
     <div
@@ -559,7 +564,7 @@ const AmbientGrid = ({ isZoomed, isVisible }) => {
               <div key={col} className="dot-grid-cell">
                 <div
                   className="dot-inner"
-                  style={{ animationDelay: `${row * PULSE_STEP - PULSE_CYCLE}s` }}
+                  style={{ '--dot-delay': `${row * PULSE_STEP - PULSE_CYCLE}s` }}
                 />
               </div>
             ))}
@@ -597,6 +602,7 @@ const BootSequence = ({ onComplete }) => {
   const triggerExit = () => {
     if (isExiting) return;
     playSFX(SFX_GAME_START);
+    gridControls.stop();
     setIsExiting(true);
     setTimeout(onComplete, 650);
   };
@@ -959,7 +965,7 @@ const SystemView = ({ onSelectNode }) => {
 
       {/* Center Avatar (The "Sun") — behind all orbit rings */}
       <motion.div
-        className="absolute inset-0 flex items-center justify-center z-[5] pointer-events-none -mt-[5vh]"
+        className="absolute inset-0 flex items-center justify-center z-[5] pointer-events-none mt-[10vh]"
         initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1.8, delay: 0.3, ease: gameEase }}
       >
         <img
@@ -972,7 +978,7 @@ const SystemView = ({ onSelectNode }) => {
 
       {/* Orbits and Nodes */}
       <motion.div
-        className={`relative w-full h-full flex items-center justify-center ${isMobile ? '-mt-[35vh]' : '-mt-[5vh]'}`}
+        className={`relative w-full h-full flex items-center justify-center ${isMobile ? '-mt-[35vh]' : 'mt-[10vh]'}`}
         initial={{ scale: 0, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ duration: 1.4, delay: 0.3, ease: gameEase }}
@@ -1821,7 +1827,7 @@ export default function App() {
       {appState !== 'boot' && (
         <motion.div
           initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }}
-          className="absolute top-0 left-0 w-full p-6 md:p-8 z-50 flex justify-between items-start pointer-events-none bg-[#0a0a0c]"
+          className="absolute top-0 left-0 w-full p-6 md:p-8 z-50 flex justify-between items-start pointer-events-none bg-[#0a0a0c]/70 backdrop-blur-md border-b border-white/[0.04]"
         >
           <button
             onClick={() => appState !== 'hub' && (playSFX(SFX_CLICK), handleBackToHub())}
@@ -1986,19 +1992,23 @@ export default function App() {
           width: 3px;
           height: 3px;
           border-radius: 50%;
-          background: rgba(255,176,0,0.25);
-          animation: dotRowPulse ${PULSE_CYCLE}s ease-in-out infinite;
+          background: rgba(255,176,0,0.8);
+          animation-name: dotRowPulse;
+          animation-duration: ${PULSE_CYCLE}s;
+          animation-timing-function: ease-in-out;
+          animation-iteration-count: infinite;
+          animation-delay: var(--dot-delay, 0s);
         }
         @keyframes dotRowPulse {
           0%, 75%, 100% {
             transform: scale(1);
-            background: rgba(255,176,0,0.25);
+            background: rgba(255,176,0,0.8);
             box-shadow: none;
           }
           83% {
             transform: scale(2.8);
-            background: rgba(255,176,0,0.5);
-            box-shadow: 0 0 4px 1px rgba(255,176,0,0.25);
+            background: rgba(255,176,0,1);
+            box-shadow: 0 0 6px 2px rgba(255,176,0,0.4);
           }
         }
       `}} />
