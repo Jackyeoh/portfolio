@@ -1,9 +1,19 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { motion, AnimatePresence, useAnimation } from 'framer-motion';
-import { TriangleAlert, Plus, ChevronLeft, Hexagon, RotateCcw, ExternalLink, ChevronDown, User, FileText, Mail, Linkedin, Link } from 'lucide-react';
+import { TriangleAlert, Plus, ChevronLeft, Hexagon, RotateCcw, ExternalLink, ChevronDown, User, FileText, Mail, Linkedin, Link, Volume2, VolumeX } from 'lucide-react';
 
 // --- CONFIGURATION & DATA ---
 const gameEase = [0.16, 1, 0.3, 1];
+
+const SFX_GAME_START = 'foxboytails-game-start-317318.mp3';
+const SFX_CLICK      = 'u_o8xh7gwsrj-app_interface_click_2-476372.mp3';
+const SFX_WOOSH      = 'stereogenicstudio-woosh-357181.mp3';
+const SFX_HOVER      = 'u_o8xh7gwsrj-bubble_pop_1-476367.mp3';
+const playSFX = (src, volume = 0.7) => {
+  const sfx = new Audio(src);
+  sfx.volume = volume;
+  sfx.play().catch(() => {});
+};
 
 const getSysVer = () => {
   const birth = new Date(1997, 7, 1); // Aug 1, 1997 (month is 0-indexed)
@@ -91,7 +101,43 @@ const ORBIT_DATA = [
           }
         ]
       },
-      { id: 'gd-2', title: 'Null://Protocol', desc: 'Progression Systems' },
+      {
+        id: 'gd-2',
+        title: 'Geometrite',
+        desc: 'Co-op Boss Rush',
+        content: [
+          { type: 'image', url: 'geometrite-banner.png', height: 'h-28', fit: 'contain', text: 'Geometrite' },
+          {
+            type: 'columns',
+            left: [
+              { type: 'header', text: 'Co-op Boss Rush' },
+              { type: 'paragraph', text: 'Developed solo for Boss Rush Jam 2024. Geometrite is a 2-player co-op boss fight where both players must coordinate closely — sharing responsibilities and reacting to mechanics that intentionally split the team apart.' },
+              { type: 'button', text: 'Play on itch.io', url: 'https://jackyeoh.itch.io/geometrite' },
+              { type: 'header', text: 'Exchange Mechanic' },
+              { type: 'paragraph', text: 'Built around the jam theme of "exchange" — when a player drops a module, it becomes empowered for the other player, dramatically enhancing its effects. This turns mistakes into opportunities and rewards deliberate strategic passing.' },
+              { type: 'header', text: 'Cooperative Mechanics Design' },
+              { type: 'paragraph', text: 'Boss mechanics are designed to demand different roles from each player simultaneously. In the map-wide one-shot mechanic, one player must hold a shield while the other maintains long-range DPS — forcing the pair to communicate and divide responsibilities in real time.' },
+            ],
+            right: [
+              {
+                type: 'metadata',
+                items: [
+                  { label: 'Role', value: 'Solo Developer' },
+                  { label: 'Engine', value: 'Unity' },
+                  { label: 'Genre', value: 'Co-op Boss Rush' },
+                  { label: 'Event', value: 'Boss Rush Jam 2024' },
+                  { label: 'Status', value: 'Released' },
+                ]
+              }
+            ]
+          },
+          { type: 'image-grid', images: [
+            { url: 'geometrite-0.png', text: 'Geometrite Screenshot 1' },
+            { url: 'geometrite-1.png', text: 'Geometrite Screenshot 2' },
+            { url: 'geometrite-2.png', text: 'Geometrite Screenshot 3' },
+          ]},
+        ]
+      },
       {
         id: 'gd-3',
         title: 'Unannounced Live Service Game',
@@ -170,6 +216,7 @@ const ORBIT_DATA = [
                 'Player Controller: Refined the responsiveness and movement feel to match the high-octane pace of the game.',
                 'Custom Ability System: Developed a flexible framework for abilities that allows for complex modifiers and synergies.',
                 'UI Implementation: Translated the aggressive "Rogue-Regime" aesthetic into a functional, data-rich HUD and menu system.',
+                'Performance: Triaged and fixed a performance issue with the bullet system.',
               ]},
             ],
             right: [
@@ -465,8 +512,8 @@ const getOrbitRadii = (index, isMobile) => {
 // 1. The Ambient Blueprint Grid — DOM dots with per-row CSS animation phase for row-glow effect
 // isVisible = false during boot so the dots don't crossfade — they instant-swap on transition
 const GRID_SPACING = 80;
-const PULSE_CYCLE = 24;   // seconds per full cycle
-const PULSE_STEP = 0.32;  // seconds between each row's pulse
+const PULSE_CYCLE = 18;   // seconds per full cycle
+const PULSE_STEP = 0.16;  // seconds between each row's pulse
 
 const AmbientGrid = ({ isZoomed, isVisible }) => {
   const [dims, setDims] = useState({ w: 0, h: 0 });
@@ -549,6 +596,7 @@ const BootSequence = ({ onComplete }) => {
 
   const triggerExit = () => {
     if (isExiting) return;
+    playSFX(SFX_GAME_START);
     setIsExiting(true);
     setTimeout(onComplete, 650);
   };
@@ -668,7 +716,7 @@ const BootSequence = ({ onComplete }) => {
           transition={isExiting ? { duration: 0.4, ease: 'easeIn' } : { duration: 0.6, delay: 0.4, ease: 'linear' }}
           className="text-2xl md:text-3xl font-bold tracking-[0.2em] mb-1 text-white/80"
         >
-          作品集
+          Portfolio
         </motion.div>
         <motion.div
           initial={{ opacity: 0, clipPath: 'inset(100% 0 0 0)', y: 20 }}
@@ -972,7 +1020,7 @@ const SystemView = ({ onSelectNode }) => {
 
               {/* The Interactive Node */}
               <motion.button
-                onClick={() => onSelectNode(orb)}
+                onClick={() => { playSFX(SFX_CLICK); onSelectNode(orb); }}
                 onMouseEnter={() => { if (introReady) setIsPaused(true); }}
                 onMouseLeave={() => setIsPaused(false)}
                 whileHover={{ scale: 1.1 }}
@@ -1010,6 +1058,7 @@ const PlanetView = ({ orb, onBack, onSelectSubNode }) => {
   const [isLeaving, setIsLeaving] = useState(false);
 
   const triggerBack = () => {
+    playSFX(SFX_CLICK);
     setIsLeaving(true);
     onBack(); // immediate — circle exit and page exit animate together
   };
@@ -1081,7 +1130,7 @@ const PlanetView = ({ orb, onBack, onSelectSubNode }) => {
                 <motion.button
                   key={node.id}
                   initial={{ opacity: 0, x: 50 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.5 + (i * 0.1), duration: 0.8, ease: gameEase }}
-                  onClick={() => !isUnclickable && onSelectSubNode(node)}
+                  onClick={() => !isUnclickable && (playSFX(SFX_CLICK), onSelectSubNode(node))}
                   className={`group relative flex items-center ${isUnclickable ? 'cursor-default' : 'cursor-pointer'}`}
                 >
                   {/* SVG Connecting Line to Planet */}
@@ -1140,6 +1189,7 @@ const NumericalPlanetView = ({ orb, onBack }) => {
   const hasOpenedBefore = useRef(false);
 
   const openDoc = (node) => {
+    playSFX(SFX_CLICK);
     if (activeDoc?.id === node.id) { setActiveDoc(null); return; }
     setIsContextExpanded(!hasOpenedBefore.current);
     hasOpenedBefore.current = true;
@@ -1147,6 +1197,7 @@ const NumericalPlanetView = ({ orb, onBack }) => {
   };
 
   const triggerBack = () => {
+    playSFX(SFX_CLICK);
     setIsLeaving(true);
     onBack(); // immediate — circle exit and page exit animate together
   };
@@ -1176,7 +1227,7 @@ const NumericalPlanetView = ({ orb, onBack }) => {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.4, ease: gameEase }}
             className="absolute inset-0 z-[25] bg-[#0a0a0c]/60 backdrop-blur-sm pointer-events-auto cursor-pointer"
-            onClick={() => setActiveDoc(null)}
+            onClick={() => { playSFX(SFX_CLICK); setActiveDoc(null); }}
           />
         )}
       </AnimatePresence>
@@ -1437,6 +1488,15 @@ const renderBlock = (block, idx, color) => {
       <span className="text-white/20 text-[10px] uppercase tracking-widest">{block.text}</span>
     </div>
   );
+  if (block.type === 'image-grid') return (
+    <div key={idx} className="grid grid-cols-3 gap-2 mt-2">
+      {block.images.map((img, i) => (
+        <div key={i} className="overflow-hidden rounded-sm border border-white/10 bg-black/40 aspect-video">
+          <img src={img.url} alt={img.text} className="w-full h-full object-cover object-center" />
+        </div>
+      ))}
+    </div>
+  );
   if (block.type === 'metadata') return (
     <div key={idx} className="flex flex-col gap-px" style={{ backgroundColor: `${color}15` }}>
       {block.items.map(({ label, value }) => (
@@ -1465,7 +1525,7 @@ const ProjectView = ({ orb, subNode, onBack }) => {
       <div className="max-w-4xl mx-auto px-8 md:px-12 pt-24 pb-24">
 
         {/* Back Button */}
-        <button onClick={onBack} className="flex items-center text-white/50 hover:text-white transition-colors mb-10 w-fit group">
+        <button onClick={() => { playSFX(SFX_CLICK); onBack(); }} className="flex items-center text-white/50 hover:text-white transition-colors mb-10 w-fit group">
           <ChevronLeft className="mr-2 group-hover:-translate-x-1 transition-transform" />
           <span className="tracking-widest text-sm font-bold uppercase">Return to {orb.title}</span>
         </button>
@@ -1567,12 +1627,54 @@ export default function App() {
   const [selectedOrb, setSelectedOrb] = useState(null);
   const [selectedSubNode, setSelectedSubNode] = useState(null);
   const [isGlitching, setIsGlitching] = useState(false);
+  const [showCredits, setShowCredits] = useState(false);
+
+  const audioRef = useRef(null);
+  const bgmStarted = useRef(false);
+  const [isMuted, setIsMuted] = useState(false);
+
+  const startBGM = () => {
+    if (bgmStarted.current || !audioRef.current) return;
+    bgmStarted.current = true;
+    audioRef.current.play().catch(() => {});
+  };
+
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
+    audio.loop = true;
+    audio.volume = 0.4;
+    audio.play().then(() => {
+      bgmStarted.current = true;
+    }).catch(() => {
+      const handler = () => { startBGM(); document.removeEventListener('click', handler); };
+      document.addEventListener('click', handler);
+      return () => document.removeEventListener('click', handler);
+    });
+  }, []);
+
+  const toggleMute = () => {
+    if (!audioRef.current) return;
+    audioRef.current.muted = !audioRef.current.muted;
+    setIsMuted(m => !m);
+  };
+
+  useEffect(() => {
+    const handler = (e) => {
+      const el = e.target.closest('button, a');
+      if (el && !el.contains(e.relatedTarget)) playSFX(SFX_HOVER, 0.4);
+    };
+    document.addEventListener('mouseover', handler);
+    return () => document.removeEventListener('mouseover', handler);
+  }, []);
 
   const handleBootComplete = () => {
+    playSFX(SFX_WOOSH);
     setAppState('hub');
   };
 
   const handleSelectOrb = (orb) => {
+    playSFX(SFX_WOOSH);
     setSelectedOrb(orb);
     setAppState('planet');
   };
@@ -1583,6 +1685,7 @@ export default function App() {
   };
 
   const handleBackToHub = () => {
+    playSFX(SFX_WOOSH);
     setAppState('hub');
     setTimeout(() => setSelectedOrb(null), 500);
   };
@@ -1594,6 +1697,7 @@ export default function App() {
 
   const replayIntro = () => {
     if (isGlitching) return;
+    playSFX(SFX_CLICK);
     setIsGlitching(true);
     // Switch to boot once screen is solid black
     setTimeout(() => {
@@ -1609,6 +1713,7 @@ export default function App() {
 
   return (
     <div className="relative w-full h-screen bg-[#0a0a0c] overflow-hidden font-sans text-white select-none">
+      <audio ref={audioRef} src="grand_project-ambitious-rangers-384187.mp3" preload="auto" />
 
       <AmbientGrid
         isZoomed={appState === 'planet' || appState === 'project'}
@@ -1623,7 +1728,7 @@ export default function App() {
           className="absolute top-0 left-0 w-full p-6 md:p-8 z-50 flex justify-between items-start pointer-events-none"
         >
           <button
-            onClick={() => appState !== 'hub' && handleBackToHub()}
+            onClick={() => appState !== 'hub' && (playSFX(SFX_CLICK), handleBackToHub())}
             className={`text-left group ${appState !== 'hub' ? 'pointer-events-auto cursor-pointer' : 'pointer-events-none cursor-default'}`}
           >
             <h1
@@ -1634,14 +1739,25 @@ export default function App() {
             </h1>
             <div className="text-[10px] tracking-widest text-white/50 uppercase mt-1 transition-opacity group-hover:opacity-70">{`SYS.VER.${getSysVer()} // STATUS: NOMINAL`}</div>
           </button>
-          <button
-            onClick={replayIntro}
-            className="pointer-events-auto flex items-center text-white/30 hover:text-white transition-colors group"
-            title="Reboot System"
-          >
-            <span className="text-xs uppercase tracking-widest mr-2 opacity-0 group-hover:opacity-100 transition-opacity hidden md:block">Reboot</span>
-            <RotateCcw size={18} />
-          </button>
+          <div className="flex items-center gap-3 pointer-events-auto">
+            <button
+              onClick={() => setShowCredits(true)}
+              className="text-[9px] tracking-widest text-white/30 hover:text-white/70 transition-colors font-mono uppercase"
+            >
+              Credits
+            </button>
+            <button onClick={toggleMute} className="text-white/30 hover:text-white transition-colors" title={isMuted ? 'Unmute' : 'Mute'}>
+              {isMuted ? <VolumeX size={18} /> : <Volume2 size={18} />}
+            </button>
+            <button
+              onClick={replayIntro}
+              className="flex items-center text-white/30 hover:text-white transition-colors group"
+              title="Reboot System"
+            >
+              <span className="text-xs uppercase tracking-widest mr-2 opacity-0 group-hover:opacity-100 transition-opacity hidden md:block">Reboot</span>
+              <RotateCcw size={18} />
+            </button>
+          </div>
         </motion.div>
       )}
 
@@ -1651,6 +1767,49 @@ export default function App() {
           <TriangleAlert size={28} strokeWidth={1.5} className="text-[#ffb000]/70" />
         </div>
       )}
+
+      {/* Credits Popup */}
+      <AnimatePresence>
+        {showCredits && (
+          <motion.div
+            initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="absolute inset-0 z-[300] flex items-center justify-center bg-black/70 backdrop-blur-sm pointer-events-auto"
+            onClick={() => setShowCredits(false)}
+          >
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 10 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: 0.95, y: 10 }}
+              transition={{ duration: 0.2, ease: gameEase }}
+              className="relative bg-[#0d0d10] border border-white/20 p-8 max-w-lg w-full mx-4"
+              onClick={e => e.stopPropagation()}
+            >
+              <div className="text-[10px] tracking-[0.3em] text-white/40 uppercase font-mono mb-4">// CREDITS</div>
+              <h2 className="text-xl font-black tracking-widest uppercase text-white mb-6">Asset Credits</h2>
+              <div className="flex flex-col gap-4 text-[11px] font-mono text-white/50 leading-relaxed">
+                <div>
+                  <div className="text-white/20 uppercase tracking-widest text-[9px] mb-1">Music</div>
+                  Music by <a href="https://pixabay.com/users/grand_project-19033897/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=384187" target="_blank" rel="noopener noreferrer" className="text-[#ffb000] hover:text-white transition-colors">Grand_Project</a> from <a href="https://pixabay.com/music//?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=384187" target="_blank" rel="noopener noreferrer" className="text-[#ffb000] hover:text-white transition-colors">Pixabay</a>
+                </div>
+                <div>
+                  <div className="text-white/20 uppercase tracking-widest text-[9px] mb-1">Sound Effects</div>
+                  <div className="flex flex-col gap-2">
+                    <div>Sound Effect by <a href="https://pixabay.com/users/u_o8xh7gwsrj-54433977/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=476372" target="_blank" rel="noopener noreferrer" className="text-[#ffb000] hover:text-white transition-colors">u_o8xh7gwsrj</a> from <a href="https://pixabay.com/sound-effects//?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=476372" target="_blank" rel="noopener noreferrer" className="text-[#ffb000] hover:text-white transition-colors">Pixabay</a></div>
+                    <div>Sound Effect by <a href="https://pixabay.com/users/foxboytails-49447089/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=317318" target="_blank" rel="noopener noreferrer" className="text-[#ffb000] hover:text-white transition-colors">FoxBoyTails</a> from <a href="https://pixabay.com/sound-effects//?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=317318" target="_blank" rel="noopener noreferrer" className="text-[#ffb000] hover:text-white transition-colors">Pixabay</a></div>
+                    <div>Sound Effect by <a href="https://pixabay.com/users/stereogenicstudio-50756880/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=357181" target="_blank" rel="noopener noreferrer" className="text-[#ffb000] hover:text-white transition-colors">Stereogenic Studio</a> from <a href="https://pixabay.com/sound-effects//?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=357181" target="_blank" rel="noopener noreferrer" className="text-[#ffb000] hover:text-white transition-colors">Pixabay</a></div>
+                    <div>Sound Effect by <a href="https://pixabay.com/users/u_o8xh7gwsrj-54433977/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=476367" target="_blank" rel="noopener noreferrer" className="text-[#ffb000] hover:text-white transition-colors">u_o8xh7gwsrj</a> from <a href="https://pixabay.com/sound-effects//?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=476367" target="_blank" rel="noopener noreferrer" className="text-[#ffb000] hover:text-white transition-colors">Pixabay</a></div>
+                  </div>
+                </div>
+              </div>
+              <button
+                onClick={() => setShowCredits(false)}
+                className="mt-8 text-[10px] tracking-widest uppercase text-white/30 hover:text-white transition-colors font-mono border border-white/20 hover:border-white/50 px-4 py-2"
+              >
+                [ CLOSE ]
+              </button>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Glitch to black overlay — triggered on reboot */}
       <AnimatePresence>
