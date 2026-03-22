@@ -207,8 +207,8 @@ const ORBIT_DATA = [
           {
             type: 'columns',
             left: [
-              { type: 'header', text: 'Rogue-Regime Action' },
-              { type: 'paragraph', text: 'Metal Genesis is a fast-paced action roguelike built in Unreal Engine. I focused heavily on the technical execution of the player experience.' },
+              { type: 'header', text: 'What is Metal Genesis' },
+              { type: 'paragraph', text: 'The first project I worked in while in Lemonsky. Metal Genesis is a fast-paced action roguelike built in Unreal Engine. I focused heavily on the technical execution of the player experience.' },
               { type: 'button', text: 'Play the Steam Demo', url: 'https://store.steampowered.com/app/3296470/Metal_Genesis_Rogue_Regime/' },
               { type: 'header', text: 'Technical Contributions' },
               { type: 'paragraph', text: 'My work on Metal Genesis spanned from low-level character logic to high-level UI implementation:' },
@@ -340,7 +340,7 @@ const ORBIT_DATA = [
         title: 'Case 1: Balance Enemy Scaling',
         desc: 'Moves-to-Kill Math',
         content: [
-          RUNIC_CONTEXT,
+          { type: 'context', title: 'Context: Runic Rush 2048 Roguelike', paragraphs: ['This is a short form roguelike game inspired by the 2048 game (move numbers around to smash similar numbers into bigger numbers, eventually attaining 2048). This take is to use that mechanic as a base to make a combat based roguelike.', 'The player strategically swipes to move all runes on a board, runes of similar type and level would merge into higher level ones. But be careful, as each swipe also ticks down the cooldown for enemy abilities, which are mixed and matched from a pool into potentially challenging mechanics to handle.'] },
           { type: 'link', text: 'View Live Work Sheet', url: '#' },
           { type: 'header', text: 'My Process:' },
           { type: 'list', items: [
@@ -377,7 +377,7 @@ const ORBIT_DATA = [
         title: 'Case 3: Balancing Player Power',
         desc: 'Boons & Synergies',
         content: [
-          RUNIC_CONTEXT,
+          { type: 'context', title: 'Context: Runic Rush 2048 Roguelike', paragraphs: ['This is a short form roguelike game inspired by the 2048 game (move numbers around to smash similar numbers into bigger numbers, eventually attaining 2048). This take is to use that mechanic as a base to make a combat based roguelike.', 'The player strategically swipes to move all runes on a board, runes of similar type and level would merge into higher level ones. But be careful, as each swipe also ticks down the cooldown for enemy abilities, which are mixed and matched from a pool into potentially challenging mechanics to handle.'] },
           { type: 'link', text: 'View Boons Work Sheet', url: '#' },
           { type: 'header', text: 'My Process:' },
           { type: 'list', items: [
@@ -787,7 +787,7 @@ const BootSequence = ({ onComplete }) => {
         animate={isExiting ? { opacity: 0 } : { opacity: 0.5 }}
         transition={isExiting ? { duration: 0.2 } : { delay: 1.5 }}
       >
-        [ click anywhere or press power to enter ]
+        [ click anywhere to enter ]
       </motion.div>
     </motion.div>
   );
@@ -839,7 +839,7 @@ const SystemView = ({ onSelectNode }) => {
         initial={{ opacity: 0, x: -50 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 1.2, delay: 0.3, ease: gameEase }}
-        className="absolute bottom-[80px] md:bottom-[90px] left-6 md:left-8 w-[85vw] md:w-[380px] z-50 pointer-events-auto flex flex-col gap-3"
+        className="absolute bottom-6 md:bottom-8 left-6 md:left-8 w-[85vw] md:w-[380px] z-50 pointer-events-auto flex flex-col gap-3"
       >
         {/* Terminal.User_Profile */}
         <motion.div
@@ -1031,8 +1031,12 @@ const SystemView = ({ onSelectNode }) => {
                 <div className={isMobile ? 'w-3 h-3' : 'w-2 h-2'} style={{ backgroundColor: orb.color, boxShadow: `0 0 15px ${orb.color}` }} />
 
                 {/* Smart Text Label — extends outward based on orbit position */}
-                <div
-                  className={`absolute top-1/2 -translate-y-1/2 flex items-center opacity-70 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none ${isRightSide ? 'left-8 md:left-6 flex-row' : 'right-8 md:right-6 flex-row-reverse'}`}
+                <motion.div
+                  key={isRightSide ? 'r' : 'l'}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 0.7 }}
+                  transition={{ duration: 0.25, ease: 'easeIn' }}
+                  className={`absolute top-1/2 -translate-y-1/2 flex items-center group-hover:!opacity-100 pointer-events-none ${isRightSide ? 'left-8 md:left-6 flex-row' : 'right-8 md:right-6 flex-row-reverse'}`}
                 >
                   <div className={`hidden md:block w-10 h-[1px] ${isRightSide ? 'bg-gradient-to-r mr-3' : 'bg-gradient-to-l ml-3'} from-white/40 to-transparent`} />
                   <div className={`flex flex-col ${isRightSide ? 'items-start text-left' : 'items-end text-right'} max-w-[90px] md:max-w-[200px]`}>
@@ -1043,7 +1047,7 @@ const SystemView = ({ onSelectNode }) => {
                       {orb.orbSubtitle ?? orb.subtitle}
                     </span>
                   </div>
-                </div>
+                </motion.div>
               </motion.button>
             </React.Fragment>
           );
@@ -1079,8 +1083,52 @@ const PlanetView = ({ orb, onBack, onSelectSubNode }) => {
         style={{ background: `radial-gradient(circle at 20% 50%, ${orb.color}, transparent 60%)` }}
       />
 
+      {/* === MOBILE LAYOUT === */}
+      <div className="md:hidden w-full h-full overflow-y-auto z-20 relative custom-scrollbar">
+        <div className="min-h-full flex flex-col justify-center px-6 py-20 gap-8">
+          <motion.button
+            onClick={triggerBack}
+            initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.2 }}
+            className="flex items-center w-fit text-xs font-bold tracking-widest uppercase border border-white/20 bg-black/50 px-4 py-2.5 text-white/60 hover:text-white hover:bg-white/10 transition-all group"
+          >
+            <ChevronLeft size={14} className="mr-2 group-hover:-translate-x-1 transition-transform" />
+            Return to System
+          </motion.button>
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}>
+            <div className="flex items-center gap-3 mb-2">
+              <Hexagon size={14} style={{ color: orb.color }} />
+              <span className="text-xs tracking-[0.3em] text-white/50 uppercase">DATA CLUSTER</span>
+            </div>
+            <h1 className="text-4xl font-black tracking-tighter uppercase leading-none text-white mb-2">{orb.title}</h1>
+            <h2 className="text-sm tracking-widest" style={{ color: orb.color }}>{orb.subtitle}</h2>
+          </motion.div>
+          <div className="flex flex-col gap-6">
+            {orb.subNodes.map((node, i) => {
+              const isUnclickable = node.isUnclickable;
+              return (
+                <motion.button
+                  key={node.id}
+                  initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.4 + i * 0.08 }}
+                  onClick={() => !isUnclickable && (playSFX(SFX_CLICK), onSelectSubNode(node))}
+                  className={`flex items-center gap-4 text-left ${isUnclickable ? 'cursor-default opacity-30' : 'cursor-pointer group'}`}
+                >
+                  <div className={`flex-shrink-0 flex items-center justify-center w-8 h-8 border rotate-45 transition-all ${isUnclickable ? 'border-white/10' : 'border-white/20 bg-black/80 group-hover:border-white group-hover:bg-white/10'}`}>
+                    <div className="w-1.5 h-1.5" style={{ backgroundColor: isUnclickable ? 'transparent' : orb.color }} />
+                  </div>
+                  <div className="flex flex-col">
+                    <span className={`text-lg font-bold tracking-wider transition-colors ${isUnclickable ? 'text-gray-600' : 'text-white group-hover:text-[#ffb000]'}`}>{node.title}</span>
+                    <span className={`text-[10px] tracking-[0.2em] uppercase ${isUnclickable ? 'text-gray-600' : 'text-white/50'}`}>{node.desc}</span>
+                  </div>
+                </motion.button>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+
+      {/* === DESKTOP LAYOUT === */}
       {/* Left Side: The "Planet" and Sub-nodes */}
-      <div className="relative w-[60%] h-full flex items-center">
+      <div className="hidden md:flex relative w-[60%] h-full items-center">
 
         {/* Massive Geometric Sphere Arc (The Planet) */}
         <motion.div
@@ -1159,12 +1207,12 @@ const PlanetView = ({ orb, onBack, onSelectSubNode }) => {
         </div>
       </div>
 
-      {/* Right Side: Shifted Avatar View */}
+      {/* Right Side: Shifted Avatar View — desktop only */}
       <motion.div
         initial={{ opacity: 0, x: 100, scale: 0.9 }}
         animate={{ opacity: 1, x: 0, scale: 1.05 }}
         transition={{ duration: 1, delay: 0.2, ease: gameEase }}
-        className="absolute bottom-0 right-[-10%] md:right-[5%] h-[90vh] z-10 pointer-events-none drop-shadow-[-20px_0px_50px_rgba(0,0,0,0.9)]"
+        className="hidden md:block absolute bottom-0 right-[-10%] md:right-[5%] h-[90vh] z-10 pointer-events-none drop-shadow-[-20px_0px_50px_rgba(0,0,0,0.9)]"
       >
         <img
           src="avatar-full.png"
@@ -1191,7 +1239,7 @@ const NumericalPlanetView = ({ orb, onBack }) => {
   const openDoc = (node) => {
     playSFX(SFX_CLICK);
     if (activeDoc?.id === node.id) { setActiveDoc(null); return; }
-    setIsContextExpanded(!hasOpenedBefore.current);
+    setIsContextExpanded(true);
     hasOpenedBefore.current = true;
     setActiveDoc(node);
   };
@@ -1232,8 +1280,53 @@ const NumericalPlanetView = ({ orb, onBack }) => {
         )}
       </AnimatePresence>
 
+      {/* === MOBILE LAYOUT === */}
+      <div className="md:hidden w-full h-full overflow-y-auto z-20 relative custom-scrollbar pointer-events-auto">
+        <div className="min-h-full flex flex-col justify-center px-6 py-20 gap-8">
+          <motion.button
+            onClick={triggerBack}
+            initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.2 }}
+            className="flex items-center w-fit text-xs font-bold tracking-widest uppercase border border-white/20 bg-black/50 px-4 py-2.5 text-white/60 hover:text-white hover:bg-white/10 transition-all group"
+          >
+            <ChevronLeft size={14} className="mr-2 group-hover:-translate-x-1 transition-transform" />
+            Return to System
+          </motion.button>
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}>
+            <div className="flex items-center gap-3 mb-2">
+              <Hexagon size={14} style={{ color: orb.color }} />
+              <span className="text-xs tracking-[0.3em] text-white/50 uppercase">Data Cluster</span>
+            </div>
+            <h1 className="text-4xl font-black tracking-tighter uppercase leading-none text-white mb-2">{orb.title}</h1>
+            <h2 className="text-sm tracking-widest leading-relaxed" style={{ color: orb.color }}>{orb.subtitle}</h2>
+          </motion.div>
+          <div className="flex flex-col gap-6">
+            {orb.subNodes.map((node, i) => {
+              const isActive = activeDoc?.id === node.id;
+              const isUnclickable = node.isUnclickable;
+              return (
+                <motion.button
+                  key={node.id}
+                  initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.4 + i * 0.08 }}
+                  onClick={() => !isUnclickable && openDoc(node)}
+                  className={`flex items-center gap-4 text-left ${isUnclickable ? 'cursor-default opacity-30' : 'cursor-pointer group'}`}
+                >
+                  <div className={`flex-shrink-0 flex items-center justify-center w-8 h-8 border rotate-45 transition-all ${isActive ? 'border-white bg-white/10 scale-110' : (isUnclickable ? 'border-white/10' : 'border-white/20 bg-black/80 group-hover:border-white group-hover:bg-white/5')}`}>
+                    <div className="w-1.5 h-1.5" style={{ backgroundColor: isUnclickable ? 'transparent' : orb.color, boxShadow: isActive ? `0 0 10px ${orb.color}` : 'none' }} />
+                  </div>
+                  <div className="flex flex-col">
+                    <span className={`text-lg font-bold tracking-wider transition-colors ${isActive ? 'text-white' : (isUnclickable ? 'text-gray-600' : 'text-gray-400 group-hover:text-white')}`}>{node.title}</span>
+                    <span className={`text-[10px] tracking-[0.2em] uppercase mt-0.5 ${isActive ? '' : (isUnclickable ? 'text-gray-600' : 'text-white/40')}`} style={{ color: isActive ? orb.color : undefined }}>{node.desc}</span>
+                  </div>
+                </motion.button>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+
+      {/* === DESKTOP LAYOUT === */}
       {/* Left Side: Planet + Sub-nodes */}
-      <div className="relative w-full md:w-[50%] h-full flex items-center z-20">
+      <div className="hidden md:flex relative w-full md:w-[50%] h-full items-center z-20">
 
         {/* Planet Arc */}
         <motion.div
@@ -1333,12 +1426,12 @@ const NumericalPlanetView = ({ orb, onBack }) => {
         </div>
       </div>
 
-      {/* Right Side: Avatar always visible */}
+      {/* Right Side: Avatar — desktop only */}
       <motion.div
         initial={{ opacity: 0, x: 100 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.8, ease: gameEase }}
-        className="absolute bottom-0 right-[-10%] md:right-[5%] h-[90vh] z-10 pointer-events-none drop-shadow-[-20px_0px_50px_rgba(0,0,0,0.9)]"
+        className="hidden md:block absolute bottom-0 right-[-10%] md:right-[5%] h-[90vh] z-10 pointer-events-none drop-shadow-[-20px_0px_50px_rgba(0,0,0,0.9)]"
       >
         <img src="avatar-full.png" alt="Jack Avatar" className="h-full w-auto object-contain object-bottom" style={{ filter: 'brightness(0.7) contrast(1.2)' }} />
         <div className="absolute inset-0 mix-blend-color pointer-events-none opacity-30" style={{ background: `linear-gradient(to right, ${orb.color}, transparent)` }} />
@@ -1353,7 +1446,7 @@ const NumericalPlanetView = ({ orb, onBack }) => {
             animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
             exit={{ opacity: 0, y: 20, filter: 'blur(10px)' }}
             transition={{ duration: 0.5, ease: gameEase }}
-            className="absolute right-[5%] top-[15%] w-[90%] md:w-[45%] h-[70vh] flex flex-col z-[30] pointer-events-auto bg-[#0a0a0c]/90 backdrop-blur-xl border border-white/10 shadow-2xl"
+            className="absolute inset-x-[3%] top-[10%] bottom-[3%] md:inset-auto md:right-[5%] md:top-[15%] md:w-[45%] md:h-[70vh] flex flex-col z-[30] pointer-events-auto bg-[#0a0a0c]/90 backdrop-blur-xl border border-white/10 shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Terminal Header */}
@@ -1401,18 +1494,16 @@ const NumericalPlanetView = ({ orb, onBack }) => {
                           </span>
                           <ChevronDown className={`transition-transform duration-300 text-white/50 ${isContextExpanded ? 'rotate-180' : ''}`} size={16} />
                         </button>
-                        <AnimatePresence>
-                          {isContextExpanded && (
-                            <motion.div
-                              initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }}
-                              transition={{ duration: 0.3 }} className="overflow-hidden"
-                            >
-                              <div className="p-4 pt-0 text-sm text-gray-400 font-mono leading-relaxed border-t border-white/5 mt-2 flex flex-col gap-3">
-                                {block.paragraphs.map((p, pIdx) => <p key={pIdx}>{p}</p>)}
-                              </div>
-                            </motion.div>
-                          )}
-                        </AnimatePresence>
+                        <motion.div
+                          initial={false}
+                          animate={{ maxHeight: isContextExpanded ? 800 : 0, opacity: isContextExpanded ? 1 : 0 }}
+                          transition={{ duration: 0.3 }}
+                          className="overflow-hidden"
+                        >
+                          <div className="p-4 pt-0 text-sm text-gray-400 font-mono leading-relaxed border-t border-white/5 mt-2 flex flex-col gap-3">
+                            {block.paragraphs.map((p, pIdx) => <p key={pIdx}>{p}</p>)}
+                          </div>
+                        </motion.div>
                       </div>
                     );
                   }
@@ -1725,7 +1816,7 @@ export default function App() {
       {appState !== 'boot' && (
         <motion.div
           initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }}
-          className="absolute top-0 left-0 w-full p-6 md:p-8 z-50 flex justify-between items-start pointer-events-none"
+          className="absolute top-0 left-0 w-full p-6 md:p-8 z-50 flex justify-between items-start pointer-events-none bg-[#0a0a0c]"
         >
           <button
             onClick={() => appState !== 'hub' && (playSFX(SFX_CLICK), handleBackToHub())}
@@ -1739,23 +1830,22 @@ export default function App() {
             </h1>
             <div className="text-[10px] tracking-widest text-white/50 uppercase mt-1 transition-opacity group-hover:opacity-70">{`SYS.VER.${getSysVer()} // STATUS: NOMINAL`}</div>
           </button>
-          <div className="flex items-center gap-3 pointer-events-auto">
+          <div className="flex items-center gap-1 pointer-events-auto">
             <button
               onClick={() => setShowCredits(true)}
-              className="text-[9px] tracking-widest text-white/30 hover:text-white/70 transition-colors font-mono uppercase"
+              className="h-7 px-3 text-[9px] tracking-widest text-white/30 hover:text-white/70 transition-colors font-mono uppercase border border-white/10 hover:border-white/30"
             >
               Credits
             </button>
-            <button onClick={toggleMute} className="text-white/30 hover:text-white transition-colors" title={isMuted ? 'Unmute' : 'Mute'}>
-              {isMuted ? <VolumeX size={18} /> : <Volume2 size={18} />}
+            <button onClick={toggleMute} className="h-7 w-7 flex items-center justify-center text-white/30 hover:text-white transition-colors border border-white/10 hover:border-white/30" title={isMuted ? 'Unmute' : 'Mute'}>
+              {isMuted ? <VolumeX size={14} /> : <Volume2 size={14} />}
             </button>
             <button
               onClick={replayIntro}
-              className="flex items-center text-white/30 hover:text-white transition-colors group"
+              className="h-7 w-7 flex items-center justify-center text-white/30 hover:text-white transition-colors border border-white/10 hover:border-white/30"
               title="Reboot System"
             >
-              <span className="text-xs uppercase tracking-widest mr-2 opacity-0 group-hover:opacity-100 transition-opacity hidden md:block">Reboot</span>
-              <RotateCcw size={18} />
+              <RotateCcw size={14} />
             </button>
           </div>
         </motion.div>
@@ -1780,7 +1870,7 @@ export default function App() {
             <motion.div
               initial={{ opacity: 0, scale: 0.95, y: 10 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: 0.95, y: 10 }}
               transition={{ duration: 0.2, ease: gameEase }}
-              className="relative bg-[#0d0d10] border border-white/20 p-8 max-w-lg w-full mx-4"
+              className="relative bg-[#0d0d10] border border-white/20 p-8 max-w-lg w-full mx-4 cursor-default"
               onClick={e => e.stopPropagation()}
             >
               <div className="text-[10px] tracking-[0.3em] text-white/40 uppercase font-mono mb-4">// CREDITS</div>
@@ -1800,12 +1890,9 @@ export default function App() {
                   </div>
                 </div>
               </div>
-              <button
-                onClick={() => setShowCredits(false)}
-                className="mt-8 text-[10px] tracking-widest uppercase text-white/30 hover:text-white transition-colors font-mono border border-white/20 hover:border-white/50 px-4 py-2"
-              >
-                [ CLOSE ]
-              </button>
+              <div className="mt-8 text-[9px] tracking-widest uppercase text-white/20 font-mono text-center">
+                tap anywhere to close
+              </div>
             </motion.div>
           </motion.div>
         )}
@@ -1905,8 +1992,8 @@ export default function App() {
           }
           83% {
             transform: scale(2.8);
-            background: rgba(255,176,0,1);
-            box-shadow: 0 0 6px 2px rgba(255,176,0,0.5);
+            background: rgba(255,176,0,0.5);
+            box-shadow: 0 0 4px 1px rgba(255,176,0,0.25);
           }
         }
       `}} />
