@@ -516,16 +516,13 @@ const PULSE_CYCLE = 12;   // seconds per full cycle
 const PULSE_STEP = 0.64;  // seconds between each row's pulse
 
 const AmbientGrid = ({ isZoomed, isVisible }) => {
-  const [dims, setDims] = useState({ w: 0, h: 0 });
+  const [dims, setDims] = useState(() => ({ w: window.innerWidth, h: window.innerHeight }));
 
   useEffect(() => {
     const update = () => setDims({ w: window.innerWidth, h: window.innerHeight });
-    update();
     window.addEventListener('resize', update);
     return () => window.removeEventListener('resize', update);
   }, []);
-
-  if (!dims.w) return <div className="absolute inset-0 bg-[#0a0a0c]" />;
 
   const cols = Math.ceil(dims.w / GRID_SPACING) + 2;
   const rows = Math.ceil(dims.h / GRID_SPACING) + 2;
@@ -580,6 +577,7 @@ const BootSequence = ({ onComplete }) => {
   const [mounted, setMounted] = useState(false);
   const [isExiting, setIsExiting] = useState(false);
   const gridControls = useAnimation();
+  const gridRef = useRef(null);
 
   useEffect(() => { setMounted(true); }, []);
 
@@ -587,14 +585,16 @@ const BootSequence = ({ onComplete }) => {
     if (!mounted) return;
     const run = async () => {
       await new Promise(r => setTimeout(r, 200));
-      await gridControls.start({
+      gridControls.start({
         backgroundPositionY: ['0px', '2000px'],
         transition: { duration: 1.5, ease: gameEase },
       });
-      gridControls.start({
-        backgroundPositionY: ['2000px', '12000px'],
-        transition: { duration: 200, ease: 'linear', repeat: Infinity },
-      });
+      setTimeout(() => {
+        gridControls.start({
+          backgroundPositionY: ['2000px', '12000px'],
+          transition: { duration: 200, ease: 'linear', repeat: Infinity },
+        });
+      }, 1250);
     };
     run();
   }, [mounted, gridControls]);
@@ -603,6 +603,12 @@ const BootSequence = ({ onComplete }) => {
     if (isExiting) return;
     playSFX(SFX_GAME_START);
     gridControls.stop();
+    // Snap backgroundPositionY to nearest 80px multiple so dots align with AmbientGrid on handoff
+    if (gridRef.current) {
+      const raw = parseFloat(gridRef.current.style.backgroundPositionY) || 0;
+      const snapped = Math.round(raw / GRID_SPACING) * GRID_SPACING;
+      gridRef.current.style.backgroundPositionY = `${snapped}px`;
+    }
     setIsExiting(true);
     setTimeout(onComplete, 650);
   };
@@ -639,6 +645,7 @@ const BootSequence = ({ onComplete }) => {
           }}
         >
           <motion.div
+            ref={gridRef}
             animate={gridControls}
             initial={{ backgroundPositionY: '0px' }}
             className="w-full h-full"
@@ -1724,12 +1731,27 @@ const ProjectView = ({ orb, subNode, onBack }) => {
 
 
 // --- MAIN APP COMPONENT ---
+const PRELOAD_ASSETS = ['avatar-full.png', 'selfie.png'];
+
 export default function App() {
+  const [assetsReady, setAssetsReady] = useState(false);
   const [appState, setAppState] = useState('boot'); // 'boot' | 'hub' | 'planet' | 'project'
   const [selectedOrb, setSelectedOrb] = useState(null);
   const [selectedSubNode, setSelectedSubNode] = useState(null);
   const [isGlitching, setIsGlitching] = useState(false);
   const [showCredits, setShowCredits] = useState(false);
+
+  useEffect(() => {
+    let loaded = 0;
+    const total = PRELOAD_ASSETS.length;
+    const onDone = () => { if (++loaded >= total) setAssetsReady(true); };
+    PRELOAD_ASSETS.forEach(src => {
+      const img = new Image();
+      img.onload = onDone;
+      img.onerror = onDone; // don't block on broken assets
+      img.src = src;
+    });
+  }, []);
 
   const audioRef = useRef(null);
   const bgmStarted = useRef(false);
@@ -1812,6 +1834,8 @@ export default function App() {
   };
 
   const themeColor = selectedOrb?.color || '#ffb000';
+
+  if (!assetsReady) return <div className="fixed inset-0 bg-black" />;
 
   return (
     <div className="relative w-full h-screen bg-[#0a0a0c] overflow-hidden font-sans text-white select-none">
