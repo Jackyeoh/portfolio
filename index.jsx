@@ -810,7 +810,7 @@ const SystemView = ({ onSelectNode }) => {
   }, []);
 
   useEffect(() => {
-    const timer = setTimeout(() => setIntroReady(true), 1200);
+    const timer = setTimeout(() => setIntroReady(true), 2200);
     return () => clearTimeout(timer);
   }, []);
 
@@ -960,7 +960,7 @@ const SystemView = ({ onSelectNode }) => {
       {/* Center Avatar (The "Sun") — behind all orbit rings */}
       <motion.div
         className="absolute inset-0 flex items-center justify-center z-[5] pointer-events-none -mt-[5vh]"
-        initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1, delay: 0.2, ease: gameEase }}
+        initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1.8, delay: 0.3, ease: gameEase }}
       >
         <img
           src="avatar-full.png"
@@ -971,7 +971,12 @@ const SystemView = ({ onSelectNode }) => {
       </motion.div>
 
       {/* Orbits and Nodes */}
-      <div className={`relative w-full h-full flex items-center justify-center ${isMobile ? '-mt-[35vh]' : '-mt-[5vh]'}`}>
+      <motion.div
+        className={`relative w-full h-full flex items-center justify-center ${isMobile ? '-mt-[35vh]' : '-mt-[5vh]'}`}
+        initial={{ scale: 0, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ duration: 1.4, delay: 0.3, ease: gameEase }}
+      >
         {ORBIT_DATA.map((orb, i) => {
           const { rx, ry } = getOrbitRadii(orb.ringIndex, isMobile);
           const angle = orb.baseAngle + globalAngle;
@@ -1052,7 +1057,7 @@ const SystemView = ({ onSelectNode }) => {
             </React.Fragment>
           );
         })}
-      </div>
+      </motion.div>
     </motion.div>
   );
 };
