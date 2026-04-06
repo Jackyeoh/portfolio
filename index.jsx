@@ -1070,6 +1070,11 @@ const SystemView = ({ onSelectNode }) => {
             </React.Fragment>
           );
         })}
+
+        {/* Static "My Skills" label at orbit center */}
+        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none z-20 flex flex-col items-center gap-1 select-none" style={{ marginTop: isMobile ? 0 : '10vh' }}>
+          <span className="text-[8px] md:text-[9px] tracking-[0.4em] uppercase text-white/20 font-mono">my skills</span>
+        </div>
       </motion.div>
     </motion.div>
   );
