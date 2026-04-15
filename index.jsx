@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { motion, AnimatePresence, useAnimation } from 'framer-motion';
 import { TriangleAlert, Plus, ChevronLeft, Hexagon, RotateCcw, ExternalLink, ChevronDown, User, FileText, Mail, Linkedin, Link, Volume2, VolumeX } from 'lucide-react';
+import { Analytics } from "@vercel/analytics/next"
 
 // --- CONFIGURATION & DATA ---
 const gameEase = [0.16, 1, 0.3, 1];
@@ -1636,6 +1637,7 @@ const ProjectView = ({ orb, subNode, onBack }) => {
       transition={{ duration: 0.5, ease: gameEase }}
       className="relative w-full h-full overflow-y-auto z-20 custom-scrollbar"
     >
+      <Analytics />
       <div className="max-w-4xl mx-auto px-8 md:px-12 pt-24 pb-24">
 
         {/* Back Button */}
