@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef, useParams } from 'react';
 import { motion, AnimatePresence, useAnimation } from 'framer-motion';
 import { TriangleAlert, Plus, ChevronLeft, Hexagon, RotateCcw, ExternalLink, ChevronDown, User, FileText, Mail, Linkedin, Link, Volume2, VolumeX } from 'lucide-react';
-import { Analytics } from "@vercel/analytics/next"
+import { Analytics } from '@vercel/analytics/react';
 
 // --- CONFIGURATION & DATA ---
 const gameEase = [0.16, 1, 0.3, 1];
