@@ -307,7 +307,7 @@ function MobileAvatarImg() {
   return src ? (
     <img src={src} alt="Jack Yeoh" style={{
       position: 'absolute', inset: 0, width: '100%', height: '100%',
-      objectFit: 'cover', objectPosition: 'top center',
+      objectFit: 'cover', objectPosition: '50% 8%',
     }} />
   ) : (
     <div style={{ position: 'absolute', inset: 0,
@@ -390,19 +390,16 @@ function Hub({ contact, aiNote, categories, onSelect, onTint, fromBoot, active }
   /* ===== MOBILE LAYOUT ===== */
   if (isMobile) {
     return (
-      <div className="absolute inset-0 z-10 flex flex-col overflow-hidden">
-        {/* avatar strip — full-bleed, overflow:hidden, gradient overlay fades bottom cleanly */}
-        <div className="relative flex-shrink-0 overflow-hidden" style={{ height: '52vh' }}>
-          {/* ring decoration */}
+      <div className="absolute inset-0 z-10 overflow-y-auto scroll-thin">
+
+        {/* avatar strip — full-bleed, scrolls with page */}
+        <div className="relative overflow-hidden" style={{ height: '58vh' }}>
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none"
             style={{ opacity: mounted ? 1 : 0, transition: 'opacity 1.2s var(--ease) .2s' }}>
             <span style={{ width: '80vw', height: '80vw', borderRadius: '50%', border: '1px dashed rgba(241,235,221,0.07)' }} />
           </div>
-          {/* avatar — fills strip, objectFit:cover keeps it centered */}
           <MobileAvatarImg />
-          {/* scan sweep */}
           <span style={{ position:'absolute', left:0, right:0, top:0, height:'20%', background:'linear-gradient(to bottom, transparent, rgba(255,176,0,0.06), transparent)', animation:'sweep 7s linear infinite', pointerEvents:'none', zIndex:2 }} />
-          {/* gradient fade to bg — overlay div avoids maskImage/clip seam */}
           <div style={{ position:'absolute', bottom:0, left:0, right:0, height:'50%', background:'linear-gradient(transparent, var(--bg))', pointerEvents:'none', zIndex:3 }} />
           <div className="absolute bottom-3 w-full flex justify-center"
             style={{ opacity: ready ? 1 : 0, transition: 'opacity .6s var(--ease) .1s', zIndex:4 }}>
@@ -410,9 +407,9 @@ function Hub({ contact, aiNote, categories, onSelect, onTint, fromBoot, active }
           </div>
         </div>
 
-        {/* discipline list — opaque bg blocks avatar bleed-through on scroll */}
-        <div className="flex-1 overflow-y-auto scroll-thin" style={{ background: 'var(--bg)', opacity: ready ? 1 : 0, transition: 'opacity .5s var(--ease) .2s' }}>
-          <div className="px-5 pt-2 pb-32">
+        {/* discipline list — opaque, flows directly below avatar */}
+        <div style={{ background: 'var(--bg)', opacity: ready ? 1 : 0, transition: 'opacity .5s var(--ease) .2s' }}>
+          <div className="px-5 pt-4 pb-28">
             <div className="mono-label text-center mb-5" style={{ letterSpacing:'0.3em' }}>Select Discipline — 04</div>
             <div className="mono-label flex items-center gap-3 mb-3"
               style={{ color:'var(--amber)', fontSize:8, letterSpacing:'0.22em' }}>
@@ -434,9 +431,9 @@ function Hub({ contact, aiNote, categories, onSelect, onTint, fromBoot, active }
           </div>
         </div>
 
-        {/* bottom contact strip */}
-        <div className="absolute bottom-0 left-0 right-0 z-40 flex items-center justify-between px-5 py-3"
-          style={{ background:'rgba(12,11,8,0.92)', borderTop:'1px solid var(--line)', backdropFilter:'blur(12px)',
+        {/* contact strip — sticky to bottom of viewport within scroll container */}
+        <div className="sticky bottom-0 z-40 flex items-center justify-between px-5 py-3"
+          style={{ background:'rgba(12,11,8,0.95)', borderTop:'1px solid var(--line)', backdropFilter:'blur(12px)',
                    opacity: ready ? 1 : 0, transition: 'opacity .6s var(--ease) .6s' }}>
           <div className="flex flex-col">
             <span className="font-display" style={{ fontSize:16, fontWeight:700, textTransform:'uppercase', lineHeight:1 }}>{contact.name}</span>
