@@ -6,7 +6,7 @@
    underneath (avatar visible); this overlay is transparent in the center.
    ========================================================================= */
 function IntroCinematic({ onComplete, contact }) {
-  const DUR = [1700, 1500, 2900, 1600];
+  const DUR = [1200, 1500, 2900, 1600];
   const [waiting, setWaiting] = React.useState(true);
   const [loading, setLoading] = React.useState(false); // bar phase
   const [barDone, setBarDone] = React.useState(false);
@@ -37,14 +37,14 @@ function IntroCinematic({ onComplete, contact }) {
   }, [waiting, finish]);
 
   // auto-advance only kicks in once the user has started the sequence
-  // React.useEffect(() => {
-  //   if (waiting || exiting) return;
-  //   const t = setTimeout(() => {
-  //     if (stage >= DUR.length - 1) finish();
-  //     else setStage(stage + 1);
-  //   }, DUR[stage]);
-  //   return () => clearTimeout(t);
-  // }, [stage, waiting, exiting, finish]);
+  React.useEffect(() => {
+    if (waiting || exiting) return;
+    const t = setTimeout(() => {
+      if (stage >= DUR.length - 1) finish();
+      else setStage(stage + 1);
+    }, DUR[stage]);
+    return () => clearTimeout(t);
+  }, [stage, waiting, exiting, finish]);
 
   // teleprompter rise: current beat centered, past beats drift up, future drift down
   const beat = (i) => ({
