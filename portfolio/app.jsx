@@ -13,9 +13,12 @@ function TopBar({ state, onHome, onReboot, onCredits, motion, onMotion, contact 
   return (
     <div className="absolute top-0 left-0 w-full z-50 flex justify-between items-center px-5 md:px-8 py-4"
       style={{
-        background: 'linear-gradient(var(--bg), rgba(12,11,8,0))',
+        background: 'rgba(8,7,5,0.92)',
+        backdropFilter: 'blur(16px)',
+        WebkitBackdropFilter: 'blur(16px)',
+        borderBottom: '1px solid var(--line)',
         opacity: show ? 1 : 0, transform: show ? 'translateY(0)' : 'translateY(-12px)',
-        transition: 'all .6s var(--ease)', pointerEvents: show ? 'auto' : 'none',
+        transition: 'opacity .6s var(--ease), transform .6s var(--ease)', pointerEvents: show ? 'auto' : 'none',
       }}>
       <button onClick={onHome} disabled={state === 'hub'} className="group flex items-center gap-3"
         style={{ cursor: state === 'hub' ? 'default' : 'pointer' }}>
