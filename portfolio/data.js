@@ -16,8 +16,7 @@
   const CONTACT = {
     name: 'Jack Yeoh',
     role: 'Technical Game Designer',
-    blurb:
-      'I bridge game design and technical execution. I specialize in systems design, UI/UX, and rapid prototyping to ship playable, polished games.',
+    blurb: 'I find meaning in how things connect. To me, systems aren\'t just math—they\'re the invisible strings that create emotion. I obsess over the craft of every interaction, but always make time to step back, whether that\'s for a live game symphony or just navigating life with close friends.',
     email: 'jackyeoh0808@gmail.com',
     linkedin: 'https://www.linkedin.com/in/yeoh-xin-16956878/',
     linkedinLabel: 'linkedin.com/in/yeoh-xin',
