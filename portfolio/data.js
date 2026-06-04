@@ -303,14 +303,10 @@
             {
               heading: 'My process',
               blocks: [
-                { kind: 'list', items: [
-                  'Primary Metric: Players merge runes at varying efficiencies. The mathematical baseline cannot assume optimal, perfect moves.',
-                  'Skill Distribution: Modeled expected player skill brackets to define average moves per merge.',
-                  'Baseline Formulas: Established the foundational scaling curves for rune power and enemy HP per level.',
-                  'Moves-to-Kill (MTK): Calculated the required number of swipes to kill an enemy based on the player targeting specific rune tiers.',
-                  'Sustain Balancing: Mirrored the MTK process for enemy damage vs. player healing, factoring in split focus.',
-                  'Loadout Limits: Playtesting revealed raw RNG loadouts (e.g., haste + charge + ravage) mathematically broke the game. Hard-capped enemies at 1 support + 2 standard abilities.',
-                ] },
+                { kind: 'para', text: 'The core problem was that players merge runes at varying efficiencies, meaning the mathematical baseline couldn\'t assume perfect play.' },
+                { kind: 'para', text: 'So at first, I modeled expected player skill brackets to find the average moves-per-merge. Then, I established scaling curves for rune power versus enemy HP, and calculated the "Moves-to-Kill" (MTK) metric to balance the pacing.' },
+                { kind: 'para', text: 'But during playtesting, I discovered that purely random enemy ability loadouts mathematically broke the game—combinations like haste plus charge plus ravage were completely unsurvivable.' },
+                { kind: 'para', text: 'To fix it, I hard-capped enemy generation to a strict rule: a maximum of 1 support ability and 2 standard abilities. This instantly stabilized the encounter balance.' },
               ],
             },
           ],
@@ -326,11 +322,10 @@
             {
               heading: 'My process',
               blocks: [
-                { kind: 'list', items: [
-                  'Node Archetypes: Defined combat, elites, shops, and event nodes based on established roguelike structural standards.',
-                  'Reward Weighting: Mapped out the specific economic or power reward thresholds for each node type.',
-                  'Risk/Reward Distribution: Balanced the procedural generation weights to maintain consistent pressure and payout loops throughout a run.',
-                ] },
+                { kind: 'para', text: 'The problem was pacing the run so the risk and reward felt consistent and fair throughout a procedural map.' },
+                { kind: 'para', text: 'At first, I defined the basic node archetypes—combat, elites, shops, and events—and mapped out exactly how much economic or power value each node should drop.' },
+                { kind: 'para', text: 'Then I discovered that purely random node distribution created massive difficulty spikes and dead zones in the player\'s economy.' },
+                { kind: 'para', text: 'So I went back and manually balanced the procedural generation weights, hard-coding the distribution logic to maintain a structured tension-and-release loop.' },
               ],
             },
           ],
@@ -346,13 +341,10 @@
             {
               heading: 'My process',
               blocks: [
-                { kind: 'list', items: [
-                  'Core Synergies: Defined macro build paths: Nuke vs. Swarm, Sustain vs. Leech, and pure economy.',
-                  'Item Design: Built power-ups top-down (filling a mechanical gap) and bottom-up (codifying an emergent interaction).',
-                  'Pool Pruning: Rescoped the pool. The initial set was too diluted with minor buffs, dragging out the intended short-form gameplay loop.',
-                  'Drop Rates: Tuned the RNG so a player sees the full pool across roughly three 10-minute runs, preventing single-run saturation.',
-                  'Data Validation: Playtested, tweaked the math based on real metric output, and locked the final values.',
-                ] },
+                { kind: 'para', text: 'The problem was building a set of boons that clearly supported the core synergies—Nuke, Swarm, Sustain, and Leech—without bloating the game.' },
+                { kind: 'para', text: 'At first, I designed a massive pool of items, working both top-down to fill mechanical gaps and bottom-up from cool emergent interactions.' },
+                { kind: 'para', text: 'But then I discovered the pool was far too diluted with minor buffs. It dragged the fast-paced 10-minute loop into a slog because players couldn\'t consistently finish their builds.' },
+                { kind: 'para', text: 'So I aggressively rescoped and pruned the pool. I tuned the RNG drop rates so a player sees the full pool across roughly three runs, locking in the math to keep runs short, punchy, and strategically dense.' },
               ],
             },
           ],
