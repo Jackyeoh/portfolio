@@ -296,6 +296,25 @@ function ConstNode({ cat, i, ready, onHover, onLeave, onSelect, isCore, delay = 
   );
 }
 
+/* ── mobile-specific avatar: full-bleed, objectFit cover, gradient overlay for fade ── */
+function MobileAvatarImg() {
+  const [src, setSrc] = React.useState(window.PLACEHOLDER_AVATAR || null);
+  React.useEffect(() => {
+    const img = new window.Image();
+    img.onload = () => setSrc('assets/avatar-full.png');
+    img.src = 'assets/avatar-full.png';
+  }, []);
+  return src ? (
+    <img src={src} alt="Jack Yeoh" style={{
+      position: 'absolute', inset: 0, width: '100%', height: '100%',
+      objectFit: 'cover', objectPosition: 'top center',
+    }} />
+  ) : (
+    <div style={{ position: 'absolute', inset: 0,
+      background: 'repeating-linear-gradient(135deg, rgba(241,235,221,0.025) 0 1px, transparent 1px 11px)' }} />
+  );
+}
+
 /* ── mobile discipline row ── */
 function MobileNode({ cat, isCore, onSelect, onTint }) {
   const accent = _accentOf(cat.accent);
@@ -372,19 +391,21 @@ function Hub({ contact, aiNote, categories, onSelect, onTint, fromBoot, active }
   if (isMobile) {
     return (
       <div className="absolute inset-0 z-10 flex flex-col overflow-hidden">
-        {/* avatar strip — overflow:hidden clips the portrait to the strip height */}
-        <div className="relative flex-shrink-0 flex items-end justify-center overflow-hidden" style={{ height: '40vh' }}>
+        {/* avatar strip — full-bleed, overflow:hidden, gradient overlay fades bottom cleanly */}
+        <div className="relative flex-shrink-0 overflow-hidden" style={{ height: '52vh' }}>
+          {/* ring decoration */}
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none"
             style={{ opacity: mounted ? 1 : 0, transition: 'opacity 1.2s var(--ease) .2s' }}>
-            <span style={{ width: '55vw', height: '55vw', borderRadius: '50%', border: '1px dashed rgba(241,235,221,0.08)' }} />
+            <span style={{ width: '80vw', height: '80vw', borderRadius: '50%', border: '1px dashed rgba(241,235,221,0.07)' }} />
           </div>
-          <div style={{ position: 'relative', height: '100%', width: '48vw', maxWidth: 220, minWidth: 130 }}>
-            <AvatarImg />
-            <span style={{ position:'absolute', left:0, right:0, top:0, height:'22%', background:'linear-gradient(to bottom, transparent, rgba(255,176,0,0.07), transparent)', animation:'sweep 7s linear infinite', pointerEvents:'none' }} />
-          </div>
-          <div style={{ position:'absolute', bottom:0, left:0, right:0, height:'55%', background:'linear-gradient(transparent, var(--bg))', pointerEvents:'none' }} />
+          {/* avatar — fills strip, objectFit:cover keeps it centered */}
+          <MobileAvatarImg />
+          {/* scan sweep */}
+          <span style={{ position:'absolute', left:0, right:0, top:0, height:'20%', background:'linear-gradient(to bottom, transparent, rgba(255,176,0,0.06), transparent)', animation:'sweep 7s linear infinite', pointerEvents:'none', zIndex:2 }} />
+          {/* gradient fade to bg — overlay div avoids maskImage/clip seam */}
+          <div style={{ position:'absolute', bottom:0, left:0, right:0, height:'50%', background:'linear-gradient(transparent, var(--bg))', pointerEvents:'none', zIndex:3 }} />
           <div className="absolute bottom-3 w-full flex justify-center"
-            style={{ opacity: ready ? 1 : 0, transition: 'opacity .6s var(--ease) .1s' }}>
+            style={{ opacity: ready ? 1 : 0, transition: 'opacity .6s var(--ease) .1s', zIndex:4 }}>
             <span className="mono-label" style={{ letterSpacing:'0.35em', fontSize:8 }}>core // jack_yeoh</span>
           </div>
         </div>
