@@ -17,7 +17,7 @@
     name: 'Jack Yeoh',
     role: 'Technical Game Designer',
     blurb:
-      'I bridge creative design and technical execution — systems design, UI/UX, and rapid prototyping that ships as polished, playable experiences.',
+      'I bridge game design and technical execution[cite: 2]. I specialize in systems design, UI/UX, and rapid prototyping to ship playable, polished games[cite: 2].',
     email: 'jackyeoh0808@gmail.com',
     linkedin: 'https://www.linkedin.com/in/yeoh-xin-16956878/',
     linkedinLabel: 'linkedin.com/in/yeoh-xin',
@@ -25,9 +25,9 @@
   };
 
   const AI_NOTE = [
-    'Yes — a lot of this site, and my recent work, involves AI.',
-    'But I use it to prototype faster and accelerate development. What I make stays authentically mine.',
-    'I take real joy and ownership in building, and the countless hours spent perfecting motion and debating decisions are the part of me I inject into every project.',
+    'Yes — I use AI heavily to speed up coding and for rapid prototyping[cite: 2].',
+    'But the actual systems design, the tuning, and all the time spent iterating on mechanics—that’s all me[cite: 2].',
+    'I prioritize gameplay over features[cite: 2]. I build things because I care about the craft, and the logic and feel of what I ship stays authentically mine[cite: 2].',
   ];
 
   const CREDITS = {
@@ -43,9 +43,9 @@
       title: 'Game Design',
       tagline: 'Systems & Loops',
       accent: 'game',
-      blurb: 'How I craft experiences and solve problems with systems.',
+      blurb: 'Solving problems through systems and emergent mechanics[cite: 2].',
       summary:
-        'Core loops, progression curves, enemy design and synergy systems — designed from first principles and tuned through structured playtesting.',
+        'Designing core loops, progression curves, and enemy synergies from first principles[cite: 2]. I build rulesets that encourage player expression, validated through playtesting[cite: 2].',
       projects: [
         {
           id: 'gd-runic',
@@ -56,7 +56,7 @@
           meta: [
             { label: 'Role', value: 'Solo Developer' },
             { label: 'Genre', value: 'Puzzle Roguelike' },
-            { label: 'Engine', value: 'Unity / HTML5' },
+            { label: 'Engine', value: 'Unreal Engine 5' },
             { label: 'Platform', value: 'Web Browser' },
             { label: 'Status', value: 'Released' },
           ],
@@ -65,38 +65,38 @@
             {
               heading: 'A roguelike spin on 2048',
               blocks: [
-                { kind: 'lead', text: 'Short, strategic runs with epic thematic boss fights. Solo project — I handled all game design and programming from the ground up.' },
+                { kind: 'lead', text: 'Short, strategic runs with structured boss fights[cite: 2]. As a solo project, I handled all game design and programming[cite: 2].' },
               ],
             },
             {
               heading: 'Iterating the merge mechanic',
               blocks: [
-                { kind: 'para', text: 'The rune merging took a few iterations to land. Originally you dragged runes off the top of the board to damage and off the bottom to heal — but that was too limiting, so I moved to a simple double-tap to use.' },
+                { kind: 'para', text: 'The core merge interaction took a few iterations to feel right[cite: 2]. Originally, players dragged runes off the top of the board to attack and off the bottom to heal[cite: 2]. This was too limiting, so I simplified it to a double-tap execution[cite: 2].' },
                 { kind: 'image', label: 'assets/runic-rush-attack.gif', ratio: 'wide' },
               ],
             },
             {
               heading: 'Procedural enemies, strict rulesets',
               blocks: [
-                { kind: 'para', text: 'Enemies draw abilities from a shared pool to save authoring time, but the result created genuinely interesting puzzles. Normal enemies pull 2 abilities, elites pull 3.' },
-                { kind: 'para', text: '3 random abilities could land as 2 support + 1 high-pressure ability — unplayable. I imposed a rule: at most 1 support ability per enemy, which fixed the balance perfectly.' },
+                { kind: 'para', text: 'To save authoring time, enemies pull abilities from a shared pool[cite: 2]. Normal enemies draw 2 abilities; elites draw 3[cite: 2]. This created emergent, interesting puzzles[cite: 2].' },
+                { kind: 'para', text: 'However, full RNG meant an enemy could pull 2 support abilities and 1 high-pressure attack, making runs unplayable[cite: 2]. I implemented a strict rule: a maximum of 1 support ability per enemy, instantly fixing the combat balance[cite: 2].' },
               ],
             },
             {
               heading: 'Boon synergies in a short loop',
               blocks: [
-                { kind: 'para', text: 'Even in a short game I built four major synergies into the boons:' },
+                { kind: 'para', text: 'I built four major synergies into the boon pool to support different buildcrafting strategies[cite: 2]:' },
                 { kind: 'list', items: [
-                  'Swarm vs Nuke: many small runes vs. a few massive ones.',
-                  'Sustain vs Leech: traditional healing vs. converting heals into pure damage.',
+                  'Swarm vs Nuke: Generating many small runes vs. building a few high-level ones[cite: 2].',
+                  'Sustain vs Leech: Standard healing vs. converting heals directly into damage output[cite: 2].',
                 ] },
               ],
             },
             {
               heading: 'The preview system',
               blocks: [
-                { kind: 'para', text: 'Hovering a rune projects its damage or healing output, factoring in every active effect — the same system applies to enemy abilities, built to aid strategic planning.' },
-                { kind: 'note', text: 'Known issue: the preview stayed slightly buggy in the final build, especially during boss fights — flagged for a future pass.' },
+                { kind: 'para', text: 'Hovering over a rune projects its exact damage or healing output, factoring in all active modifiers[cite: 2]. The same preview system applies to enemy abilities to help players plan their turns[cite: 2].' },
+                { kind: 'note', text: 'Known issue: The preview system has minor bugs in the final build during boss fights[cite: 2]. Flagged for a future patch[cite: 2].' },
                 { kind: 'image', label: 'assets/runic-rush-preview.gif', ratio: 'wide' },
               ],
             },
@@ -120,19 +120,19 @@
             {
               heading: 'Two players, one boss',
               blocks: [
-                { kind: 'lead', text: 'Built solo for Boss Rush Jam 2024 — a 2-player co-op boss fight where both players must coordinate closely, reacting to mechanics designed to split the team apart.' },
+                { kind: 'lead', text: 'Built solo for Boss Rush Jam 2024[cite: 2]. A 2-player co-op boss fight requiring tight coordination to handle mechanics designed to split the team up[cite: 2].' },
               ],
             },
             {
               heading: 'The exchange mechanic',
               blocks: [
-                { kind: 'para', text: 'Built around the jam theme "exchange": when a player drops a module it becomes empowered for the other player, dramatically enhancing its effects. Mistakes become opportunities, and deliberate passing is rewarded.' },
+                { kind: 'para', text: 'Designed around the jam theme "exchange[cite: 2]." When a player drops a module, it becomes empowered for their partner, significantly buffing its effects[cite: 2]. This rewards deliberate passing and turns mistakes into strategic opportunities[cite: 2].' },
               ],
             },
             {
               heading: 'Cooperative mechanics design',
               blocks: [
-                { kind: 'para', text: 'Boss mechanics demand different roles from each player simultaneously. In the map-wide one-shot mechanic, one player holds a shield while the other maintains long-range DPS — forcing real-time communication and a clear division of responsibility.' },
+                { kind: 'para', text: 'Boss attack patterns demand different simultaneous roles[cite: 2]. For example, during the map-wide wipe mechanic, one player must hold a shield while the other maintains long-range DPS, forcing active communication and role division[cite: 2].' },
                 { kind: 'gallery', items: [
                   { label: 'assets/geometrite-0.png' }, { label: 'assets/geometrite-1.png' }, { label: 'assets/geometrite-2.png' },
                 ] },
@@ -156,8 +156,8 @@
             {
               heading: 'Under NDA',
               blocks: [
-                { kind: 'lead', text: 'Brought in as a designer on a live-service title in development — despite holding an official title as game programmer. Trusted with ownership of core gameplay design at the ground level.' },
-                { kind: 'note', text: 'An active NDA means specific details about the project can\u2019t be disclosed.' },
+                { kind: 'lead', text: 'Operating as a gameplay designer on an unannounced live-service title, despite my official title as a game programmer[cite: 2]. I own core gameplay design responsibilities at the ground level[cite: 2].' },
+                { kind: 'note', text: 'Active NDA restricts disclosing specific mechanics or project details[cite: 2].' },
               ],
             },
           ],
@@ -172,9 +172,9 @@
       title: 'Game Development',
       tagline: 'Engines & Code',
       accent: 'dev',
-      blurb: 'How I materialize worlds — UE5, Unity & the web, full-stack.',
+      blurb: 'Building the technical foundation—UE5, Unity, and full-stack web[cite: 2].',
       summary:
-        'Gameplay frameworks, ability systems, performance work and full-stack R&D across Unreal Engine 5, Unity and React.',
+        'Programming player controllers, custom ability frameworks, and full-stack architecture across Unreal Engine 5, Unity, and React[cite: 2].',
       projects: [
         {
           id: 'dev-metal',
@@ -192,18 +192,18 @@
             {
               heading: 'What is Metal Genesis',
               blocks: [
-                { kind: 'lead', text: 'My first project at Lemonsky — a fast-paced action roguelike in Unreal Engine. I focused heavily on the technical execution of the player experience.' },
+                { kind: 'lead', text: 'An action roguelike built in Unreal Engine 5[cite: 2]. I focused on programming the technical execution of the player experience[cite: 2].' },
               ],
             },
             {
               heading: 'Technical contributions',
               blocks: [
-                { kind: 'para', text: 'My work spanned low-level character logic to high-level UI implementation:' },
+                { kind: 'para', text: 'My responsibilities ranged from low-level character logic to frontend UI integration[cite: 2]:' },
                 { kind: 'list', items: [
-                  'Player Controller: refined responsiveness and movement feel to match the game\u2019s high-octane pace.',
-                  'Custom Ability System: a flexible framework supporting complex modifiers and synergies.',
-                  'UI Implementation: translated the aggressive Rogue-Regime aesthetic into a functional, data-rich HUD.',
-                  'Performance: triaged and fixed a performance issue in the bullet system.',
+                  'Player Controller: Tuned movement logic and responsiveness to support the game’s fast-paced combat[cite: 2].',
+                  'Custom Ability System: Architected a flexible framework to handle complex ability modifiers and synergies[cite: 2].',
+                  'UI Implementation: Programmed the data-rich HUD and translated aesthetic concepts into functional UI elements[cite: 2].',
+                  'Optimization: Profiled, triaged, and fixed a major performance bottleneck within the bullet system[cite: 2].',
                 ] },
               ],
             },
@@ -217,7 +217,7 @@
           hero: { label: 'assets/animara.png' },
           meta: [
             { label: 'Role', value: 'Tech Lead' },
-            { label: 'Tech', value: 'React / Konva' },
+            { label: 'Tech', value: 'React / Konva / Firebase' },
             { label: 'Infra', value: 'Cloudflare CDN' },
             { label: 'Team', value: '2 Juniors + Outsource' },
           ],
@@ -226,17 +226,18 @@
             {
               heading: 'A living world on the web',
               blocks: [
-                { kind: 'lead', text: 'Led 2 junior developers and an outsource team to deliver a media-heavy marketing site. I owned R&D for the flagship "World" section — a massive, living map densely packed with animating elements.' },
+                { kind: 'lead', text: 'Led the technical development alongside two junior developers and an outsource team[cite: 2]. Handled the R&D for the interactive world map[cite: 2].' },
               ],
             },
             {
               heading: 'Technical contributions',
               blocks: [
                 { kind: 'list', items: [
-                  'R&D: architected the interactive map in React + Konva, balancing visual richness against performance under high element density.',
-                  'Asset Pipeline: defined and coordinated the delivery pipeline with the internal art team.',
-                  'Technical Leadership: unblocked team members on roadblocks throughout the project.',
-                  'CDN: integrated Cloudflare to optimize load times for the media-heavy site.',
+                  'R&D: Architected the map using React and Konva[cite: 2]. Optimized rendering performance to handle high element density and animations[cite: 2].',
+                  'Asset Pipeline: Defined technical requirements and coordinated the delivery pipeline with the art team[cite: 2].',
+                  'Backend Integration: Implemented Firebase for real-time data handling and integration.',
+                  'Technical Leadership: Managed code reviews and unblocked team members on architectural roadblocks[cite: 2].',
+                  'CDN: Set up Cloudflare integration to optimize media load times[cite: 2].',
                 ] },
               ],
             },
@@ -259,16 +260,16 @@
             {
               heading: 'Card-based roguelike',
               blocks: [
-                { kind: 'lead', text: 'A card-based roguelike in Unity. I headed development of the core game logic, map traversal, and in-game gallery — the foundational systems that define the player experience.' },
+                { kind: 'lead', text: 'A card-based roguelike in Unity[cite: 2]. I headed the development for the core game logic, path nodes, and the in-game gallery[cite: 2].' },
               ],
             },
             {
               heading: 'Technical contributions',
               blocks: [
                 { kind: 'list', items: [
-                  'Core Game Logic: architected and implemented the central gameplay loop and rules engine.',
-                  'Map Traversal: designed and built the procedural map navigation system.',
-                  'Gallery System: built the in-game gallery for collectible card viewing.',
+                  'Core Game Logic: Built the central gameplay loop and the underlying rules engine[cite: 2].',
+                  'Map Systems: Designed and implemented the procedural map generation and path nodes[cite: 2].',
+                  'Gallery System: Programmed the collectible card viewing interface[cite: 2].',
                 ] },
                 { kind: 'gallery', items: [
                   { label: 'assets/casino-conqueror-1.png' }, { label: 'assets/casino-conqueror-2.jpg' },
@@ -287,32 +288,28 @@
       title: 'Numerical Design',
       tagline: 'Balance & Math',
       accent: 'num',
-      blurb: 'How I solve balancing problems with numbers.',
+      blurb: 'Solving balance issues with math and metrics[cite: 2].',
       summary:
-        'Spreadsheet-driven balance: modeling player skill, scaling curves, and the metrics that actually matter, then validating through playtests.',
+        'Building spreadsheet models for skill distribution, scaling curves, and actual gameplay metrics[cite: 2]. Tuning the math so the game feels right in playtests[cite: 2].',
       projects: [
         {
           id: 'num-scaling',
           title: 'Case 01 — Enemy Scaling',
           tag: 'Moves-to-Kill Math',
           status: 'Worksheet',
-          context: 'Runic Rush — a short-form roguelike built on the 2048 mechanic. Players swipe to move every rune; matching types and levels merge into stronger runes. Each swipe also ticks down enemy ability cooldowns, mixed and matched from a pool into challenging mechanics.',
+          context: 'Runic Rush — a roguelike built on 2048 mechanics[cite: 2]. Swiping moves runes; matches merge into stronger runes[cite: 2]. Every swipe ticks down enemy ability cooldowns, forcing tactical decisions[cite: 2].',
           links: [{ label: 'View Live Worksheet', url: '#' }],
           sections: [
             {
               heading: 'My process',
               blocks: [
                 { kind: 'list', items: [
-                  'Identify what drives player output — players merge runes at different efficiency; most won\u2019t hit the minimum-step optimum.',
-                  'Model the player skill distribution.',
-                  'Establish baseline scaling — formulas for how rune power and enemy HP scale across levels.',
-                  'Compute the metric that matters: Moves-to-Kill (MTK), how many moves to kill an enemy, modeled around a player focusing on a given rune level.',
-                  'Tweak and playtest until it feels good — not too stale, but requiring real work. Balance around mathematical sweet-spots as a subtle incentive for invested players to optimize.',
-                  'Repeat for enemy attack \u2192 player healing, accounting for split focus (heal or damage, never both at once).',
-                  'Brainstorm interesting enemy abilities — basic attacks first, then abilities that demand the player "play differently," then supportive abilities mixed to find interesting combinations.',
-                  'Set ability numbers from the established baseline (\u00b1 a range).',
-                  'Validate via playtest — some abilities proved nastier than expected (haste + charge + ravage was unplayable), so enemies are capped at 1 supportive + 2 others.',
-                  'Fine-tune values to final balance.',
+                  'Primary Metric: Players merge runes at varying efficiencies[cite: 2]. The mathematical baseline cannot assume optimal, perfect moves[cite: 2].',
+                  'Skill Distribution: Modeled expected player skill brackets to define average moves per merge[cite: 2].',
+                  'Baseline Formulas: Established the foundational scaling curves for rune power and enemy HP per level[cite: 2].',
+                  'Moves-to-Kill (MTK): Calculated the required number of swipes to kill an enemy based on the player targeting specific rune tiers[cite: 2].',
+                  'Sustain Balancing: Mirrored the MTK process for enemy damage vs. player healing, factoring in split focus[cite: 2].',
+                  'Loadout Limits: Playtesting revealed raw RNG loadouts (e.g., haste + charge + ravage) mathematically broke the game[cite: 2]. Hard-capped enemies at 1 support + 2 standard abilities[cite: 2].',
                 ] },
               ],
             },
@@ -323,16 +320,16 @@
           title: 'Case 02 — Encounter Balancing',
           tag: 'Map Nodes',
           status: 'Worksheet',
-          context: 'Runic Rush — a short-form roguelike built on the 2048 mechanic. Players swipe to move every rune; matching types and levels merge into stronger runes. Each swipe also ticks down enemy ability cooldowns, mixed and matched from a pool into challenging mechanics.',
+          context: 'Runic Rush — a roguelike built on 2048 mechanics[cite: 2]. Swiping moves runes; matches merge into stronger runes[cite: 2]. Every swipe ticks down enemy ability cooldowns, forcing tactical decisions[cite: 2].',
           links: [{ label: 'View Map-Nodes Worksheet', url: '#' }],
           sections: [
             {
               heading: 'My process',
               blocks: [
                 { kind: 'list', items: [
-                  'Brainstorm interesting encounters — combat, non-combat and more, drawing on common examples from other roguelikes.',
-                  'Classify the reward each can grant.',
-                  'Ensure a good spread of experiences — risk/reward, events, pure rewards, and so on.',
+                  'Node Archetypes: Defined combat, elites, shops, and event nodes based on established roguelike structural standards[cite: 2].',
+                  'Reward Weighting: Mapped out the specific economic or power reward thresholds for each node type[cite: 2].',
+                  'Risk/Reward Distribution: Balanced the procedural generation weights to maintain consistent pressure and payout loops throughout a run[cite: 2].',
                 ] },
               ],
             },
@@ -343,20 +340,18 @@
           title: 'Case 03 — Player Power',
           tag: 'Boons & Synergies',
           status: 'Worksheet',
-          context: 'Runic Rush — a short-form roguelike built on the 2048 mechanic. Players swipe to move every rune; matching types and levels merge into stronger runes. Each swipe also ticks down enemy ability cooldowns, mixed and matched from a pool into challenging mechanics.',
+          context: 'Runic Rush — a roguelike built on 2048 mechanics[cite: 2]. Swiping moves runes; matches merge into stronger runes[cite: 2]. Every swipe ticks down enemy ability cooldowns, forcing tactical decisions[cite: 2].',
           links: [{ label: 'View Boons Worksheet', url: '#' }],
           sections: [
             {
               heading: 'My process',
               blocks: [
                 { kind: 'list', items: [
-                  'Identify synergies from core mechanics — big runes vs. rapid small runes; heal-sustain vs. lifesteal; economy-focused builds.',
-                  'Brainstorm power-ups as puzzle pieces for each synergy, jumping between top-down (what would a power-up here look like) and bottom-up (what synergy could this idea create).',
-                  'Design rescoping: an initial large pool of weak power-ups contradicted the intended short-form experience — runs ran into hours to see decent variety.',
-                  'Rescope the baseline: a player shouldn\u2019t see everything in one run, but should reasonably see everything across ~3 good runs (3 \u00d7 10-min runs \u2264 40-min target).',
-                  'Combine and remove boons to shrink to the current list.',
-                  'Check coverage across each synergy and offense / defense / economy.',
-                  'Playtest and balance numbers around player-skill assumptions, then revise.',
+                  'Core Synergies: Defined macro build paths: Nuke vs. Swarm, Sustain vs. Leech, and pure economy[cite: 2].',
+                  'Item Design: Built power-ups top-down (filling a mechanical gap) and bottom-up (codifying an emergent interaction)[cite: 2].',
+                  'Pool Pruning: Rescoped the pool[cite: 2]. The initial set was too diluted with minor buffs, dragging out the intended short-form gameplay loop[cite: 2].',
+                  'Drop Rates: Tuned the RNG so a player sees the full pool across roughly three 10-minute runs, preventing single-run saturation[cite: 2].',
+                  'Data Validation: Playtested, tweaked the math based on real metric output, and locked the final values[cite: 2].',
                 ] },
               ],
             },
@@ -372,9 +367,9 @@
       title: 'UI / UX',
       tagline: 'Figma to Frontend',
       accent: 'ui',
-      blurb: 'How I make smooth, considered experiences.',
+      blurb: 'Designing clean, functional interfaces[cite: 2].',
       summary:
-        'End-to-end interface work — requirements discovery, journey mapping, high-fidelity Figma, and the motion polish that turns static drafts into living products.',
+        'Handling end-to-end UI implementation—from gathering requirements and wiring up Figma prototypes to writing the frontend logic and adding motion polish[cite: 2].',
       projects: [
         {
           id: 'ui-meat',
@@ -392,17 +387,17 @@
             {
               heading: 'Freelance admin portal design',
               blocks: [
-                { kind: 'lead', text: 'Designed the full admin portal for a meat-delivery app as a freelance engagement — owned end-to-end, from uncovering requirements to final Figma handoff.' },
+                { kind: 'lead', text: 'Owned the end-to-end design for a meat-delivery admin portal as a freelance contractor, handling everything from initial requirements to the final Figma handoff[cite: 2].' },
               ],
             },
             {
               heading: 'Process',
               blocks: [
                 { kind: 'list', items: [
-                  'Requirements Discovery: stakeholder sessions to surface business needs and admin workflows.',
-                  'Journey Mapping: charted end-to-end journeys for admin roles — orders, inventory, vendor oversight.',
-                  'Wireframing: lo-fi wireframes to validate structure and navigation before visual design.',
-                  'UI Design: high-fidelity Figma covering all core admin screens with a clean, functional aesthetic.',
+                  'Requirements Gathering: Worked with stakeholders to map out business logic and admin workflows[cite: 2].',
+                  'Journey Mapping: Documented the user flow for order management, inventory, and vendor oversight[cite: 2].',
+                  'Wireframing: Built low-fidelity wireframes to lock in structure and navigation logic[cite: 2].',
+                  'UI Design: Delivered high-fidelity Figma screens focused on clean, data-heavy functionality[cite: 2].',
                 ] },
               ],
             },
@@ -422,12 +417,12 @@
             {
               heading: 'Proactive interaction design',
               blocks: [
-                { kind: 'lead', text: 'Across several projects I took the initiative to bridge the gap between static draft designs and high-fidelity user experiences.' },
-                { kind: 'para', text: 'Starting from initial drafts, I analyzed the intended journey and proposed/implemented refinements to interaction feedback, transition timing, and visual clarity.' },
+                { kind: 'lead', text: 'Bridged the gap between static design drafts and the final implementation across multiple projects[cite: 2].' },
+                { kind: 'para', text: 'Analyzed user journeys from initial mockups and implemented fixes to interaction feedback, UI timings, and visual hierarchy[cite: 2].' },
                 { kind: 'list', items: [
-                  'Fidelity Upgrades: converting static mockups into responsive, animated components.',
-                  'Flow Optimization: removing friction in navigation menus and combat HUDs.',
-                  'Feedback Loops: enhancing the impact of player actions through subtle UI motion and state changes.',
+                  'Fidelity Upgrades: Converted static Figma frames into responsive, animated frontend components[cite: 2].',
+                  'Flow Optimization: Streamlined navigation menus and reduced friction in combat HUDs[cite: 2].',
+                  'Game Feel: Improved action feedback through specific UI state changes and motion design[cite: 2].',
                 ] },
               ],
             },
