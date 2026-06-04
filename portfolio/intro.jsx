@@ -19,7 +19,7 @@ function IntroCinematic({ onComplete, contact }) {
     if (doneRef.current) return;
     doneRef.current = true;
     setExiting(true);
-    setTimeout(onComplete, 650);
+    setTimeout(onComplete, 350);
   }, [onComplete]);
 
   const advance = React.useCallback((e) => {
@@ -37,14 +37,14 @@ function IntroCinematic({ onComplete, contact }) {
   }, [waiting, finish]);
 
   // auto-advance only kicks in once the user has started the sequence
-  React.useEffect(() => {
-    if (waiting || exiting) return;
-    const t = setTimeout(() => {
-      if (stage >= DUR.length - 1) finish();
-      else setStage(stage + 1);
-    }, DUR[stage]);
-    return () => clearTimeout(t);
-  }, [stage, waiting, exiting, finish]);
+  // React.useEffect(() => {
+  //   if (waiting || exiting) return;
+  //   const t = setTimeout(() => {
+  //     if (stage >= DUR.length - 1) finish();
+  //     else setStage(stage + 1);
+  //   }, DUR[stage]);
+  //   return () => clearTimeout(t);
+  // }, [stage, waiting, exiting, finish]);
 
   // teleprompter rise: current beat centered, past beats drift up, future drift down
   const beat = (i) => ({
