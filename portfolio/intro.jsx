@@ -8,6 +8,8 @@
 function IntroCinematic({ onComplete, contact }) {
   const DUR = [1700, 1500, 2900, 1600];
   const [waiting, setWaiting] = React.useState(true);
+  const [loading, setLoading] = React.useState(false); // bar phase
+  const [barDone, setBarDone] = React.useState(false);
   const [stage, setStage] = React.useState(0);
   const [exiting, setExiting] = React.useState(false);
   const [ripple, setRipple] = React.useState(null); // { x, y, key }
@@ -22,11 +24,13 @@ function IntroCinematic({ onComplete, contact }) {
 
   const advance = React.useCallback((e) => {
     if (waiting) {
-      // first tap: fire ripple from click position, start sequence
+      // first tap: fire ripple + loading bar, then start sequence after bar completes
       const x = e ? e.clientX : window.innerWidth / 2;
       const y = e ? e.clientY : window.innerHeight / 2;
       setRipple({ x, y, key: Date.now() });
-      setWaiting(false);
+      setTimeout(() => setLoading(true), 500);
+      setTimeout(() => setBarDone(true), 1360);   // bar completes
+      setTimeout(() => setWaiting(false), 1460);  // slight hold after bar fills
       return;
     }
     setStage((s) => { if (s >= DUR.length - 1) { finish(); return s; } return s + 1; });
@@ -58,9 +62,17 @@ function IntroCinematic({ onComplete, contact }) {
 
       <style>{`
         @keyframes gridscroll { to { background-position: 0 -560px; } }
+        @keyframes bar-load {
+          0%   { width: 0% }
+          25%  { width: 52% }
+          55%  { width: 74% }
+          78%  { width: 88% }
+          100% { width: 100% }
+        }
         @keyframes ripple-out {
-          0%   { width: 0; height: 0; opacity: 0.7; }
-          100% { width: 260vmax; height: 260vmax; opacity: 0; }
+          0%   { width: 0; height: 0; opacity: 1; }
+          60%  { opacity: 0.6; }
+          100% { width: 120vmax; height: 120vmax; opacity: 0; }
         }
       `}</style>
 
@@ -150,24 +162,52 @@ function IntroCinematic({ onComplete, contact }) {
           left: ripple.x, top: ripple.y,
           width: 0, height: 0,
           borderRadius: '50%',
-          border: '1px solid rgba(255,176,0,0.55)',
-          transform: 'translate(-50%,-50%) scale(0)',
-          animation: 'ripple-out 1.4s var(--ease) forwards',
+          border: '2px solid rgba(255,176,0,0.75)',
+          transform: 'translate(-50%,-50%)',
+          animation: 'ripple-out 1.1s cubic-bezier(0.22,1,0.36,1) forwards',
           pointerEvents: 'none', zIndex: 60,
         }} />
       )}
 
-      {/* subtle second ring with slight delay */}
+      {/* second ring — slightly larger, delayed */}
       {ripple && (
         <span key={ripple.key + 1} style={{
           position: 'fixed',
           left: ripple.x, top: ripple.y,
           width: 0, height: 0,
           borderRadius: '50%',
-          border: '1px solid rgba(255,176,0,0.25)',
-          transform: 'translate(-50%,-50%) scale(0)',
-          animation: 'ripple-out 1.8s var(--ease) 0.18s forwards',
+          border: '1px solid rgba(255,176,0,0.45)',
+          transform: 'translate(-50%,-50%)',
+          animation: 'ripple-out 1.5s cubic-bezier(0.22,1,0.36,1) 0.14s forwards',
           pointerEvents: 'none', zIndex: 60,
+        }} />
+      )}
+
+      {/* third ring — faintest, most delayed */}
+      {ripple && (
+        <span key={ripple.key + 2} style={{
+          position: 'fixed',
+          left: ripple.x, top: ripple.y,
+          width: 0, height: 0,
+          borderRadius: '50%',
+          border: '1px solid rgba(255,176,0,0.2)',
+          transform: 'translate(-50%,-50%)',
+          animation: 'ripple-out 1.9s cubic-bezier(0.22,1,0.36,1) 0.28s forwards',
+          pointerEvents: 'none', zIndex: 60,
+        }} />
+      )}
+
+      {/* loading bar — top of screen, organic fill */}
+      {loading && (
+        <div style={{
+          position: 'fixed', top: 0, left: 0, zIndex: 70,
+          height: 2, width: barDone ? '100%' : '0%',
+          background: 'linear-gradient(90deg, rgba(255,176,0,0.2), var(--amber), rgba(255,255,200,0.9))',
+          boxShadow: '0 0 10px rgba(255,176,0,0.7), 0 0 24px rgba(255,176,0,0.3)',
+          animation: barDone ? 'none' : 'bar-load 860ms cubic-bezier(0.25,0.1,0.2,1) forwards',
+          opacity: barDone ? 0 : 1,
+          transition: barDone ? 'opacity 0.35s ease 0.1s, width 0.12s ease' : 'none',
+          pointerEvents: 'none',
         }} />
       )}
 
