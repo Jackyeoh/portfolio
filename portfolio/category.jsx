@@ -66,9 +66,22 @@ function ProjectView({ cat, project, onBack }) {
 
   return (
     <div className="absolute inset-0 z-20 overflow-y-auto scroll-thin">
-      <div className="mx-auto px-6 md:px-12 pt-20 md:pt-24 pb-28" style={{ maxWidth: 1000 }}>
-        {/* back */}
-        <button onClick={onBack} className="group flex items-center gap-2 mb-10" style={{ color: 'var(--fg-dim)', ...reveal(0) }}>
+      <style>{`
+        .mob-back-proj{display:flex;position:sticky;top:58px;z-index:20;align-items:center;gap:8px;
+          padding:10px 20px;background:rgba(8,7,5,0.92);backdrop-filter:blur(12px);
+          -webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line-ghost);}
+        @media(min-width:768px){.mob-back-proj{display:none}}
+        .proj-body{display:grid;gap:2.5rem;grid-template-columns:1fr}
+        @media(min-width:768px){.proj-body{grid-template-columns:1fr 260px;gap:3.5rem}}
+      `}</style>
+      {/* mobile-only sticky back */}
+      <button onClick={onBack} className="mob-back-proj w-full" style={{ color: 'var(--fg-dim)' }}>
+        <__Icon name="chevronLeft" size={13} />
+        <span className="font-mono" style={{ fontSize: 10, letterSpacing: '0.2em', textTransform: 'uppercase' }}>Return to {cat.title}</span>
+      </button>
+      <div className="mx-auto px-6 md:px-12 pt-6 md:pt-20 pb-28" style={{ maxWidth: 1000 }}>
+        {/* desktop back */}
+        <button onClick={onBack} className="group hidden md:flex items-center gap-2 mb-10" style={{ color: 'var(--fg-dim)', ...reveal(0) }}>
           <__Icon name="chevronLeft" size={15} />
           <span className="font-mono" style={{ fontSize: 11, letterSpacing: '0.2em', textTransform: 'uppercase' }}>Return to {cat.title}</span>
         </button>
@@ -188,12 +201,24 @@ function CategoryView({ cat, onBack, onOpen }) {
 
   return (
     <div className="absolute inset-0 z-20 overflow-y-auto scroll-thin">
+      {/* mobile-only sticky back bar */}
+      <style>{`
+        .mob-back{display:flex;position:sticky;top:58px;z-index:20;align-items:center;gap:8px;
+          padding:10px 20px;background:rgba(8,7,5,0.92);backdrop-filter:blur(12px);
+          -webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line-ghost);}
+        @media(min-width:768px){.mob-back{display:none}}
+        .catgrid{display:grid;gap:2.5rem;grid-template-columns:1fr}
+        @media(min-width:900px){.catgrid{grid-template-columns:minmax(280px,380px) 1fr;gap:4rem}}
+      `}</style>
+      <button onClick={onBack} className="mob-back w-full" style={{ color: 'var(--fg-dim)' }}>
+        <__Icon name="chevronLeft" size={13} />
+        <span className="font-mono" style={{ fontSize: 10, letterSpacing: '0.2em', textTransform: 'uppercase' }}>Return to System</span>
+      </button>
       <div className="min-h-full grid items-center" style={{ gridTemplateColumns: '1fr', maxWidth: 1180, margin: '0 auto' }}>
-        <style>{`.catgrid{display:grid;gap:2.5rem;grid-template-columns:1fr}@media(min-width:900px){.catgrid{grid-template-columns:minmax(280px,380px) 1fr;gap:4rem}}`}</style>
-        <div className="catgrid px-6 md:px-12 py-24">
+        <div className="catgrid px-6 md:px-12 py-14 md:py-24">
           {/* LEFT — title block */}
           <div className="flex flex-col min-w-0 overflow-hidden">
-            <button onClick={onBack} className="group flex items-center gap-2 mb-9 w-fit" style={{ color: 'var(--fg-dim)', ...reveal(0) }}>
+            <button onClick={onBack} className="group hidden md:flex items-center gap-2 mb-9 w-fit" style={{ color: 'var(--fg-dim)', ...reveal(0) }}>
               <__Icon name="chevronLeft" size={15} />
               <span className="font-mono" style={{ fontSize: 11, letterSpacing: '0.2em', textTransform: 'uppercase' }}>Return to System</span>
             </button>
@@ -231,5 +256,3 @@ function CategoryView({ cat, onBack, onOpen }) {
     </div>
   );
 }
-
-Object.assign(window, { CategoryView, ProjectView });

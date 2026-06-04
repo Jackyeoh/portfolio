@@ -372,13 +372,13 @@ function Hub({ contact, aiNote, categories, onSelect, onTint, fromBoot, active }
   if (isMobile) {
     return (
       <div className="absolute inset-0 z-10 flex flex-col overflow-hidden">
-        {/* avatar strip */}
-        <div className="relative flex-shrink-0 flex items-end justify-center" style={{ height: '40vh' }}>
+        {/* avatar strip — overflow:hidden clips the portrait to the strip height */}
+        <div className="relative flex-shrink-0 flex items-end justify-center overflow-hidden" style={{ height: '40vh' }}>
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none"
             style={{ opacity: mounted ? 1 : 0, transition: 'opacity 1.2s var(--ease) .2s' }}>
             <span style={{ width: '55vw', height: '55vw', borderRadius: '50%', border: '1px dashed rgba(241,235,221,0.08)' }} />
           </div>
-          <div style={{ position: 'relative', height: '48vh', width: '19vw', maxWidth: 180, minWidth: 110 }}>
+          <div style={{ position: 'relative', height: '100%', width: '48vw', maxWidth: 220, minWidth: 130 }}>
             <AvatarImg />
             <span style={{ position:'absolute', left:0, right:0, top:0, height:'22%', background:'linear-gradient(to bottom, transparent, rgba(255,176,0,0.07), transparent)', animation:'sweep 7s linear infinite', pointerEvents:'none' }} />
           </div>
@@ -389,9 +389,8 @@ function Hub({ contact, aiNote, categories, onSelect, onTint, fromBoot, active }
           </div>
         </div>
 
-        {/* discipline list */}
-        <div className="flex-1 overflow-y-auto scroll-thin"
-          style={{ opacity: ready ? 1 : 0, transition: 'opacity .5s var(--ease) .2s' }}>
+        {/* discipline list — opaque bg blocks avatar bleed-through on scroll */}
+        <div className="flex-1 overflow-y-auto scroll-thin" style={{ background: 'var(--bg)', opacity: ready ? 1 : 0, transition: 'opacity .5s var(--ease) .2s' }}>
           <div className="px-5 pt-2 pb-32">
             <div className="mono-label text-center mb-5" style={{ letterSpacing:'0.3em' }}>Select Discipline — 04</div>
             <div className="mono-label flex items-center gap-3 mb-3"
