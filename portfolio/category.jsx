@@ -73,17 +73,22 @@ function ProjectView({ cat, project, onBack }) {
         @media(min-width:768px){.mob-back-proj{display:none}}
         .proj-body{display:grid;gap:2.5rem;grid-template-columns:1fr}
         @media(min-width:768px){.proj-body{grid-template-columns:1fr 260px;gap:3.5rem}}
+        @keyframes name-in { from { opacity:0; transform:translateX(5px); } to { opacity:1; transform:translateX(0); } }
       `}</style>
       {/* mobile-only sticky back */}
       <button onClick={onBack} className="mob-back-proj w-full" style={{ color: 'var(--fg-dim)' }}>
         <__Icon name="chevronLeft" size={13} />
-        <span className="font-mono" style={{ fontSize: 10, letterSpacing: '0.2em', textTransform: 'uppercase' }}>Return to {cat.title}</span>
+        <span className="font-mono" style={{ fontSize: 10, letterSpacing: '0.2em', textTransform: 'uppercase' }}>
+          Return to{' '}<span style={{ animation: 'name-in .5s var(--ease) .35s both' }}>{cat.title}</span>
+        </span>
       </button>
       <div className="mx-auto px-6 md:px-12 pt-6 md:pt-20 pb-28" style={{ maxWidth: 1000 }}>
         {/* desktop back */}
         <button onClick={onBack} className="group hidden md:flex items-center gap-2 mb-10" style={{ color: 'var(--fg-dim)', ...reveal(0) }}>
           <__Icon name="chevronLeft" size={15} />
-          <span className="font-mono" style={{ fontSize: 11, letterSpacing: '0.2em', textTransform: 'uppercase' }}>Return to {cat.title}</span>
+          <span className="font-mono" style={{ fontSize: 11, letterSpacing: '0.2em', textTransform: 'uppercase' }}>
+            Return to{' '}<span style={{ opacity: ready ? 1 : 0, transition: 'opacity .6s var(--ease) .35s', display: 'inline-block' }}>{cat.title}</span>
+          </span>
         </button>
 
         {/* header */}
@@ -209,19 +214,24 @@ function CategoryView({ cat, onBack, onOpen }) {
         @media(min-width:768px){.mob-back{display:none}}
         .catgrid{display:grid;gap:2.5rem;grid-template-columns:1fr}
         @media(min-width:900px){.catgrid{grid-template-columns:minmax(280px,380px) 1fr;gap:4rem}}
+        @keyframes name-in { from { opacity:0; transform:translateX(5px); } to { opacity:1; transform:translateX(0); } }
       `}</style>
       <button onClick={onBack} className="mob-back w-full" style={{ color: 'var(--fg-dim)' }}>
         <__Icon name="chevronLeft" size={13} />
-        <span className="font-mono" style={{ fontSize: 10, letterSpacing: '0.2em', textTransform: 'uppercase' }}>Return to System</span>
+        <span className="font-mono" style={{ fontSize: 10, letterSpacing: '0.2em', textTransform: 'uppercase' }}>
+          Return to{' '}<span style={{ animation: 'name-in .5s var(--ease) .35s both' }}>System</span>
+        </span>
       </button>
       <div className="min-h-full grid items-center" style={{ gridTemplateColumns: '1fr', maxWidth: 1180, margin: '0 auto' }}>
         <div className="catgrid px-6 md:px-12 py-14 md:py-24">
           {/* LEFT — title block */}
           <div className="flex flex-col min-w-0 overflow-hidden">
-            <button onClick={onBack} className="group hidden md:flex items-center gap-2 mb-9 w-fit" style={{ color: 'var(--fg-dim)', ...reveal(0) }}>
-              <__Icon name="chevronLeft" size={15} />
-              <span className="font-mono" style={{ fontSize: 11, letterSpacing: '0.2em', textTransform: 'uppercase' }}>Return to System</span>
-            </button>
+              <button onClick={onBack} className="group hidden md:flex items-center gap-2 mb-9 w-fit" style={{ color: 'var(--fg-dim)', ...reveal(0) }}>
+                <__Icon name="chevronLeft" size={15} />
+                <span className="font-mono" style={{ fontSize: 11, letterSpacing: '0.2em', textTransform: 'uppercase' }}>
+                  Return to{' '}<span style={{ opacity: ready ? 1 : 0, transition: 'opacity .6s var(--ease) .35s', display: 'inline-block' }}>System</span>
+                </span>
+              </button>
 
             <div className="font-mono mb-3" style={{ fontSize: 12, letterSpacing: '0.26em', color: accent, ...reveal(0.05) }}>DISCIPLINE {cat.index}</div>
             <h1 className="font-display" style={{ fontSize: 'clamp(34px,4.2vw,64px)', fontWeight: 700, lineHeight: 0.92, textTransform: 'uppercase', letterSpacing: '-0.01em', wordBreak: 'break-word', ...reveal(0.08) }}>{cat.title}</h1>

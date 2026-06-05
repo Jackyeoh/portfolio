@@ -74,6 +74,85 @@ function CreditsModal({ onClose, credits }) {
   );
 }
 
+/* =========================================================================
+   PRELOADER — loads all images + fonts before first-visit intro.
+   Skipped on return visits (sessionStorage already set / assets cached).
+   ========================================================================= */
+function Preloader({ onReady }) {
+  const [pct, setPct] = React.useState(0);
+  const [fading, setFading] = React.useState(false);
+  const countRef = React.useRef(0);
+
+  React.useEffect(() => {
+    const { CATEGORIES } = window.PORTFOLIO;
+    const paths = ['assets/avatar-full.png', 'assets/selfie.png'];
+    CATEGORIES.forEach(cat => {
+      (cat.projects || []).forEach(proj => {
+        if (proj.hero) paths.push(proj.hero);
+        if (Array.isArray(proj.gallery)) paths.push(...proj.gallery.filter(Boolean));
+      });
+    });
+    const total = Math.max(paths.length, 1);
+
+    const tick = () => {
+      countRef.current++;
+      setPct(Math.min(99, Math.round((countRef.current / total) * 100)));
+    };
+
+    const imgProms = paths.map(src => new Promise(res => {
+      const i = new Image();
+      i.onload = i.onerror = () => { tick(); res(); };
+      i.src = src;
+    }));
+
+    Promise.all([...imgProms, document.fonts.ready, new Promise(r => setTimeout(r, 900))]).then(() => {
+      setPct(100);
+      setTimeout(() => setFading(true), 320);
+      setTimeout(onReady, 820);
+    });
+  }, [onReady]);
+
+  return (
+    <div style={{
+      position: 'fixed', inset: 0, zIndex: 999, background: 'var(--bg)',
+      display: 'grid', placeItems: 'center',
+      opacity: fading ? 0 : 1, transition: 'opacity .5s var(--ease)',
+      pointerEvents: fading ? 'none' : 'auto',
+    }}>
+      {/* progress bar */}
+      <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 2 }}>
+        <div style={{
+          height: '100%', width: `${pct}%`,
+          background: 'linear-gradient(90deg, rgba(255,176,0,0.3), var(--amber), rgba(255,240,160,0.9))',
+          boxShadow: '0 0 12px rgba(255,176,0,0.65), 0 0 28px rgba(255,176,0,0.3)',
+          transition: 'width .38s cubic-bezier(0.25,0.1,0.2,1)',
+        }} />
+      </div>
+      {/* corner ticks */}
+      {[['top','left'],['top','right'],['bottom','left'],['bottom','right']].map(([v,h],i) => (
+        <span key={i} style={{
+          position: 'absolute', [v]: 16, [h]: 16, width: 9, height: 9,
+          [`border${v[0].toUpperCase()+v.slice(1)}`]: '1px solid var(--line)',
+          [`border${h[0].toUpperCase()+h.slice(1)}`]: '1px solid var(--line)',
+        }} />
+      ))}
+      {/* center identity */}
+      <div style={{ display:'flex', flexDirection:'column', alignItems:'center', gap:18, textAlign:'center' }}>
+        <div style={{
+          width:52, height:52, border:'1px solid var(--amber)',
+          display:'grid', placeItems:'center',
+          fontFamily:'var(--font-display)', fontWeight:700, fontSize:22,
+          letterSpacing:'0.02em', color:'var(--amber)',
+        }}>JY</div>
+        <span style={{ fontFamily:'var(--font-mono)', fontSize:9, letterSpacing:'0.28em', textTransform:'uppercase', color:'var(--fg-faint)' }}>Initializing</span>
+        <span style={{ fontFamily:'var(--font-mono)', fontSize:9, letterSpacing:'0.2em', color:'rgba(255,176,0,0.5)' }}>
+          {pct < 100 ? `${pct}%` : '// Ready'}
+        </span>
+      </div>
+    </div>
+  );
+}
+
 function App() {
   // Read data lazily at render time — always safe, never races with data.js load
   if (!window.PORTFOLIO) {
@@ -82,6 +161,7 @@ function App() {
   const { CONTACT, AI_NOTE, CREDITS, CATEGORIES } = window.PORTFOLIO;
   const booted = typeof sessionStorage !== 'undefined' && sessionStorage.getItem('jy_booted');
   const [view, setView] = React.useState({ state: 'hub' });
+  const [preloaded, setPreloaded] = React.useState(!!booted); // skip preloader on return visits
   const [intro, setIntro] = React.useState(!booted);
   const [shown, setShown] = React.useState(true);
   const [tint, setTint] = React.useState(null);
@@ -177,6 +257,9 @@ function App() {
 
       {/* ===== first-visit intro cinematic (blocking, one-time) ===== */}
       {intro && <_Intro onComplete={finishIntro} contact={CONTACT} />}
+
+      {/* ===== preloader: covers first visit until assets + fonts ready ===== */}
+      {!preloaded && <Preloader onReady={() => setPreloaded(true)} />}
 
       {showCredits && <CreditsModal onClose={() => setCredits(false)} credits={CREDITS} />}
     </div>

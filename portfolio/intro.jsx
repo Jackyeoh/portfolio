@@ -6,10 +6,8 @@
    underneath (avatar visible); this overlay is transparent in the center.
    ========================================================================= */
 function IntroCinematic({ onComplete, contact }) {
-  const DUR = [1200, 1500, 2900, 1600];
+  const DUR = [1700, 1500, 2900, 1600];
   const [waiting, setWaiting] = React.useState(true);
-  const [loading, setLoading] = React.useState(false); // bar phase
-  const [barDone, setBarDone] = React.useState(false);
   const [stage, setStage] = React.useState(0);
   const [exiting, setExiting] = React.useState(false);
   const [ripple, setRipple] = React.useState(null); // { x, y, key }
@@ -19,18 +17,16 @@ function IntroCinematic({ onComplete, contact }) {
     if (doneRef.current) return;
     doneRef.current = true;
     setExiting(true);
-    setTimeout(onComplete, 350);
+    setTimeout(onComplete, 650);
   }, [onComplete]);
 
   const advance = React.useCallback((e) => {
     if (waiting) {
-      // first tap: fire ripple + loading bar, then start sequence after bar completes
+      // first tap: fire ripple, start sequence immediately
       const x = e ? e.clientX : window.innerWidth / 2;
       const y = e ? e.clientY : window.innerHeight / 2;
       setRipple({ x, y, key: Date.now() });
-      setTimeout(() => setLoading(true), 500);
-      setTimeout(() => setBarDone(true), 1360);   // bar completes
-      setTimeout(() => setWaiting(false), 1460);  // slight hold after bar fills
+      setWaiting(false);
       return;
     }
     setStage((s) => { if (s >= DUR.length - 1) { finish(); return s; } return s + 1; });
@@ -62,13 +58,6 @@ function IntroCinematic({ onComplete, contact }) {
 
       <style>{`
         @keyframes gridscroll { to { background-position: 0 -560px; } }
-        @keyframes bar-load {
-          0%   { width: 0% }
-          25%  { width: 52% }
-          55%  { width: 74% }
-          78%  { width: 88% }
-          100% { width: 100% }
-        }
         @keyframes ripple-out {
           0%   { width: 0; height: 0; opacity: 1; }
           60%  { opacity: 0.6; }
@@ -197,28 +186,16 @@ function IntroCinematic({ onComplete, contact }) {
         }} />
       )}
 
-      {/* loading bar — top of screen, organic fill */}
-      {loading && (
-        <div style={{
-          position: 'fixed', top: 0, left: 0, zIndex: 70,
-          height: 2, width: barDone ? '100%' : '0%',
-          background: 'linear-gradient(90deg, rgba(255,176,0,0.2), var(--amber), rgba(255,255,200,0.9))',
-          boxShadow: '0 0 10px rgba(255,176,0,0.7), 0 0 24px rgba(255,176,0,0.3)',
-          animation: barDone ? 'none' : 'bar-load 860ms cubic-bezier(0.25,0.1,0.2,1) forwards',
-          opacity: barDone ? 0 : 1,
-          transition: barDone ? 'opacity 0.35s ease 0.1s, width 0.12s ease' : 'none',
-          pointerEvents: 'none',
-        }} />
-      )}
-
       {/* skip / continue hint — only shown while waiting */}
-      <div className="absolute bottom-7 left-0 w-full flex justify-center pointer-events-none"
-        style={{ opacity: waiting && !exiting ? 0.55 : 0, transition: 'opacity .5s var(--ease)' }}>
-        <span className="font-mono flex items-center gap-2" style={{
-          fontSize: 10, letterSpacing: '0.26em', textTransform: 'uppercase', color: 'var(--fg-dim)',
+      <div className="absolute bottom-10 left-0 w-full flex justify-center pointer-events-none"
+        style={{ opacity: waiting && !exiting ? 1 : 0, transition: 'opacity .5s var(--ease)' }}>
+        <span className="font-mono flex items-center gap-3" style={{
+          fontSize: 13, letterSpacing: '0.22em', textTransform: 'uppercase',
+          color: 'var(--amber)', textShadow: '0 0 24px rgba(255,176,0,0.5)',
         }}>
-          <span style={{ width: 6, height: 6, background: 'var(--amber)', animation: 'blink 1.4s ease-in-out infinite' }} />
+          <span style={{ width: 8, height: 8, background: 'var(--amber)', transform: 'rotate(45deg)', animation: 'blink 1.4s ease-in-out infinite', boxShadow: '0 0 8px rgba(255,176,0,0.7)', flexShrink: 0 }} />
           Tap to begin
+          <span style={{ width: 8, height: 8, background: 'var(--amber)', transform: 'rotate(45deg)', animation: 'blink 1.4s ease-in-out infinite .7s', boxShadow: '0 0 8px rgba(255,176,0,0.7)', flexShrink: 0 }} />
         </span>
       </div>
     </div>

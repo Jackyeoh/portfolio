@@ -12,7 +12,7 @@ function SelfieImg() {
   const [src, setSrc] = React.useState(window.PLACEHOLDER_SELFIE || null);
   React.useEffect(() => {
     const img = new window.Image();
-    img.onload = () => setSrc('selfie.png');
+    img.onload = () => setSrc('assets/selfie.png');
     img.src = 'assets/selfie.png';
   }, []);
   return (
@@ -381,8 +381,8 @@ function Hub({ contact, aiNote, categories, onSelect, onTint, fromBoot, active }
 
   // top-down cascade delays (seconds). Wider spread on first visit (fromBoot).
   const seq = fromBoot
-    ? { label: 0.15, core: [0.35, 0.52], ring: 0.82, divider: 1.02, support: [1.18, 1.34] }
-    : { label: 0.04, core: [0.12, 0.20], ring: 0.30, divider: 0.36, support: [0.42, 0.50] };
+    ? { label: 0.15, core: [0.35, 0.52], ring: 1.50, divider: 0.72, support: [0.88, 1.04] }
+    : { label: 0.04, core: [0.12, 0.20], ring: 0.62, divider: 0.30, support: [0.40, 0.50] };
 
   const core    = categories.slice(0, 2);   // Game Design + Game Development
   const support = categories.slice(2);      // Numerical + UI/UX
