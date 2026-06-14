@@ -19,6 +19,7 @@ const ICONS = {
   arrowOut: 'M7 17L17 7M9 7h8v8',
   mail: 'M3 6.5h18v11H3zM3 7l9 6 9-6',
   link: 'M9 15l6-6M8.5 8H6a3.5 3.5 0 000 7h2.5M15.5 16H18a3.5 3.5 0 000-7h-2.5',
+  check: 'M5 13l4 4L19 7',
   reboot: 'M3 12a9 9 0 109-9 9 9 0 00-6.4 2.7L3 8M3 4v4h4',
   close: 'M6 6l12 12M18 6L6 18',
   plus: 'M12 5v14M5 12h14',

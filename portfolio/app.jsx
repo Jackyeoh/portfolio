@@ -8,6 +8,39 @@ const { Hub: _Hub, IntroCinematic: _Intro, CategoryView: _CatView, ProjectView: 
 // NOTE: window.PORTFOLIO is read lazily inside App (not at top level)
 // so it's always defined by the time React renders, regardless of script load order.
 
+/* =========================================================================
+   DEEP LINKING — the view state machine is mirrored into the URL hash so any
+   category or project is directly linkable / shareable / bookmarkable:
+     #/                         -> hub
+     #/<catId>                  -> category
+     #/<catId>/<projectId>      -> project
+   Hash routing (vs. clean paths) needs no server rewrites — ideal for the
+   static Vercel deploy. Unknown ids degrade gracefully toward the hub.
+   ========================================================================= */
+function viewToHash(view) {
+  if (!view || view.state === 'hub') return '#/';
+  if (view.state === 'category') return `#/${view.cat.id}`;
+  if (view.state === 'project') return `#/${view.cat.id}/${view.project.id}`;
+  return '#/';
+}
+
+function hashToView(categories) {
+  const raw = (window.location.hash || '').replace(/^#\/?/, '');
+  if (!raw) return { state: 'hub' };
+  const [catId, projId] = raw.split('/').filter(Boolean).map(decodeURIComponent);
+  const cat = categories.find(c => c.id === catId);
+  if (!cat) return { state: 'hub' };
+  if (!projId) return { state: 'category', cat };
+  const project = (cat.projects || []).find(p => p.id === projId);
+  if (!project) return { state: 'category', cat }; // valid category, stale project id
+  return { state: 'project', cat, project };
+}
+
+// nesting depth — drives the zoom direction so back/forward animate naturally
+function viewDepth(view) {
+  return view.state === 'project' ? 2 : view.state === 'category' ? 1 : 0;
+}
+
 function TopBar({ state, onHome, onReboot, onCredits, motion, onMotion, contact }) {
   const show = state !== 'boot';
   return (
@@ -160,9 +193,12 @@ function App() {
   }
   const { CONTACT, AI_NOTE, CREDITS, CATEGORIES } = window.PORTFOLIO;
   const booted = typeof sessionStorage !== 'undefined' && sessionStorage.getItem('jy_booted');
-  const [view, setView] = React.useState({ state: 'hub' });
+  // restore the view from the URL hash on load, so deep links land on content
+  const initialView = hashToView(CATEGORIES);
+  const deepLinked = initialView.state !== 'hub';
+  const [view, setView] = React.useState(initialView);
   const [preloaded, setPreloaded] = React.useState(!!booted); // skip preloader on return visits
-  const [intro, setIntro] = React.useState(!booted);
+  const [intro, setIntro] = React.useState(!booted && !deepLinked); // a deep link skips the intro cinematic
   const [shown, setShown] = React.useState(true);
   const [tint, setTint] = React.useState(null);
   const [zoom, setZoom] = React.useState('in');
@@ -191,6 +227,48 @@ function App() {
     setShown(false);
     setTimeout(() => { setView(next); setShown(true); }, 340);
   };
+
+  // ----- URL <-> view sync (deep linking) -----------------------------------
+  // viewRef gives the hashchange handler the current view without re-binding;
+  // syncingFromUrl prevents a back/forward navigation from pushing a duplicate
+  // history entry; didMount normalizes the very first URL without growing history.
+  const viewRef = React.useRef(view);
+  const syncingFromUrl = React.useRef(false);
+  const didMount = React.useRef(false);
+  React.useEffect(() => { viewRef.current = view; }, [view]);
+
+  // set the ambient accent immediately for a deep-linked category/project
+  React.useEffect(() => {
+    if (deepLinked) setTint(window.accentOf(view.cat.accent));
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // mirror the active view into the hash (pushState/replaceState never fire
+  // hashchange, so this can't loop with the listener below)
+  React.useEffect(() => {
+    const h = viewToHash(view);
+    if (!didMount.current) {
+      didMount.current = true;
+      // normalize an existing hash (e.g. stale id) but leave a clean hub URL clean
+      if (window.location.hash && window.location.hash !== h) history.replaceState(null, '', h);
+      return;
+    }
+    if (syncingFromUrl.current) { syncingFromUrl.current = false; return; }
+    if (window.location.hash !== h) history.pushState(null, '', h);
+  }, [view]);
+
+  // react to back/forward and manual hash edits
+  React.useEffect(() => {
+    const onHash = () => {
+      const next = hashToView(CATEGORIES);
+      if (viewToHash(next) === viewToHash(viewRef.current)) return; // already there
+      syncingFromUrl.current = true; // URL is correct; don't re-push it
+      setIntro(false); // never trap a back-navigation behind the intro
+      setTint(next.state === 'hub' ? null : window.accentOf(next.cat.accent));
+      navigate(next, viewDepth(next) < viewDepth(viewRef.current) ? 'out' : 'in');
+    };
+    window.addEventListener('hashchange', onHash);
+    return () => window.removeEventListener('hashchange', onHash);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const finishIntro = () => {
     if (typeof sessionStorage !== 'undefined') sessionStorage.setItem('jy_booted', '1');

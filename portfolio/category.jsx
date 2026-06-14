@@ -52,6 +52,49 @@ function Block({ block, accent }) {
   }
 }
 
+/* ---------- copy-link affordance ----------
+   The current project is already reflected in the URL hash (see app.jsx deep
+   linking), so sharing is just copying window.location.href. Falls back to a
+   hidden-textarea + execCommand on browsers without the async clipboard API. */
+function CopyLinkButton({ accent }) {
+  const [copied, setCopied] = React.useState(false);
+  const timer = React.useRef(null);
+  React.useEffect(() => () => clearTimeout(timer.current), []);
+
+  const copy = async () => {
+    const url = window.location.href;
+    try {
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(url);
+      } else {
+        const ta = document.createElement('textarea');
+        ta.value = url; ta.style.position = 'fixed'; ta.style.opacity = '0';
+        document.body.appendChild(ta); ta.select();
+        document.execCommand('copy'); document.body.removeChild(ta);
+      }
+      setCopied(true);
+      clearTimeout(timer.current);
+      timer.current = setTimeout(() => setCopied(false), 1800);
+    } catch (e) { /* clipboard blocked — silently ignore */ }
+  };
+
+  return (
+    <button onClick={copy} title="Copy link to this project"
+      className="font-mono inline-flex items-center gap-1.5 px-2 py-0.5"
+      style={{
+        fontSize: 9.5, letterSpacing: '0.16em', textTransform: 'uppercase',
+        color: copied ? accent : 'var(--fg-faint)',
+        border: `1px solid ${copied ? accent : 'var(--line-strong)'}`,
+        background: 'transparent', cursor: 'pointer', transition: 'color .25s, border-color .25s',
+      }}
+      onMouseEnter={(e) => { if (!copied) e.currentTarget.style.color = 'var(--fg)'; }}
+      onMouseLeave={(e) => { if (!copied) e.currentTarget.style.color = 'var(--fg-faint)'; }}>
+      <__Icon name={copied ? 'check' : 'link'} size={11} />
+      {copied ? 'Copied' : 'Copy Link'}
+    </button>
+  );
+}
+
 /* ---------- PROJECT DEEP-DIVE ---------- */
 function ProjectView({ cat, project, onBack }) {
   const accent = __accentOf(cat.accent);
@@ -97,6 +140,7 @@ function ProjectView({ cat, project, onBack }) {
             <span className="font-mono" style={{ fontSize: 11, letterSpacing: '0.22em', color: accent }}>{cat.index} / {cat.tagline}</span>
             <span style={{ height: 1, width: 40, background: 'var(--line-strong)' }} />
             {project.status && <span className="font-mono px-2 py-0.5" style={{ fontSize: 9.5, letterSpacing: '0.16em', textTransform: 'uppercase', color: accent, border: `1px solid ${accent}55` }}>{project.status}</span>}
+            <CopyLinkButton accent={accent} />
           </div>
           <h1 className="font-display" style={{ fontSize: 'clamp(40px, 7vw, 84px)', fontWeight: 700, lineHeight: 0.92, textTransform: 'uppercase', letterSpacing: '-0.01em' }}>{project.title}</h1>
           <div className="font-mono mt-2" style={{ fontSize: 13, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'var(--fg-faint)' }}>{project.tag}</div>
