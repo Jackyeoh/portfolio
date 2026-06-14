@@ -140,6 +140,53 @@
           ],
         },
         {
+          id: 'gd-null',
+          title: 'Null://Protocol',
+          tag: 'Grid-Based Programming Roguelike',
+          status: 'Case Study',
+          meta: [
+            { label: 'Role', value: 'Solo Designer' },
+            { label: 'Genre', value: 'Programming Roguelike' },
+            { label: 'Focus', value: 'Iterative Systems Design' },
+            { label: 'Status', value: 'Case Study' },
+          ],
+          sections: [
+            {
+              heading: 'Iterative systems design',
+              blocks: [
+                { kind: 'lead', text: 'Fixing power curves and combat depth in a grid-based roguelike. A case study in iterating a system from a mathematically flawed grid into a dynamic buildcrafting sandbox.' },
+                { kind: 'para', text: 'I designed a grid-based programming roguelike where players build combat sequences by placing functional "programs" on a board. Execution chains originate from timer modules and propagate sequentially to adjacent nodes, allowing players to build massive execution trees.' },
+              ],
+            },
+            {
+              heading: 'Phase 1 — The routing architecture problem (V1 → V2)',
+              blocks: [
+                { kind: 'para', text: 'In V1, execution flowed linearly. Changing direction required placing "route" modules that took up physical grid slots, creating overlapping "cones of inefficiency" on the board. Worse, the math incentivized players to hoard modules rather than merge them, resulting in a flat, logarithmic power curve.' },
+                { kind: 'para', text: 'The V2 refactor decoupled routing from the grid, converting routes into freely rotatable "modifiers" overlaid directly onto base modules. This restored the exponential power curve, allowed 100% board utilization, and ensured every physical slot provided concrete combat value.' },
+              ],
+            },
+            {
+              heading: 'Phase 2 — Solving "solitaire" combat & progression (V2 → V3)',
+              blocks: [
+                { kind: 'para', text: 'While V2 fixed the math, playtesting revealed the combat felt like "solitaire." Players were just spamming attacks without reacting to enemies, and the "merge to level up" mechanic felt boring because it only offered flat numerical upgrades (+Power).' },
+                { kind: 'para', text: 'The V3 refactor overhauled the progression and enemy interaction loops to introduce deep buildcrafting and spatial puzzles:' },
+                { kind: 'list', items: [
+                  'Socketable Modifiers: Base nodes became "Programs" with 5 empty mod slots. Instead of merging for flat stats, players earned and socketed mechanical mods (e.g. "+Power", or "−Power but executes twice"), consolidating power from a sprawling board of weak modules into a few highly customizable, synergistic programs.',
+                  'Spatial Memory Mechanics: The execution chain became an orb that "remembered" the geometric shape of its last 3 movements. Enemies interact with these shapes—taking bonus damage or having attacks interrupted when the chain forms a specific pattern—turning every encounter into a dynamic puzzle.',
+                  'Targeting & Board State: I reintroduced routing and added "Port" programs, letting players direct specific execution outputs to specific enemies. Enemies could counter-play by blocking random grid spaces.',
+                  'Active Execution Phase: To maintain engagement during the automated execution phase without making it a twitch-action game, I added light APM mechanics—players actively click to break enemy barriers or unfreeze disabled nodes while the chain runs.',
+                ] },
+              ],
+            },
+            {
+              heading: 'The outcome',
+              blocks: [
+                { kind: 'para', text: 'Through three major iterations, the system evolved from a rigid, mathematically flawed grid into a highly dynamic buildcrafting sandbox. The final V3 architecture merged the deep customization of ARPG socket systems with spatial puzzle combat, creating a deeply engaging and replayable core loop.' },
+              ],
+            },
+          ],
+        },
+        {
           id: 'gd-nda',
           title: 'Unannounced Live-Service Title',
           tag: 'Core Gameplay Design',
