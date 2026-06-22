@@ -214,11 +214,13 @@ function Dossier({ contact, aiNote, ready, fromBoot }) {
         <div className="flex flex-col gap-1.5 mt-3.5 pt-3" style={{ borderTop: '1px solid var(--line)' }}>
           <a href={`mailto:${contact.email}`} className="flex items-center gap-2.5 group" style={{ color: 'var(--fg-dim)' }}>
             <_Icon name="mail" size={13} style={{ color: 'var(--fg-faint)' }} />
-            <span className="font-mono group-hover:text-[var(--amber)]" style={{ fontSize: 11, letterSpacing: '0.06em', transition: 'color .2s' }}>{contact.email}</span>
+            {/* Latin-only mono stack: keeps ASCII symbols (e.g. "@") in Space Mono
+                instead of a CJK fallback glyph that breaks the monospace rhythm */}
+            <span className="group-hover:text-[var(--amber)]" style={{ fontFamily: "'Space Mono', ui-monospace, monospace", fontSize: 11, letterSpacing: '0.06em', transition: 'color .2s' }}>{contact.email}</span>
           </a>
           <a href={contact.linkedin} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2.5 group" style={{ color: 'var(--fg-dim)' }}>
             <_Icon name="link" size={13} style={{ color: 'var(--fg-faint)' }} />
-            <span className="font-mono group-hover:text-[var(--amber)]" style={{ fontSize: 11, letterSpacing: '0.06em', transition: 'color .2s' }}>{contact.linkedinLabel}</span>
+            <span className="group-hover:text-[var(--amber)]" style={{ fontFamily: "'Space Mono', ui-monospace, monospace", fontSize: 11, letterSpacing: '0.06em', transition: 'color .2s' }}>{contact.linkedinLabel}</span>
             <_Icon name="arrowOut" size={10} style={{ color: 'var(--fg-faint)' }} />
           </a>
         </div>
