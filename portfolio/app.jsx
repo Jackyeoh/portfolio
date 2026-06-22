@@ -4,7 +4,7 @@
    First visit plays IntroCinematic overlay; Hub is always mounted underneath
    so the avatar is visible through the intro. Nav/dossier gate on `active`.
    ========================================================================= */
-const { Hub: _Hub, IntroCinematic: _Intro, CategoryView: _CatView, ProjectView: _ProjView, Icon: _Ic, sysVersion: _sv } = window;
+const { Hub: _Hub, IntroCinematic: _Intro, CategoryView: _CatView, ProjectView: _ProjView, Icon: _Ic, sysVersion: _sv, LangContext: _LangContext, useLang: _useLang } = window;
 // NOTE: window.PORTFOLIO is read lazily inside App (not at top level)
 // so it's always defined by the time React renders, regardless of script load order.
 
@@ -42,7 +42,9 @@ function viewDepth(view) {
 }
 
 function TopBar({ state, onHome, onReboot, onCredits, motion, onMotion, contact }) {
+  const { lang, setLang, ui } = _useLang();
   const show = state !== 'boot';
+  const otherLang = lang === 'en' ? 'zh' : 'en';
   return (
     <div className="absolute top-0 left-0 w-full z-50 flex justify-between items-center px-5 md:px-8 py-4"
       style={{
@@ -62,9 +64,18 @@ function TopBar({ state, onHome, onReboot, onCredits, motion, onMotion, contact 
       </button>
 
       <div className="flex items-center gap-1.5">
+        {/* language toggle — shows the language you'd switch TO */}
+        <button onClick={() => setLang(otherLang)} title={ui('langSwitch')}
+          className="font-mono px-2.5 h-7 flex items-center gap-1.5"
+          style={{ fontSize: 9.5, letterSpacing: '0.16em', color: 'var(--amber)', border: '1px solid var(--line)' }}
+          onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'var(--line-strong)'; }}
+          onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'var(--line)'; }}>
+          <_Ic name="globe" size={12} style={{ color: 'var(--amber)' }} />
+          {window.I18N.TOGGLE_LABEL[lang]}
+        </button>
         {[
-          { label: motion ? 'Motion: On' : 'Motion: Off', fn: onMotion },
-          { label: 'Credits', fn: onCredits },
+          { label: motion ? ui('motionOn') : ui('motionOff'), fn: onMotion },
+          { label: ui('credits'), fn: onCredits },
         ].map((b, i) => (
           <button key={i} onClick={b.fn} className="font-mono px-2.5 h-7 flex items-center"
             style={{ fontSize: 9, letterSpacing: '0.16em', textTransform: 'uppercase', color: 'var(--fg-faint)', border: '1px solid var(--line)' }}
@@ -73,7 +84,7 @@ function TopBar({ state, onHome, onReboot, onCredits, motion, onMotion, contact 
             {b.label}
           </button>
         ))}
-        <button onClick={onReboot} title="Reboot" className="grid place-items-center h-7 w-7" style={{ color: 'var(--fg-faint)', border: '1px solid var(--line)' }}
+        <button onClick={onReboot} title={ui('reboot')} className="grid place-items-center h-7 w-7" style={{ color: 'var(--fg-faint)', border: '1px solid var(--line)' }}
           onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--amber)'; e.currentTarget.style.borderColor = 'var(--line-strong)'; }}
           onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--fg-faint)'; e.currentTarget.style.borderColor = 'var(--line)'; }}>
           <_Ic name="reboot" size={13} />
@@ -84,24 +95,25 @@ function TopBar({ state, onHome, onReboot, onCredits, motion, onMotion, contact 
 }
 
 function CreditsModal({ onClose, credits }) {
+  const { ui } = _useLang();
   return (
     <div className="absolute inset-0 z-[200] grid place-items-center px-5" style={{ background: 'rgba(6,5,4,0.74)', backdropFilter: 'blur(4px)' }} onClick={onClose}>
       <div className="relative w-full p-7" style={{ maxWidth: 460, background: 'var(--surface)', border: '1px solid var(--line-strong)' }} onClick={(e) => e.stopPropagation()}>
-        <div className="mono-label mb-1.5" style={{ color: 'var(--amber)' }}>// Colophon</div>
-        <h2 className="font-display mb-5" style={{ fontSize: 26, fontWeight: 700, textTransform: 'uppercase' }}>Credits</h2>
+        <div className="mono-label mb-1.5" style={{ color: 'var(--amber)' }}>{ui('colophon')}</div>
+        <h2 className="font-display mb-5" style={{ fontSize: 26, fontWeight: 700, textTransform: 'uppercase' }}>{ui('creditsTitle')}</h2>
         <div className="flex flex-col gap-4">
           <div>
-            <div className="mono-label mb-1.5">Music</div>
+            <div className="mono-label mb-1.5">{ui('music')}</div>
             <div className="font-mono" style={{ fontSize: 11.5, color: 'var(--fg-dim)' }}>{credits.music}</div>
           </div>
           <div>
-            <div className="mono-label mb-1.5">Sound Effects</div>
+            <div className="mono-label mb-1.5">{ui('sfx')}</div>
             <div className="flex flex-col gap-1">
               {credits.sfx.map((s, i) => <div key={i} className="font-mono" style={{ fontSize: 11.5, color: 'var(--fg-dim)' }}>{s}</div>)}
             </div>
           </div>
         </div>
-        <div className="mono-label mt-7 text-center" style={{ fontSize: 8.5 }}>tap anywhere to close</div>
+        <div className="mono-label mt-7 text-center" style={{ fontSize: 8.5 }}>{ui('tapClose')}</div>
       </div>
     </div>
   );
@@ -112,6 +124,7 @@ function CreditsModal({ onClose, credits }) {
    Skipped on return visits (sessionStorage already set / assets cached).
    ========================================================================= */
 function Preloader({ onReady }) {
+  const { ui } = _useLang();
   const [pct, setPct] = React.useState(0);
   const [fading, setFading] = React.useState(false);
   const countRef = React.useRef(0);
@@ -177,9 +190,9 @@ function Preloader({ onReady }) {
           fontFamily:'var(--font-display)', fontWeight:700, fontSize:22,
           letterSpacing:'0.02em', color:'var(--amber)',
         }}>JY</div>
-        <span style={{ fontFamily:'var(--font-mono)', fontSize:9, letterSpacing:'0.28em', textTransform:'uppercase', color:'var(--fg-faint)' }}>Initializing</span>
+        <span style={{ fontFamily:'var(--font-mono)', fontSize:9, letterSpacing:'0.28em', textTransform:'uppercase', color:'var(--fg-faint)' }}>{ui('initializing')}</span>
         <span style={{ fontFamily:'var(--font-mono)', fontSize:9, letterSpacing:'0.2em', color:'rgba(255,176,0,0.5)' }}>
-          {pct < 100 ? `${pct}%` : '// Ready'}
+          {pct < 100 ? `${pct}%` : ui('ready')}
         </span>
       </div>
     </div>
@@ -205,6 +218,18 @@ function App() {
   const [showCredits, setCredits] = React.useState(false);
   const [motion, setMotion] = React.useState(true);
   const [fromBoot, setFromBoot] = React.useState(false);
+
+  // --- language (en/zh): saved choice > browser default. Persist + reflect on <html>. ---
+  const [lang, setLang] = React.useState(() => window.I18N.detect());
+  React.useEffect(() => {
+    window.I18N.save(lang);
+    document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
+  }, [lang]);
+  const i18n = React.useMemo(() => ({
+    lang, setLang,
+    t: (v) => window.I18N.pick(v, lang),
+    ui: (k) => window.I18N.pick(window.I18N.UI[k], lang),
+  }), [lang]);
 
   // --- glow tint: debounce the clear so crossing between nodes never flashes to
   //     null, and keep the LAST color so a real leave fades intensity, not color ---
@@ -288,6 +313,7 @@ function App() {
   const glowPos = deep ? '16% 55%' : '72% 46%';
 
   return (
+    <_LangContext.Provider value={i18n}>
     <div className="relative w-full h-screen overflow-hidden" style={{ background: 'var(--bg)' }}>
       {/* ===== persistent ambient layer ===== */}
       <div className="absolute inset-0 pointer-events-none">
@@ -341,6 +367,7 @@ function App() {
 
       {showCredits && <CreditsModal onClose={() => setCredits(false)} credits={CREDITS} />}
     </div>
+    </_LangContext.Provider>
   );
 }
 

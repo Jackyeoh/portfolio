@@ -5,7 +5,7 @@
    - Core Competencies wrapper (Game Design + Game Dev) with breathing ring.
    - Support pair (Numerical + UI/UX) labelled clearly below.
    ========================================================================= */
-const { accentOf: _accentOf, Icon: _Icon, Corners: _Corners } = window;
+const { accentOf: _accentOf, Icon: _Icon, Corners: _Corners, useLang: _useLang } = window;
 
 /* ── image helpers: data-URI fallback → upgrade to real file silently ── */
 function SelfieImg() {
@@ -63,6 +63,7 @@ function AvatarImg() {
 
 /* ── one-sentence welcome thesis ── */
 function ThesisLine({ ready, fromBoot }) {
+  const { ui } = _useLang();
   const delay = fromBoot ? 0.5 : 0.3;
   return (
     <div style={{
@@ -78,14 +79,14 @@ function ThesisLine({ ready, fromBoot }) {
         fontFamily: 'var(--font-body)', fontSize: 15, lineHeight: 1.54,
         color: 'var(--fg-dim)', margin: 0,
       }}>
-        I design and build games — systems, code, balance, and the UX in between.
+        {ui('thesis')}
       </p>
       <span className="font-mono" style={{
         display: 'inline-block', marginTop: 8, fontSize: 9.5,
         letterSpacing: '0.24em', textTransform: 'uppercase',
         color: 'var(--amber)', opacity: 0.7,
       }}>
-        Pick a discipline to go deeper ↓
+        {ui('pickDiscipline')}
       </span>
     </div>
   );
@@ -93,6 +94,7 @@ function ThesisLine({ ready, fromBoot }) {
 
 /* ── breathing ring wrapper for the core competency pair ── */
 function CoreWrapper({ children, ready, delay = 0.8 }) {
+  const { ui } = _useLang();
   return (
     <div className="relative" style={{ paddingLeft: 8 }}>
       {/* corner brackets — precise Endfield operator-selection framing */}
@@ -128,7 +130,7 @@ function CoreWrapper({ children, ready, delay = 0.8 }) {
         transition: `opacity 0.5s var(--ease) ${delay + 0.15}s`,
         pointerEvents: 'none', whiteSpace: 'nowrap',
         animation: ready ? 'core-pulse-label 3.6s ease-in-out infinite' : 'none',
-      }}>Core Competencies</div>
+      }}>{ui('coreCompetencies')}</div>
 
       <div className="flex flex-col gap-7 md:gap-9" style={{ paddingTop: 6, paddingBottom: 6 }}>
         {children}
@@ -139,13 +141,15 @@ function CoreWrapper({ children, ready, delay = 0.8 }) {
 
 /* ── operator dossier card (bottom-left) ── */
 function AINote({ aiNote }) {
+  const { t, ui } = _useLang();
   const [open, setOpen] = React.useState(false);
+  const notes = t(aiNote) || [];
   return (
     <div style={{ background: 'rgba(16,14,10,0.82)', border: '1px solid var(--line)', backdropFilter: 'blur(14px)' }}>
       <button onClick={() => setOpen(o => !o)} className="w-full flex items-center justify-between px-4 py-3">
         <span className="mono-label flex items-center gap-2" style={{ letterSpacing: '0.24em' }}>
           <_Icon name="doc" size={12} style={{ color: 'var(--fg-faint)' }} />
-          Field_Note // On_AI
+          {ui('fieldNoteAI')}
         </span>
         <_Icon name="chevronDown" size={13} style={{
           color: 'var(--fg-faint)',
@@ -155,7 +159,7 @@ function AINote({ aiNote }) {
       </button>
       <div style={{ maxHeight: open ? 260 : 0, opacity: open ? 1 : 0, overflow: 'hidden', transition: 'all .4s var(--ease)' }}>
         <div className="px-4 pb-4 flex flex-col gap-2" style={{ borderTop: '1px solid var(--line)', paddingTop: 12 }}>
-          {aiNote.map((p, i) => (
+          {notes.map((p, i) => (
             <p key={i} className="font-mono" style={{ fontSize: 10.5, lineHeight: 1.65, color: 'var(--fg-dim)', borderLeft: '2px solid var(--line-strong)', paddingLeft: 10 }}>{p}</p>
           ))}
         </div>
@@ -165,6 +169,7 @@ function AINote({ aiNote }) {
 }
 
 function Dossier({ contact, aiNote, ready, fromBoot }) {
+  const { t, ui } = _useLang();
   // When arriving from boot, card is already at the corner — no slide-in needed.
   // Pulse the amber border briefly to confirm the "dock" landing.
   const [glowing, setGlowing] = React.useState(fromBoot);
@@ -194,16 +199,16 @@ function Dossier({ contact, aiNote, ready, fromBoot }) {
         <_Corners color="var(--amber)" size={8} inset={-1} />
         <div className="flex items-center gap-2 mb-3.5">
           <span style={{ width: 6, height: 6, background: 'var(--amber)', transform: 'rotate(45deg)' }} />
-          <span className="mono-label" style={{ color: 'var(--amber)', letterSpacing: '0.28em' }}>Operator // Profile</span>
+          <span className="mono-label" style={{ color: 'var(--amber)', letterSpacing: '0.28em' }}>{ui('operatorProfile')}</span>
         </div>
         <div className="flex gap-3.5 items-start">
           <SelfieImg />
           <div className="min-w-0 flex flex-col gap-2">
             <div>
               <h2 className="font-display" style={{ fontSize: 26, lineHeight: 0.92, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.01em' }}>{contact.name}</h2>
-              <div className="font-mono" style={{ fontSize: 9.5, letterSpacing: '0.2em', textTransform: 'uppercase', color: 'var(--amber)', marginTop: 3 }}>{contact.role}</div>
+              <div className="font-mono" style={{ fontSize: 9.5, letterSpacing: '0.2em', textTransform: 'uppercase', color: 'var(--amber)', marginTop: 3 }}>{t(contact.role)}</div>
             </div>
-            <p style={{ fontSize: 12.5, lineHeight: 1.5, color: 'var(--fg-dim)' }}>{contact.blurb}</p>
+            <p style={{ fontSize: 12.5, lineHeight: 1.5, color: 'var(--fg-dim)' }}>{t(contact.blurb)}</p>
           </div>
         </div>
         <div className="flex flex-col gap-1.5 mt-3.5 pt-3" style={{ borderTop: '1px solid var(--line)' }}>
@@ -225,6 +230,7 @@ function Dossier({ contact, aiNote, ready, fromBoot }) {
 
 /* ── single discipline node ── */
 function ConstNode({ cat, i, ready, onHover, onLeave, onSelect, isCore, delay = 0 }) {
+  const { t } = _useLang();
   const accent = _accentOf(cat.accent);
   const [hover, setHover] = React.useState(false);
   const arc = [70, 14, 14, 70][i] || 14;
@@ -260,13 +266,13 @@ function ConstNode({ cat, i, ready, onHover, onLeave, onSelect, isCore, delay = 
             whiteSpace: 'nowrap',
             color: hover ? 'var(--fg)' : (isCore ? 'var(--fg)' : 'var(--fg-dim)'),
             transition: 'color .25s',
-          }}>{cat.title}</span>
+          }}>{t(cat.title)}</span>
         </div>
         <span className="font-mono" style={{
           fontSize: 10.5, letterSpacing: '0.18em', textTransform: 'uppercase', marginTop: 4,
           color: hover ? accent : (isCore ? 'rgba(241,235,221,0.44)' : 'var(--fg-faint)'),
           transition: 'color .25s',
-        }}>{cat.tagline}</span>
+        }}>{t(cat.tagline)}</span>
       </div>
 
       {/* connector + diamond node */}
@@ -317,6 +323,7 @@ function MobileAvatarImg() {
 
 /* ── mobile discipline row ── */
 function MobileNode({ cat, isCore, onSelect, onTint }) {
+  const { t } = _useLang();
   const accent = _accentOf(cat.accent);
   const [hover, setHover] = React.useState(false);
   return (
@@ -332,11 +339,11 @@ function MobileNode({ cat, isCore, onSelect, onTint }) {
           textTransform: 'uppercase', letterSpacing: '-0.01em',
           color: hover ? 'var(--fg)' : (isCore ? 'var(--fg)' : 'var(--fg-dim)'),
           transition: 'color .2s',
-        }}>{cat.title}</div>
+        }}>{t(cat.title)}</div>
         <div className="font-mono mt-1" style={{
           fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase',
           color: hover ? accent : 'var(--fg-faint)', transition: 'color .2s',
-        }}>{cat.tagline}</div>
+        }}>{t(cat.tagline)}</div>
       </div>
       <div className="flex items-center gap-2.5 shrink-0 ml-4">
         <span className="font-mono" style={{ fontSize: 11, letterSpacing: '0.15em', color: 'var(--fg-faint)' }}>{cat.index}</span>
@@ -354,6 +361,7 @@ function MobileNode({ cat, isCore, onSelect, onTint }) {
 
 /* ── hub ── */
 function Hub({ contact, aiNote, categories, onSelect, onTint, fromBoot, active }) {
+  const { t, ui } = _useLang();
   const [mounted, setMounted] = React.useState(false);
   const [navReady, setNavReady] = React.useState(false);
   const [isMobile, setIsMobile] = React.useState(window.innerWidth < 768);
@@ -410,11 +418,11 @@ function Hub({ contact, aiNote, categories, onSelect, onTint, fromBoot, active }
         {/* discipline list — opaque, flows directly below avatar */}
         <div style={{ background: 'var(--bg)', opacity: ready ? 1 : 0, transition: 'opacity .5s var(--ease) .2s' }}>
           <div className="px-5 pt-4 pb-28">
-            <div className="mono-label text-center mb-5" style={{ letterSpacing:'0.3em' }}>Select Discipline — 04</div>
+            <div className="mono-label text-center mb-5" style={{ letterSpacing:'0.3em' }}>{ui('selectDiscipline')} — {String(categories.length).padStart(2, '0')}</div>
             <div className="mono-label flex items-center gap-3 mb-3"
               style={{ color:'var(--amber)', fontSize:8, letterSpacing:'0.22em' }}>
               <span style={{ height:1, flex:1, background:'rgba(255,176,0,0.2)' }} />
-              Core Competencies
+              {ui('coreCompetencies')}
               <span style={{ height:1, flex:1, background:'rgba(255,176,0,0.2)' }} />
             </div>
             {core.map((cat) => (
@@ -422,7 +430,7 @@ function Hub({ contact, aiNote, categories, onSelect, onTint, fromBoot, active }
             ))}
             <div className="mono-label flex items-center gap-3 my-4" style={{ fontSize:8, letterSpacing:'0.22em', opacity:0.5 }}>
               <span style={{ height:1, flex:1, background:'var(--line-strong)' }} />
-              Supporting Skills
+              {ui('supportingSkills')}
               <span style={{ height:1, flex:1, background:'var(--line-strong)' }} />
             </div>
             {support.map((cat) => (
@@ -437,7 +445,7 @@ function Hub({ contact, aiNote, categories, onSelect, onTint, fromBoot, active }
                    opacity: ready ? 1 : 0, transition: 'opacity .6s var(--ease) .6s' }}>
           <div className="flex flex-col">
             <span className="font-display" style={{ fontSize:16, fontWeight:700, textTransform:'uppercase', lineHeight:1 }}>{contact.name}</span>
-            <span className="font-mono" style={{ fontSize:9, letterSpacing:'0.18em', textTransform:'uppercase', color:'var(--amber)', marginTop:2 }}>{contact.role}</span>
+            <span className="font-mono" style={{ fontSize:9, letterSpacing:'0.18em', textTransform:'uppercase', color:'var(--amber)', marginTop:2 }}>{t(contact.role)}</span>
           </div>
           <div className="flex items-center gap-4">
             <a href={`mailto:${contact.email}`} style={{ color:'var(--fg-dim)', display:'grid', placeItems:'center' }}>
@@ -506,7 +514,7 @@ function Hub({ contact, aiNote, categories, onSelect, onTint, fromBoot, active }
         {/* section label */}
         <div className="text-right mb-5"
           style={{ opacity: ready ? 1 : 0, transition: `opacity .6s var(--ease) ${seq.label}s` }}>
-          <span className="mono-label" style={{ letterSpacing: '0.3em' }}>Select Discipline — 04</span>
+          <span className="mono-label" style={{ letterSpacing: '0.3em' }}>{ui('selectDiscipline')} — {String(categories.length).padStart(2, '0')}</span>
         </div>
 
         {/* CORE PAIR */}
@@ -523,7 +531,7 @@ function Hub({ contact, aiNote, categories, onSelect, onTint, fromBoot, active }
         {/* divider */}
         <div className="flex items-center justify-end gap-3 my-7"
           style={{ opacity: ready ? 0.45 : 0, transition: `opacity .6s var(--ease) ${seq.divider}s` }}>
-          <span className="mono-label" style={{ fontSize: 8.5 }}>Supporting skills</span>
+          <span className="mono-label" style={{ fontSize: 8.5 }}>{ui('supportingSkills')}</span>
           <span style={{ height: 1, width: 32, background: 'var(--line-strong)' }} />
         </div>
 

@@ -6,6 +6,7 @@
    underneath (avatar visible); this overlay is transparent in the center.
    ========================================================================= */
 function IntroCinematic({ onComplete, contact }) {
+  const { t, ui } = window.useLang();
   const DUR = [1700, 1500, 2900, 1600];
   const [waiting, setWaiting] = React.useState(true);
   const [stage, setStage] = React.useState(0);
@@ -94,7 +95,7 @@ function IntroCinematic({ onComplete, contact }) {
 
         {/* 0 — name */}
         <div style={beat(0)}>
-          <div className="mono-label" style={{ marginBottom: 14, letterSpacing: '0.5em', opacity: 0.7 }}>Portfolio</div>
+          <div className="mono-label" style={{ marginBottom: 14, letterSpacing: '0.5em', opacity: 0.7 }}>{ui('introKicker')}</div>
           <h1 className="font-display" style={{
             fontWeight: 700, fontSize: 'clamp(56px, 11vw, 150px)',
             lineHeight: 0.84, letterSpacing: '-0.01em', textTransform: 'uppercase',
@@ -111,7 +112,7 @@ function IntroCinematic({ onComplete, contact }) {
             <span className="font-mono" style={{
               fontSize: 'clamp(14px,1.8vw,20px)', letterSpacing: '0.3em',
               textTransform: 'uppercase', color: 'var(--fg)',
-            }}>{contact.role}</span>
+            }}>{t(contact.role)}</span>
             <span style={{ width: 7, height: 7, background: 'var(--amber)', transform: 'rotate(45deg)', flexShrink: 0 }} />
           </div>
         </div>
@@ -122,7 +123,7 @@ function IntroCinematic({ onComplete, contact }) {
             fontFamily: 'var(--font-body)', fontSize: 'clamp(20px,2.7vw,32px)',
             lineHeight: 1.4, color: 'var(--fg)', margin: 0, textWrap: 'balance',
           }}>
-            I design and build games — systems, code, balance, and the UX in between.
+            {ui('thesis')}
           </p>
           <div style={{
             height: 4, width: 120, margin: '22px auto 0',
@@ -138,7 +139,7 @@ function IntroCinematic({ onComplete, contact }) {
             fontSize: 'clamp(12px,1.4vw,15px)', letterSpacing: '0.26em',
             textTransform: 'uppercase', color: 'var(--amber)',
           }}>
-            Check out my core competencies
+            {ui('introCta')}
           </span>
         </div>
 
@@ -194,7 +195,7 @@ function IntroCinematic({ onComplete, contact }) {
           color: 'var(--amber)', textShadow: '0 0 24px rgba(255,176,0,0.5)',
         }}>
           <span style={{ width: 8, height: 8, background: 'var(--amber)', transform: 'rotate(45deg)', animation: 'blink 1.4s ease-in-out infinite', boxShadow: '0 0 8px rgba(255,176,0,0.7)', flexShrink: 0 }} />
-          Tap to begin
+          {ui('tapBegin')}
           <span style={{ width: 8, height: 8, background: 'var(--amber)', transform: 'rotate(45deg)', animation: 'blink 1.4s ease-in-out infinite .7s', boxShadow: '0 0 8px rgba(255,176,0,0.7)', flexShrink: 0 }} />
         </span>
       </div>

@@ -20,6 +20,7 @@ const ICONS = {
   mail: 'M3 6.5h18v11H3zM3 7l9 6 9-6',
   link: 'M9 15l6-6M8.5 8H6a3.5 3.5 0 000 7h2.5M15.5 16H18a3.5 3.5 0 000-7h-2.5',
   check: 'M5 13l4 4L19 7',
+  globe: 'M12 3a9 9 0 100 18 9 9 0 000-18zM3.5 12h17M12 3c2.6 2.7 2.6 15.3 0 18M12 3c-2.6 2.7-2.6 15.3 0 18',
   reboot: 'M3 12a9 9 0 109-9 9 9 0 00-6.4 2.7L3 8M3 4v4h4',
   close: 'M6 6l12 12M18 6L6 18',
   plus: 'M12 5v14M5 12h14',
@@ -150,6 +151,22 @@ function GhostButton({ children, onClick, accent = 'var(--amber)', className = '
   );
 }
 
+/* ---- i18n context ----
+   App provides { lang, setLang, t, ui }. Any component can localize via
+   window.useLang():
+     • t(value) — resolve a bilingual content value (string | {en,zh}) from data.js
+     • ui(key)  — resolve a UI chrome string by key from I18N.UI
+   The defaults below keep components working (English) even if rendered
+   outside a provider. */
+const LangContext = React.createContext({
+  lang: 'en',
+  setLang: () => {},
+  t: (v) => (window.I18N ? window.I18N.pick(v, 'en') : v),
+  ui: (k) => (window.I18N ? window.I18N.pick(window.I18N.UI[k], 'en') : ''),
+});
+const useLang = () => React.useContext(LangContext);
+
 Object.assign(window, {
   accentOf, ACCENT_VAR, Icon, ICONS, Diamond, Corners, Placeholder, sysVersion, GhostButton,
+  LangContext, useLang,
 });

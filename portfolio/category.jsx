@@ -7,19 +7,22 @@
    ========================================================================= */
 const {
   accentOf: __accentOf, Icon: __Icon, Placeholder: __PH, Corners: __Corners, GhostButton: __Ghost,
+  useLang: __useLang,
 } = window;
 
 /* ---------- block renderer ---------- */
 function Block({ block, accent }) {
+  const { t, ui } = __useLang();
   switch (block.kind) {
     case 'lead':
-      return <p style={{ fontSize: 17, lineHeight: 1.55, color: 'var(--fg)', fontWeight: 400 }}>{block.text}</p>;
+      return <p style={{ fontSize: 17, lineHeight: 1.55, color: 'var(--fg)', fontWeight: 400 }}>{t(block.text)}</p>;
     case 'para':
-      return <p style={{ fontSize: 14.5, lineHeight: 1.62, color: 'var(--fg-dim)' }}>{block.text}</p>;
+      return <p style={{ fontSize: 14.5, lineHeight: 1.62, color: 'var(--fg-dim)' }}>{t(block.text)}</p>;
     case 'list':
       return (
         <ul className="flex flex-col gap-2.5">
-          {block.items.map((item, i) => {
+          {block.items.map((rawItem, i) => {
+            const item = t(rawItem);
             const ci = item.indexOf(': ');
             const label = ci !== -1 ? item.slice(0, ci) : null;
             const body = ci !== -1 ? item.slice(ci + 2) : item;
@@ -43,8 +46,8 @@ function Block({ block, accent }) {
     case 'note':
       return (
         <div className="relative px-4 py-3" style={{ background: 'rgba(241,235,221,0.03)', borderLeft: `2px solid ${accent}` }}>
-          <div className="mono-label mb-1" style={{ color: accent, fontSize: 8.5 }}>Note</div>
-          <p style={{ fontSize: 13, lineHeight: 1.55, color: 'var(--fg-dim)' }}>{block.text}</p>
+          <div className="mono-label mb-1" style={{ color: accent, fontSize: 8.5 }}>{ui('note')}</div>
+          <p style={{ fontSize: 13, lineHeight: 1.55, color: 'var(--fg-dim)' }}>{t(block.text)}</p>
         </div>
       );
     default:
@@ -57,6 +60,7 @@ function Block({ block, accent }) {
    linking), so sharing is just copying window.location.href. Falls back to a
    hidden-textarea + execCommand on browsers without the async clipboard API. */
 function CopyLinkButton({ accent }) {
+  const { ui } = __useLang();
   const [copied, setCopied] = React.useState(false);
   const timer = React.useRef(null);
   React.useEffect(() => () => clearTimeout(timer.current), []);
@@ -90,13 +94,14 @@ function CopyLinkButton({ accent }) {
       onMouseEnter={(e) => { if (!copied) e.currentTarget.style.color = 'var(--fg)'; }}
       onMouseLeave={(e) => { if (!copied) e.currentTarget.style.color = 'var(--fg-faint)'; }}>
       <__Icon name={copied ? 'check' : 'link'} size={11} />
-      {copied ? 'Copied' : 'Copy Link'}
+      {copied ? ui('copied') : ui('copyLink')}
     </button>
   );
 }
 
 /* ---------- PROJECT DEEP-DIVE ---------- */
 function ProjectView({ cat, project, onBack }) {
+  const { t, ui } = __useLang();
   const accent = __accentOf(cat.accent);
   const [ready, setReady] = React.useState(false);
   React.useEffect(() => { const t = setTimeout(() => setReady(true), 30); return () => clearTimeout(t); }, []);
@@ -122,7 +127,7 @@ function ProjectView({ cat, project, onBack }) {
       <button onClick={onBack} className="mob-back-proj w-full" style={{ color: 'var(--fg-dim)' }}>
         <__Icon name="chevronLeft" size={13} />
         <span className="font-mono" style={{ fontSize: 10, letterSpacing: '0.2em', textTransform: 'uppercase' }}>
-          Return to{' '}<span style={{ animation: 'name-in .5s var(--ease) .35s both' }}>{cat.title}</span>
+          {ui('returnTo')}{' '}<span style={{ animation: 'name-in .5s var(--ease) .35s both' }}>{t(cat.title)}</span>
         </span>
       </button>
       <div className="mx-auto px-6 md:px-12 pt-6 md:pt-20 pb-28" style={{ maxWidth: 1000 }}>
@@ -130,20 +135,20 @@ function ProjectView({ cat, project, onBack }) {
         <button onClick={onBack} className="group hidden md:flex items-center gap-2 mb-10" style={{ color: 'var(--fg-dim)', ...reveal(0) }}>
           <__Icon name="chevronLeft" size={15} />
           <span className="font-mono" style={{ fontSize: 11, letterSpacing: '0.2em', textTransform: 'uppercase' }}>
-            Return to{' '}<span style={{ opacity: ready ? 1 : 0, transition: 'opacity .6s var(--ease) .35s', display: 'inline-block' }}>{cat.title}</span>
+            {ui('returnTo')}{' '}<span style={{ opacity: ready ? 1 : 0, transition: 'opacity .6s var(--ease) .35s', display: 'inline-block' }}>{t(cat.title)}</span>
           </span>
         </button>
 
         {/* header */}
         <div style={reveal(0.05)}>
           <div className="flex items-center gap-3 mb-3">
-            <span className="font-mono" style={{ fontSize: 11, letterSpacing: '0.22em', color: accent }}>{cat.index} / {cat.tagline}</span>
+            <span className="font-mono" style={{ fontSize: 11, letterSpacing: '0.22em', color: accent }}>{cat.index} / {t(cat.tagline)}</span>
             <span style={{ height: 1, width: 40, background: 'var(--line-strong)' }} />
-            {project.status && <span className="font-mono px-2 py-0.5" style={{ fontSize: 9.5, letterSpacing: '0.16em', textTransform: 'uppercase', color: accent, border: `1px solid ${accent}55` }}>{project.status}</span>}
+            {project.status && <span className="font-mono px-2 py-0.5" style={{ fontSize: 9.5, letterSpacing: '0.16em', textTransform: 'uppercase', color: accent, border: `1px solid ${accent}55` }}>{t(project.status)}</span>}
             <CopyLinkButton accent={accent} />
           </div>
-          <h1 className="font-display" style={{ fontSize: 'clamp(40px, 7vw, 84px)', fontWeight: 700, lineHeight: 0.92, textTransform: 'uppercase', letterSpacing: '-0.01em' }}>{project.title}</h1>
-          <div className="font-mono mt-2" style={{ fontSize: 13, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'var(--fg-faint)' }}>{project.tag}</div>
+          <h1 className="font-display" style={{ fontSize: 'clamp(40px, 7vw, 84px)', fontWeight: 700, lineHeight: 0.92, textTransform: 'uppercase', letterSpacing: '-0.01em' }}>{t(project.title)}</h1>
+          <div className="font-mono mt-2" style={{ fontSize: 13, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'var(--fg-faint)' }}>{t(project.tag)}</div>
         </div>
 
         {/* hero */}
@@ -156,8 +161,8 @@ function ProjectView({ cat, project, onBack }) {
         {/* context callout (numerical worksheets) */}
         {project.context && (
           <div className="mt-9 relative px-5 py-4" style={{ background: 'rgba(241,235,221,0.025)', border: '1px solid var(--line)', ...reveal(0.12) }}>
-            <div className="mono-label mb-1.5" style={{ color: accent }}>Context // Runic Rush</div>
-            <p style={{ fontSize: 13.5, lineHeight: 1.6, color: 'var(--fg-dim)' }}>{project.context}</p>
+            <div className="mono-label mb-1.5" style={{ color: accent }}>{ui('context')} // Runic Rush</div>
+            <p style={{ fontSize: 13.5, lineHeight: 1.6, color: 'var(--fg-dim)' }}>{t(project.context)}</p>
           </div>
         )}
 
@@ -170,7 +175,7 @@ function ProjectView({ cat, project, onBack }) {
               <section key={i} className="flex flex-col gap-4">
                 <h3 className="font-display flex items-center gap-3" style={{ fontSize: 22, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.01em', color: accent }}>
                   <span style={{ width: 7, height: 7, background: accent, transform: 'rotate(45deg)' }} />
-                  {sec.heading}
+                  {t(sec.heading)}
                 </h3>
                 {sec.blocks.map((b, j) => <Block key={j} block={b} accent={accent} />)}
               </section>
@@ -183,20 +188,20 @@ function ProjectView({ cat, project, onBack }) {
               <div className="relative" style={{ border: '1px solid var(--line)' }}>
                 <__Corners color={accent} size={8} inset={-1} />
                 <div className="px-4 py-2.5" style={{ borderBottom: '1px solid var(--line)' }}>
-                  <span className="mono-label" style={{ color: accent }}>Dossier</span>
+                  <span className="mono-label" style={{ color: accent }}>{ui('dossier')}</span>
                 </div>
                 <div className="flex flex-col">
                   {project.meta.map((m, i) => (
                     <div key={i} className="flex items-center justify-between px-4 py-2.5" style={{ borderBottom: i < project.meta.length - 1 ? '1px solid var(--line)' : 'none' }}>
-                      <span className="font-mono" style={{ fontSize: 10, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'var(--fg-faint)' }}>{m.label}</span>
-                      <span style={{ fontSize: 13, fontWeight: 600, color: 'var(--fg)' }}>{m.value}</span>
+                      <span className="font-mono" style={{ fontSize: 10, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'var(--fg-faint)' }}>{t(m.label)}</span>
+                      <span style={{ fontSize: 13, fontWeight: 600, color: 'var(--fg)' }}>{t(m.value)}</span>
                     </div>
                   ))}
                 </div>
               </div>
             )}
             {project.links && project.links.map((l, i) => (
-              <__Ghost key={i} as="a" href={l.url} accent={accent} className="justify-center" icon={<__Icon name="arrowOut" size={14} style={{ color: accent }} />}>{l.label}</__Ghost>
+              <__Ghost key={i} as="a" href={l.url} accent={accent} className="justify-center" icon={<__Icon name="arrowOut" size={14} style={{ color: accent }} />}>{t(l.label)}</__Ghost>
             ))}
           </aside>
         </div>
@@ -207,6 +212,7 @@ function ProjectView({ cat, project, onBack }) {
 
 /* ---------- CATEGORY (project index) ---------- */
 function CategoryRow({ project, i, accent, ready, onOpen }) {
+  const { t } = __useLang();
   const [hover, setHover] = React.useState(false);
   return (
     <button
@@ -226,10 +232,10 @@ function CategoryRow({ project, i, accent, ready, onOpen }) {
       <span style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: 2, background: accent, transform: `scaleY(${hover ? 1 : 0})`, transformOrigin: 'center', transition: 'transform .3s var(--ease)' }} />
       <span className="font-display shrink-0" style={{ fontSize: 'clamp(28px,3.4vw,42px)', fontWeight: 300, lineHeight: 1, color: hover ? accent : 'var(--fg-ghost)', width: 56, transition: 'color .25s' }}>{String(i + 1).padStart(2, '0')}</span>
       <div className="flex-1 min-w-0">
-        <div className="font-display" style={{ fontSize: 'clamp(22px,2.6vw,32px)', fontWeight: 600, lineHeight: 1.02, textTransform: 'uppercase', letterSpacing: '0.005em', color: hover ? 'var(--fg)' : 'var(--fg-dim)', transition: 'color .25s' }}>{project.title}</div>
+        <div className="font-display" style={{ fontSize: 'clamp(22px,2.6vw,32px)', fontWeight: 600, lineHeight: 1.02, textTransform: 'uppercase', letterSpacing: '0.005em', color: hover ? 'var(--fg)' : 'var(--fg-dim)', transition: 'color .25s' }}>{t(project.title)}</div>
         <div className="font-mono mt-1.5 flex items-center gap-3" style={{ fontSize: 10.5, letterSpacing: '0.16em', textTransform: 'uppercase', color: 'var(--fg-faint)' }}>
-          <span>{project.tag}</span>
-          {project.status && <span style={{ color: hover ? accent : 'var(--fg-faint)', transition: 'color .25s' }}>• {project.status}</span>}
+          <span>{t(project.tag)}</span>
+          {project.status && <span style={{ color: hover ? accent : 'var(--fg-faint)', transition: 'color .25s' }}>• {t(project.status)}</span>}
         </div>
       </div>
       <span className="shrink-0 grid place-items-center" style={{ width: 30, height: 30, border: `1px solid ${hover ? accent : 'var(--line-strong)'}`, transform: `rotate(45deg) translateX(${hover ? 0 : -2}px)`, transition: 'all .25s var(--ease)' }}>
@@ -242,9 +248,10 @@ function CategoryRow({ project, i, accent, ready, onOpen }) {
 }
 
 function CategoryView({ cat, onBack, onOpen }) {
+  const { t, ui } = __useLang();
   const accent = __accentOf(cat.accent);
   const [ready, setReady] = React.useState(false);
-  React.useEffect(() => { const t = setTimeout(() => setReady(true), 30); return () => clearTimeout(t); }, []);
+  React.useEffect(() => { const tm = setTimeout(() => setReady(true), 30); return () => clearTimeout(tm); }, []);
 
   const reveal = (d = 0) => ({ opacity: ready ? 1 : 0, transform: ready ? 'translateY(0)' : 'translateY(14px)', transition: `all .7s var(--ease) ${d}s` });
 
@@ -263,7 +270,7 @@ function CategoryView({ cat, onBack, onOpen }) {
       <button onClick={onBack} className="mob-back w-full" style={{ color: 'var(--fg-dim)' }}>
         <__Icon name="chevronLeft" size={13} />
         <span className="font-mono" style={{ fontSize: 10, letterSpacing: '0.2em', textTransform: 'uppercase' }}>
-          Return to{' '}<span style={{ animation: 'name-in .5s var(--ease) .35s both' }}>System</span>
+          {ui('returnTo')}{' '}<span style={{ animation: 'name-in .5s var(--ease) .35s both' }}>{ui('system')}</span>
         </span>
       </button>
       <div className="min-h-full grid items-center" style={{ gridTemplateColumns: '1fr', maxWidth: 1180, margin: '0 auto' }}>
@@ -273,21 +280,21 @@ function CategoryView({ cat, onBack, onOpen }) {
               <button onClick={onBack} className="group hidden md:flex items-center gap-2 mb-9 w-fit" style={{ color: 'var(--fg-dim)', ...reveal(0) }}>
                 <__Icon name="chevronLeft" size={15} />
                 <span className="font-mono" style={{ fontSize: 11, letterSpacing: '0.2em', textTransform: 'uppercase' }}>
-                  Return to{' '}<span style={{ opacity: ready ? 1 : 0, transition: 'opacity .6s var(--ease) .35s', display: 'inline-block' }}>System</span>
+                  {ui('returnTo')}{' '}<span style={{ opacity: ready ? 1 : 0, transition: 'opacity .6s var(--ease) .35s', display: 'inline-block' }}>{ui('system')}</span>
                 </span>
               </button>
 
-            <div className="font-mono mb-3" style={{ fontSize: 12, letterSpacing: '0.26em', color: accent, ...reveal(0.05) }}>DISCIPLINE {cat.index}</div>
-            <h1 className="font-display" style={{ fontSize: 'clamp(34px,4.2vw,64px)', fontWeight: 700, lineHeight: 0.92, textTransform: 'uppercase', letterSpacing: '-0.01em', wordBreak: 'break-word', ...reveal(0.08) }}>{cat.title}</h1>
-            <div className="font-mono mt-3" style={{ fontSize: 14, letterSpacing: '0.16em', textTransform: 'uppercase', color: 'var(--fg-dim)', ...reveal(0.12) }}>{cat.tagline}</div>
+            <div className="font-mono mb-3" style={{ fontSize: 12, letterSpacing: '0.26em', color: accent, ...reveal(0.05) }}>{ui('discipline')} {cat.index}</div>
+            <h1 className="font-display" style={{ fontSize: 'clamp(34px,4.2vw,64px)', fontWeight: 700, lineHeight: 0.92, textTransform: 'uppercase', letterSpacing: '-0.01em', wordBreak: 'break-word', ...reveal(0.08) }}>{t(cat.title)}</h1>
+            <div className="font-mono mt-3" style={{ fontSize: 14, letterSpacing: '0.16em', textTransform: 'uppercase', color: 'var(--fg-dim)', ...reveal(0.12) }}>{t(cat.tagline)}</div>
 
             <div className="mt-7 pt-7" style={{ borderTop: `1px solid var(--line)`, maxWidth: 360, ...reveal(0.16) }}>
-              <p style={{ fontSize: 14.5, lineHeight: 1.6, color: 'var(--fg-dim)' }}>{cat.summary}</p>
+              <p style={{ fontSize: 14.5, lineHeight: 1.6, color: 'var(--fg-dim)' }}>{t(cat.summary)}</p>
             </div>
 
             <div className="mt-7 font-mono flex items-center gap-2" style={{ fontSize: 10.5, letterSpacing: '0.2em', textTransform: 'uppercase', color: 'var(--fg-faint)', ...reveal(0.2) }}>
               <span style={{ width: 6, height: 6, background: accent, transform: 'rotate(45deg)' }} />
-              {cat.projects.length} {cat.projects.length === 1 ? 'Entry' : 'Entries'} — select to open
+              {cat.projects.length} {cat.projects.length === 1 ? ui('entry') : ui('entries')} — {ui('selectToOpen')}
             </div>
           </div>
 
@@ -300,8 +307,8 @@ function CategoryView({ cat, onBack, onOpen }) {
             <div className="flex items-center gap-5 md:gap-7 py-5 md:py-6" style={{ borderBottom: '1px solid var(--line)', opacity: ready ? 0.4 : 0, transition: `opacity .6s var(--ease) ${0.25 + cat.projects.length * 0.08}s` }}>
               <span className="font-display shrink-0" style={{ fontSize: 'clamp(28px,3.4vw,42px)', fontWeight: 300, color: 'var(--fg-ghost)', width: 56 }}>{String(cat.projects.length + 1).padStart(2, '0')}</span>
               <div className="flex-1">
-                <div className="font-display" style={{ fontSize: 'clamp(22px,2.6vw,32px)', fontWeight: 600, textTransform: 'uppercase', color: 'var(--fg-faint)' }}>More to come</div>
-                <div className="font-mono mt-1.5" style={{ fontSize: 10.5, letterSpacing: '0.16em', textTransform: 'uppercase', color: 'var(--fg-faint)' }}>Future updates</div>
+                <div className="font-display" style={{ fontSize: 'clamp(22px,2.6vw,32px)', fontWeight: 600, textTransform: 'uppercase', color: 'var(--fg-faint)' }}>{ui('moreToCome')}</div>
+                <div className="font-mono mt-1.5" style={{ fontSize: 10.5, letterSpacing: '0.16em', textTransform: 'uppercase', color: 'var(--fg-faint)' }}>{ui('futureUpdates')}</div>
               </div>
             </div>
           </div>
