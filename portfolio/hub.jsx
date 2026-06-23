@@ -205,7 +205,7 @@ function Dossier({ contact, aiNote, ready, fromBoot }) {
           <SelfieImg />
           <div className="min-w-0 flex flex-col gap-2">
             <div>
-              <h2 className="font-display" style={{ fontSize: 26, lineHeight: 0.92, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.01em' }}>{contact.name}</h2>
+              <h2 className="font-display" style={{ fontSize: 26, lineHeight: 0.92, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.01em' }}>{t(contact.name)}</h2>
               <div className="font-mono" style={{ fontSize: 9.5, letterSpacing: '0.2em', textTransform: 'uppercase', color: 'var(--amber)', marginTop: 3 }}>{t(contact.role)}</div>
             </div>
             <p style={{ fontSize: 12.5, lineHeight: 1.5, color: 'var(--fg-dim)' }}>{t(contact.blurb)}</p>
@@ -446,7 +446,7 @@ function Hub({ contact, aiNote, categories, onSelect, onTint, fromBoot, active }
           style={{ background:'rgba(12,11,8,0.95)', borderTop:'1px solid var(--line)', backdropFilter:'blur(12px)',
                    opacity: ready ? 1 : 0, transition: 'opacity .6s var(--ease) .6s' }}>
           <div className="flex flex-col">
-            <span className="font-display" style={{ fontSize:16, fontWeight:700, textTransform:'uppercase', lineHeight:1 }}>{contact.name}</span>
+            <span className="font-display" style={{ fontSize:16, fontWeight:700, textTransform:'uppercase', lineHeight:1 }}>{t(contact.name)}</span>
             <span className="font-mono" style={{ fontSize:9, letterSpacing:'0.18em', textTransform:'uppercase', color:'var(--amber)', marginTop:2 }}>{t(contact.role)}</span>
           </div>
           <div className="flex items-center gap-4">

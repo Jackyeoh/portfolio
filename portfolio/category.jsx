@@ -23,13 +23,20 @@ function Block({ block, accent }) {
         <ul className="flex flex-col gap-2.5">
           {block.items.map((rawItem, i) => {
             const item = t(rawItem);
-            const ci = item.indexOf(': ');
+            // Split "Label: body" into a bold label + body. Accept the ASCII
+            // ": " (English) and the fullwidth "：" (Chinese) separators, and
+            // preserve whichever was authored when rendering.
+            const a = item.indexOf(': ');
+            const f = item.indexOf('：');
+            let ci = -1, sepLen = 0, sep = '';
+            if (f !== -1 && (a === -1 || f < a)) { ci = f; sepLen = 1; sep = '：'; }
+            else if (a !== -1) { ci = a; sepLen = 2; sep = ': '; }
             const label = ci !== -1 ? item.slice(0, ci) : null;
-            const body = ci !== -1 ? item.slice(ci + 2) : item;
+            const body = ci !== -1 ? item.slice(ci + sepLen) : item;
             return (
               <li key={i} className="flex items-start gap-3" style={{ fontSize: 14, lineHeight: 1.55, color: 'var(--fg-dim)' }}>
                 <span style={{ width: 6, height: 6, marginTop: 7, flexShrink: 0, background: accent, transform: 'rotate(45deg)' }} />
-                <span>{label && <span style={{ color: 'var(--fg)', fontWeight: 600 }}>{label}: </span>}{body}</span>
+                <span>{label && <span style={{ color: 'var(--fg)', fontWeight: 600 }}>{label}{sep}</span>}{body}</span>
               </li>
             );
           })}

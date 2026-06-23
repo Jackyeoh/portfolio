@@ -29,11 +29,11 @@
   );
 
   const CONTACT = {
-    name: 'Jack Yeoh',
+    name: L('Jack Yeoh', '杨欣 (Jack Yeoh)'),
     role: L('Technical Game Designer', '技术向游戏设计师'),
     blurb: L(
-      'I find meaning in how things connect. To me, systems aren\'t just math—they\'re the invisible strings that create emotion. I obsess over the craft of every interaction, but always make time to step back, whether that\'s for a live game symphony or just navigating life with close friends.',
-      '我着迷于事物之间的连接方式。对我而言，系统不只是数值——它们是创造情感的无形丝线。我执着于打磨每一次交互的手感，但也始终留出抽身回望的时间，无论是去听一场现场游戏交响乐，还是与挚友一起品味生活。'
+      'I love exploring how mechanics interact with one another. To me, systems design is more than just spreadsheets and math—it forms the underlying skeleton of the game experience. I obsess over the micro-feel of game interactions and love crafting intense boss fights! But I also know when to take a breather, listen to game soundtracks, and hang out with close friends.',
+      '我热爱研究机制之间的交互作用。对我而言，系统设计不单纯只是“拉表”与算数——它们是游戏体验的底层骨架。我喜欢死磕游戏交互的微手感，和制作紧张刺激的boss战！但也懂得适时地喘口气，听听游戏音乐，与挚友闲聚'
     ),
     email: 'jackyeoh0808@gmail.com',
     linkedin: 'https://www.linkedin.com/in/yeoh-xin-16956878/',
@@ -547,20 +547,20 @@
               heading: L('Proactive interaction design', '主动式交互设计'),
               blocks: [
                 { kind: 'lead', text: L(
-                  'Bridged the gap between static design drafts and the final implementation across multiple projects.',
-                  '在多个项目中，弥合静态设计稿与最终实现之间的落差。'
+                  'Implemented dynamic interactions for static UI designs to elevate the overall user experience.',
+                  '为静态UI设计动态化以提升用户体验。'
                 ) },
                 { kind: 'para', text: L(
                   'Analyzed user journeys from initial mockups and implemented fixes to interaction feedback, UI timings, and visual hierarchy.',
-                  '从初始视觉稿分析用户旅程，并对交互反馈、UI 时序与视觉层级实施改进。'
+                  '基于早期视觉稿拆解用户行为路径（User Journey），并持续打磨交互反馈、UI 动效时序与视觉层级。'
                 ) },
                 { kind: 'list', items: [
                   L('Fidelity Upgrades: Converted static Figma frames into responsive, animated frontend components.',
-                    'Fidelity Upgrades: 把静态 Figma 帧转化为响应式、带动效的前端组件。'),
+                    '静态 UI 动态化：将 Figma 静态视觉稿转化为支持响应式与复杂动态的前端组件。'),
                   L('Flow Optimization: Streamlined navigation menus and reduced friction in combat HUDs.',
-                    'Flow Optimization: 精简导航菜单，降低战斗 HUD 的操作摩擦。'),
+                    '交互流优化：精简导航菜单层级，降低战斗 HUD 中的操作顿挫感（Friction）。'),
                   L('Game Feel: Improved action feedback through specific UI state changes and motion design.',
-                    'Game Feel: 通过具体的 UI 状态变化与动效设计提升动作反馈。'),
+                    '游戏手感（Game Feel）：通过细腻的 UI 状态切换与动态设计，大幅增强玩家的操作反馈体验。'),
                 ] },
               ],
             },
