@@ -25,15 +25,15 @@
   // shared context blurb reused across the numerical worksheets
   const RUNIC_CONTEXT = L(
     'Runic Rush — a roguelike built on 2048 mechanics. Swiping moves runes; matches merge into stronger runes. Every swipe ticks down enemy ability cooldowns, forcing tactical decisions.',
-    'Runic Rush —— 一款建立在 2048 机制之上的 Roguelike。滑动移动符文，相同符文合成更强的符文。每一次滑动都会递减敌人能力的冷却，迫使玩家做出战术取舍。'
+    'Runic Rush——一款建立在 2048 机制上的 Roguelike。滑动来移动符文，相同符文合并成更强的符文。每次滑动都会推进敌人技能的冷却倒计时，逼着玩家做出战术判断。'
   );
 
   const CONTACT = {
     name: L('Jack Yeoh', '杨欣 (Jack Yeoh)'),
-    role: L('Technical Game Designer', '技术向游戏设计师'),
+    role: L('Technical Game Designer', '技术策划'),
     blurb: L(
       'I love exploring how mechanics interact with one another. To me, systems design is more than just spreadsheets and math—it forms the underlying skeleton of the game experience. I obsess over the micro-feel of game interactions and love crafting intense boss fights! But I also know when to take a breather, listen to game soundtracks, and hang out with close friends.',
-      '我热爱研究机制之间的交互作用。对我而言，系统设计不单纯只是“拉表”与算数——它们是游戏体验的底层骨架。我喜欢死磕游戏交互的微手感，和制作紧张刺激的boss战！但也懂得适时地喘口气，听听游戏音乐，与挚友闲聚'
+      '我特别喜欢研究机制之间怎么互相影响。在我看来，系统设计不只是拉表和算数——它是整个游戏体验的底层骨架。我喜欢死磕游戏交互的微操手感，也爱设计紧张刺激的 Boss 战！但该歇的时候也懂得歇一歇，听听游戏 OST，跟好朋友聚聚。'
     ),
     email: 'jackyeoh0808@gmail.com',
     linkedin: 'https://www.linkedin.com/in/yeoh-xin-16956878/',
@@ -44,13 +44,13 @@
   const AI_NOTE = L(
     [
       'Yes — I use AI heavily to speed up coding and for rapid prototyping.',
-      'But the actual systems design, the tuning, and all the time spent iterating on mechanics—that’s all me.',
+      'But the actual systems design, the tuning, and all the time spent iterating on mechanics—that's all me.',
       'I prioritize gameplay over features. I build things because I care about the craft, and the logic and feel of what I ship stays authentically mine.',
     ],
     [
-      '是的——我大量使用 AI 来加速编码与快速原型设计。',
-      '但真正的系统设计、数值调校，以及在机制上反复迭代所花的所有时间——这些都出自我自己。',
-      '我把玩法置于功能之上。我做东西是因为在乎这门手艺，我交付的作品，其逻辑与手感始终是我本真的表达。',
+      '是的，我会大量用 AI 来提速写代码和快速跑通原型。',
+      '但核心系统设计、拉表调数值，还有反复打磨机制花的那些时间——这些都是我自己亲力亲为的，一点没少。',
+      '我始终把核心玩法放在第一位，而不是为了堆功能而开发。做游戏是因为真的喜欢这门手艺，所以最终交出去的东西，底层逻辑和微手感都是我自己的风格。',
     ]
   );
 
@@ -67,10 +67,10 @@
       title: L('Game Design', '游戏设计'),
       tagline: L('Systems & Loops', '系统与循环'),
       accent: 'game',
-      blurb: L('Solving problems through systems and emergent mechanics.', '以系统与涌现式机制解决问题。'),
+      blurb: L('Solving problems through systems and emergent mechanics.', '用系统设计和涌现性机制来解决问题。'),
       summary: L(
         'Designing core loops, progression curves, and enemy synergies from first principles. I build rulesets that encourage player expression, validated through playtesting.',
-        '从第一性原理出发，设计核心循环、成长曲线与敌人间的协同。我构建鼓励玩家自我表达的规则体系，并通过实机测试持续验证。'
+        '从第一性原理出发，设计核心循环、成长曲线和敌人间的协同联动。我搭建能让玩家自由发挥的规则体系，并通过实机测试不断验证迭代。'
       ),
       projects: [
         {
@@ -93,7 +93,7 @@
               blocks: [
                 { kind: 'lead', text: L(
                   'Short, strategic runs with structured boss fights. As a solo project, I handled all game design and programming.',
-                  '短促而充满策略的局内流程，配以精心编排的 Boss 战。作为个人项目，游戏设计与程序开发均由我独立完成。'
+                  '节奏紧凑、充满策略的局内流程，配上精心设计的 Boss 战。全程独立开发，游戏设计和程序都是我一个人搞定的。'
                 ) },
               ],
             },
@@ -102,7 +102,7 @@
               blocks: [
                 { kind: 'para', text: L(
                   'The core merge interaction took a few iterations to feel right. Originally, players dragged runes off the top of the board to attack and off the bottom to heal. This was too limiting, so I simplified it to a double-tap execution.',
-                  '核心的合成交互经过数轮迭代才达到理想手感。最初玩家需要把符文从棋盘顶部拖出来攻击、从底部拖出来治疗。这种方式限制太多，于是我将其简化为双击执行。'
+                  '核心的合成操作迭代了好几轮才找到手感。最初的设计是把符文从棋盘顶部拖出来攻击、从底部拖出来治疗，限制太死，于是改成了双击直接触发。'
                 ) },
                 { kind: 'image', label: 'assets/runic-rush-attack.gif', ratio: 'wide' },
               ],
@@ -112,11 +112,11 @@
               blocks: [
                 { kind: 'para', text: L(
                   'To save authoring time, enemies pull abilities from a shared pool. Normal enemies draw 2 abilities; elites draw 3. This created emergent, interesting puzzles.',
-                  '为节省内容制作时间，敌人从一个共享能力池中抽取技能。普通敌人抽取 2 个能力，精英抽取 3 个。这带来了涌现式的有趣谜题。'
+                  '为了节省内容制作时间，敌人的技能从一个公用的能力池里随机抽取。普通敌人抽 2 个，精英敌人抽 3 个，由此产生了很多意想不到的有趣组合。'
                 ) },
                 { kind: 'para', text: L(
                   'However, full RNG meant an enemy could pull 2 support abilities and 1 high-pressure attack, making runs unplayable. I implemented a strict rule: a maximum of 1 support ability per enemy, instantly fixing the combat balance.',
-                  '然而完全随机意味着一个敌人可能抽到 2 个辅助能力外加 1 个高压攻击，使局面无法进行。我加入了一条严格规则：每个敌人最多 1 个辅助能力，瞬间修复了战斗平衡。'
+                  '不过纯随机会出问题——一个敌人可能同时抽到 2 个辅助技能加 1 个高压进攻技能，这种组合基本无解。于是我加了一条死规则：每个敌人最多只能有 1 个辅助技能，战斗平衡立刻稳了。'
                 ) },
               ],
             },
@@ -125,13 +125,13 @@
               blocks: [
                 { kind: 'para', text: L(
                   'I built four major synergies into the boon pool to support different buildcrafting strategies:',
-                  '我在增益池中设计了四大协同方向，以支撑不同的 build 构筑策略：'
+                  '我在增益池里设计了四条核心联动方向，让玩家能走出不同的 Build 路线：'
                 ) },
                 { kind: 'list', items: [
                   L('Swarm vs Nuke: Generating many small runes vs. building a few high-level ones.',
-                    'Swarm vs Nuke: 生成大量小符文，还是堆叠少数高级符文。'),
+                    'Swarm vs Nuke：刷出大量小符文 vs. 集中堆几个高级大符文。'),
                   L('Sustain vs Leech: Standard healing vs. converting heals directly into damage output.',
-                    'Sustain vs Leech: 常规治疗，还是把治疗直接转化为输出。'),
+                    'Sustain vs Leech：常规回血 vs. 把回血量直接转化成伤害输出。'),
                 ] },
               ],
             },
@@ -140,11 +140,11 @@
               blocks: [
                 { kind: 'para', text: L(
                   'Hovering over a rune projects its exact damage or healing output, factoring in all active modifiers. The same preview system applies to enemy abilities to help players plan their turns.',
-                  '悬停在符文上会预测它精确的伤害或治疗数值，并计入所有生效的修正。同样的预览系统也适用于敌人能力，帮助玩家规划回合。'
+                  '鼠标悬停到符文上时，会预览计算好的精确伤害或回血数值，所有当前生效的加成都包含在内。敌人技能同样支持预览，方便玩家提前规划每一回合。'
                 ) },
                 { kind: 'note', text: L(
                   'Known issue: The preview system has minor bugs in the final build during boss fights. Flagged for a future patch.',
-                  '已知问题：最终版本中预览系统在 Boss 战时存在小幅 bug，已标记于后续补丁修复。'
+                  '已知问题：正式版本中，预览系统在 Boss 战期间存在小 bug，已记录，后续版本会修复。'
                 ) },
                 { kind: 'image', label: 'assets/runic-rush-preview.gif', ratio: 'wide' },
               ],
@@ -171,16 +171,16 @@
               blocks: [
                 { kind: 'lead', text: L(
                   'Built solo for Boss Rush Jam 2024. A 2-player co-op boss fight requiring tight coordination to handle mechanics designed to split the team up.',
-                  '为 Boss Rush Jam 2024 独立开发。一场双人合作 Boss 战，需要紧密配合来应对那些刻意拆散队伍的机制。'
+                  '独立参加 Boss Rush Jam 2024 做的作品。双人合作打 Boss，核心机制都是专门设计来把两个人拆开的，需要高度配合才能应对。'
                 ) },
               ],
             },
             {
-              heading: L('The exchange mechanic', '“交换”机制'),
+              heading: L('The exchange mechanic', '"交换"机制'),
               blocks: [
                 { kind: 'para', text: L(
                   'Designed around the jam theme "exchange." When a player drops a module, it becomes empowered for their partner, significantly buffing its effects. This rewards deliberate passing and turns mistakes into strategic opportunities.',
-                  '围绕 Jam 主题“交换”设计。当一名玩家放下某个模块时，它会为搭档强化，大幅提升效果。这鼓励有意识的传递，把失误转化为战术机会。'
+                  '围绕 Jam 主题「交换」设计。某个玩家放下模块后，它会对搭档产生强化效果。这样一来主动传递会有回报，就连失误也可能变成战术机会。'
                 ) },
               ],
             },
@@ -189,7 +189,7 @@
               blocks: [
                 { kind: 'para', text: L(
                   'Boss attack patterns demand different simultaneous roles. For example, during the map-wide wipe mechanic, one player must hold a shield while the other maintains long-range DPS, forcing active communication and role division.',
-                  'Boss 的攻击模式要求两人同时承担不同职责。例如在全屏清场机制中，一名玩家必须举盾，另一名维持远程输出，迫使玩家主动沟通、分工。'
+                  'Boss 的攻击模式要求两个人同时扮演不同角色。比如全屏清场机制触发时，一个人必须举盾顶住，另一个要维持远程输出，逼着你们主动喊话、分工。'
                 ) },
                 { kind: 'gallery', items: [
                   { label: 'assets/geometrite-0.png' }, { label: 'assets/geometrite-1.png' }, { label: 'assets/geometrite-2.png' },
@@ -200,27 +200,27 @@
         },
         {
           id: 'gd-nda',
-          title: L('Unannounced Live-Service Title', '未公开的长期运营项目'),
+          title: L('Unannounced Live-Service Title', '未公开的长线运营项目'),
           tag: L('Core Gameplay Design', '核心玩法设计'),
           status: L('In Development', '研发中'),
           meta: [
             { label: L('Role', '角色'), value: L('Gameplay Designer', '玩法设计师') },
-            { label: L('Official Title', '正式职称'), value: L('Game Programmer', '游戏程序') },
-            { label: L('Genre', '类型'), value: L('Live Service', '长期运营') },
+            { label: L('Official Title', '正式职称'), value: L('Game Programmer', '游戏程序员') },
+            { label: L('Genre', '类型'), value: L('Live Service', '长线运营') },
             { label: L('Status', '状态'), value: L('In Development', '研发中') },
             { label: L('Disclosure', '保密'), value: L('NDA Active', 'NDA 生效中') },
           ],
           sections: [
             {
-              heading: L('Under NDA', 'NDA 之下'),
+              heading: L('Under NDA', 'NDA 保密'),
               blocks: [
                 { kind: 'lead', text: L(
                   'Operating as a gameplay designer on an unannounced live-service title, despite my official title as a game programmer. I own core gameplay design responsibilities at the ground level.',
-                  '在一款未公开的长期运营项目中担任玩法设计师，尽管我的正式职称是游戏程序。我在最基层承担核心玩法设计职责。'
+                  '在一款尚未公开的长线运营项目中实际承担玩法设计师的职责，虽然我的正式职位是游戏程序员。从最基础的层面负责核心玩法设计。'
                 ) },
                 { kind: 'note', text: L(
                   'Active NDA restricts disclosing specific mechanics or project details.',
-                  '生效中的 NDA 限制披露具体机制或项目细节。'
+                  '受 NDA 约束，无法透露具体的机制或项目细节。'
                 ) },
               ],
             },
@@ -236,10 +236,10 @@
       title: L('Game Development', '游戏开发'),
       tagline: L('Engines & Code', '引擎与代码'),
       accent: 'dev',
-      blurb: L('Building the technical foundation—UE5, Unity, and full-stack web.', '构建技术地基——UE5、Unity 与全栈 Web。'),
+      blurb: L('Building the technical foundation—UE5, Unity, and full-stack web.', '搭建技术底座——UE5、Unity 与全栈 Web。'),
       summary: L(
         'Programming player controllers, custom ability frameworks, and full-stack architecture across Unreal Engine 5, Unity, and React.',
-        '编写玩家控制器、自定义能力框架，以及横跨 Unreal Engine 5、Unity 与 React 的全栈架构。'
+        '负责开发玩家控制器、自定义技能框架，以及横跨 Unreal Engine 5、Unity 与 React 的全栈架构。'
       ),
       projects: [
         {
@@ -260,7 +260,7 @@
               blocks: [
                 { kind: 'lead', text: L(
                   'An action roguelike built in Unreal Engine 5. I focused on programming the technical execution of the player experience.',
-                  '一款基于 Unreal Engine 5 的动作 Roguelike。我专注于用程序实现玩家体验的技术落地。'
+                  '一款基于 Unreal Engine 5 开发的动作 Roguelike。我的主要工作是用程序把玩家体验的设计意图落实到技术层面。'
                 ) },
               ],
             },
@@ -269,17 +269,17 @@
               blocks: [
                 { kind: 'para', text: L(
                   'My responsibilities ranged from low-level character logic to frontend UI integration:',
-                  '我的职责从底层角色逻辑一直延伸到前端 UI 集成：'
+                  '我的工作范围从底层角色逻辑一直延伸到前端 UI 对接：'
                 ) },
                 { kind: 'list', items: [
-                  L('Player Controller: Tuned movement logic and responsiveness to support the game’s fast-paced combat.',
-                    'Player Controller: 调校移动逻辑与响应手感，以支撑游戏的快节奏战斗。'),
+                  L('Player Controller: Tuned movement logic and responsiveness to support the game's fast-paced combat.',
+                    'Player Controller：调校移动逻辑和操作响应感，让手感能撑得住游戏的快节奏战斗。'),
                   L('Custom Ability System: Architected a flexible framework to handle complex ability modifiers and synergies.',
-                    'Custom Ability System: 设计灵活的框架，处理复杂的能力修正与协同。'),
+                    'Custom Ability System：搭建了一套灵活的技能框架，用来处理复杂的能力修正和技能联动。'),
                   L('UI Implementation: Programmed the data-rich HUD and translated aesthetic concepts into functional UI elements.',
-                    'UI Implementation: 编写信息密集的 HUD，并将美术概念转化为可用的 UI 元素。'),
+                    'UI Implementation：开发信息密度较高的 HUD，把美术设计稿转化为实际可用的 UI 组件。'),
                   L('Optimization: Profiled, triaged, and fixed a major performance bottleneck within the bullet system.',
-                    'Optimization: 对弹幕系统进行性能剖析、定位并修复了一处重大瓶颈。'),
+                    'Optimization：对子弹系统做了性能分析，定位并修复了一处严重的性能瓶颈。'),
                 ] },
               ],
             },
@@ -304,7 +304,7 @@
               blocks: [
                 { kind: 'lead', text: L(
                   'Led the technical development alongside two junior developers and an outsource team. Handled the R&D for the interactive world map.',
-                  '带领技术开发，协同两名初级开发者与一支外包团队，主导了交互式世界地图的研发。'
+                  '带领技术团队开发，成员包括两名初级开发和一支外包团队，负责交互式世界地图的技术预研和落地。'
                 ) },
               ],
             },
@@ -313,15 +313,15 @@
               blocks: [
                 { kind: 'list', items: [
                   L('R&D: Architected the map using React and Konva. Optimized rendering performance to handle high element density and animations.',
-                    'R&D: 用 React 与 Konva 搭建地图，优化渲染性能以承载高密度元素与动画。'),
+                    'R&D：用 React + Konva 搭建地图，优化渲染性能来承载大量元素和动画的同时运行。'),
                   L('Asset Pipeline: Defined technical requirements and coordinated the delivery pipeline with the art team.',
-                    'Asset Pipeline: 制定技术规范，与美术团队协调交付流程。'),
+                    'Asset Pipeline：制定技术规范，跟美术团队对齐资源交付流程。'),
                   L('Backend Integration: Implemented Firebase for real-time data handling and integration.',
-                    'Backend Integration: 接入 Firebase 实现实时数据处理与集成。'),
+                    'Backend Integration：接入 Firebase，实现实时数据处理和前后端联调。'),
                   L('Technical Leadership: Managed code reviews and unblocked team members on architectural roadblocks.',
-                    'Technical Leadership: 主持代码评审，帮助成员扫清架构障碍。'),
+                    'Technical Leadership：主导代码评审，帮助团队成员解决架构层面的阻塞问题。'),
                   L('CDN: Set up Cloudflare integration to optimize media load times.',
-                    'CDN: 配置 Cloudflare，优化媒体加载速度。'),
+                    'CDN：配置 Cloudflare 接入，优化媒体资源的加载速度。'),
                 ] },
               ],
             },
@@ -346,7 +346,7 @@
               blocks: [
                 { kind: 'lead', text: L(
                   'A card-based roguelike in Unity. I headed the development for the core game logic, path nodes, and the in-game gallery.',
-                  '一款基于卡牌的 Roguelike，使用 Unity 开发。我主导了核心游戏逻辑、路径节点与局内图鉴的开发。'
+                  '一款用 Unity 开发的卡牌 Roguelike。我负责主导核心游戏逻辑、路径节点以及局内图鉴系统的开发。'
                 ) },
               ],
             },
@@ -355,11 +355,11 @@
               blocks: [
                 { kind: 'list', items: [
                   L('Core Game Logic: Built the central gameplay loop and the underlying rules engine.',
-                    'Core Game Logic: 构建中枢玩法循环与底层规则引擎。'),
+                    'Core Game Logic：搭建核心玩法循环和底层规则引擎。'),
                   L('Map Systems: Designed and implemented the procedural map generation and path nodes.',
-                    'Map Systems: 设计并实现程序化地图生成与路径节点。'),
+                    'Map Systems：设计并实现程序化地图生成和路径节点系统。'),
                   L('Gallery System: Programmed the collectible card viewing interface.',
-                    'Gallery System: 编写可收集卡牌的查看界面。'),
+                    'Gallery System：开发收集卡牌的查看展示界面。'),
                 ] },
                 { kind: 'gallery', items: [
                   { label: 'assets/casino-conqueror-1.png' }, { label: 'assets/casino-conqueror-2.jpg' },
@@ -378,10 +378,10 @@
       title: L('Numerical Design', '数值设计'),
       tagline: L('Balance & Math', '平衡与数学'),
       accent: 'num',
-      blurb: L('Solving balance issues with math and metrics.', '用数学与指标解决平衡问题。'),
+      blurb: L('Solving balance issues with math and metrics.', '用数学和数据指标解决平衡性问题。'),
       summary: L(
         'Building spreadsheet models for skill distribution, scaling curves, and actual gameplay metrics. Tuning the math so the game feels right in playtests.',
-        '为技能分布、成长曲线与真实玩法指标建立电子表格模型。把数学调到位，让游戏在实测中“手感对了”。'
+        '针对技能分布、成长曲线和实际玩法数据建立表格模型，把数值调到位，让游戏在实测中真正有手感。'
       ),
       projects: [
         {
@@ -397,19 +397,19 @@
               blocks: [
                 { kind: 'para', text: L(
                   'The core problem was that players merge runes at varying efficiencies, meaning the mathematical baseline couldn\'t assume perfect play.',
-                  '核心问题在于玩家合成符文的效率参差不齐，意味着数学基线无法假设“完美操作”。'
+                  '核心难点在于玩家合成符文的效率差异很大，数学基线不能直接假设"完美操作"。'
                 ) },
                 { kind: 'para', text: L(
                   'So at first, I modeled expected player skill brackets to find the average moves-per-merge. Then, I established scaling curves for rune power versus enemy HP, and calculated the "Moves-to-Kill" (MTK) metric to balance the pacing.',
-                  '于是起初，我对预期的玩家水平分层建模，求出平均“每次合成所需步数”。随后建立符文强度与敌人 HP 的成长曲线，并计算“击杀步数”（MTK）指标来平衡节奏。'
+                  '所以一开始，我对玩家的预期水平做了分层建模，算出平均每次合成所需步数。然后建立符文强度对敌人 HP 的成长曲线，用"击杀步数"（MTK）这个指标来平衡整体节奏。'
                 ) },
                 { kind: 'para', text: L(
                   'But during playtesting, I discovered that purely random enemy ability loadouts mathematically broke the game—combinations like haste plus charge plus ravage were completely unsurvivable.',
-                  '但在测试中我发现，完全随机的敌人能力配装会在数学上击溃游戏——诸如急速 + 蓄力 + 蹂躏的组合根本无法生还。'
+                  '但测试时发现，敌人技能纯随机组合在数学上就会把游戏搞崩——比如急速 + 蓄力 + 蹂躏这种组合，玩家根本活不下去。'
                 ) },
                 { kind: 'para', text: L(
                   'To fix it, I hard-capped enemy generation to a strict rule: a maximum of 1 support ability and 2 standard abilities. This instantly stabilized the encounter balance.',
-                  '为修复它，我对敌人生成施加了严格上限：最多 1 个辅助能力与 2 个常规能力，瞬间稳定了遭遇战平衡。'
+                  '为了解决这个问题，给敌人生成加了一条硬性规则：最多 1 个辅助技能加 2 个普通技能。战斗平衡立竿见影地稳住了。'
                 ) },
               ],
             },
@@ -428,19 +428,19 @@
               blocks: [
                 { kind: 'para', text: L(
                   'The problem was pacing the run so the risk and reward felt consistent and fair throughout a procedural map.',
-                  '问题在于如何编排整段流程，让风险与回报在程序化地图中始终保持一致与公平。'
+                  '问题是如何把控整局的节奏，让风险和回报在程序化地图里始终保持合理和公平。'
                 ) },
                 { kind: 'para', text: L(
                   'At first, I defined the basic node archetypes—combat, elites, shops, and events—and mapped out exactly how much economic or power value each node should drop.',
-                  '起初，我定义了基础节点原型——战斗、精英、商店与事件——并精确规划每个节点应当掉落多少经济或强度价值。'
+                  '一开始先定义了基础的节点类型——战斗、精英、商店、事件，并精确规划了每种节点应该给出多少经济价值或强度收益。'
                 ) },
                 { kind: 'para', text: L(
                   'Then I discovered that purely random node distribution created massive difficulty spikes and dead zones in the player\'s economy.',
-                  '随后我发现，完全随机的节点分布会造成巨大的难度尖峰，以及玩家经济上的“死区”。'
+                  '然后发现纯随机的节点分布会导致难度剧烈波动，玩家的经济也会出现大段的"空窗期"。'
                 ) },
                 { kind: 'para', text: L(
                   'So I went back and manually balanced the procedural generation weights, hard-coding the distribution logic to maintain a structured tension-and-release loop.',
-                  '于是我回头手动平衡程序化生成的权重，将分布逻辑硬编码，以维持张弛有度的张力—释放循环。'
+                  '于是回头手动调整程序化生成的权重，把分布逻辑写死，维持有节奏感的张弛循环。'
                 ) },
               ],
             },
@@ -459,19 +459,19 @@
               blocks: [
                 { kind: 'para', text: L(
                   'The problem was building a set of boons that clearly supported the core synergies—Nuke, Swarm, Sustain, and Leech—without bloating the game.',
-                  '问题在于构建一组能清晰支撑核心协同——Nuke、Swarm、Sustain、Leech——又不会让游戏臃肿的增益。'
+                  '难点在于设计出一批能明确支撑核心联动方向——Nuke、Swarm、Sustain、Leech——又不会让内容变得臃肿的增益道具。'
                 ) },
                 { kind: 'para', text: L(
                   'At first, I designed a massive pool of items, working both top-down to fill mechanical gaps and bottom-up from cool emergent interactions.',
-                  '起初，我设计了一个庞大的道具池，既自上而下填补机制空缺，也自下而上挖掘有趣的涌现互动。'
+                  '一开始设计了一个很大的道具池，既自上而下填补机制缺口，也从底层有趣的联动效果出发往上推。'
                 ) },
                 { kind: 'para', text: L(
                   'But then I discovered the pool was far too diluted with minor buffs. It dragged the fast-paced 10-minute loop into a slog because players couldn\'t consistently finish their builds.',
-                  '但随后我发现池子被大量微小增益稀释了。它把原本明快的 10 分钟循环拖成了泥潭，玩家无法稳定地完成自己的 build。'
+                  '结果发现池子被大量小加成道具稀释了，把原本节奏明快的 10 分钟局给拖慢了——玩家很难稳定打出完整的 Build 路线。'
                 ) },
                 { kind: 'para', text: L(
                   'So I aggressively rescoped and pruned the pool. I tuned the RNG drop rates so a player sees the full pool across roughly three runs, locking in the math to keep runs short, punchy, and strategically dense.',
-                  '于是我大刀阔斧地重新界定范围、精简池子，并调校 RNG 掉落率，让玩家大约三局就能见到完整池子——把数学锁定，使每一局都简短、有力且充满策略密度。'
+                  '于是大刀阔斧地缩减并精简了池子，同时调整 RNG 掉落概率，让玩家大约三局就能把整个池子见一遍——从数学上保证每局都短促、有冲劲，策略密度也拉满。'
                 ) },
               ],
             },
@@ -487,19 +487,19 @@
       title: L('UI / UX', 'UI / UX'),
       tagline: L('Figma to Frontend', '从 Figma 到前端'),
       accent: 'ui',
-      blurb: L('Designing clean, functional interfaces.', '设计干净、好用的界面。'),
+      blurb: L('Designing clean, functional interfaces.', '做简洁、好用的界面设计。'),
       summary: L(
         'Handling end-to-end UI implementation—from gathering requirements and wiring up Figma prototypes to writing the frontend logic and adding motion polish.',
-        '负责端到端的 UI 落地——从收集需求、串联 Figma 原型，到编写前端逻辑并打磨动效。'
+        '负责 UI 从头到尾的落地——包括收集需求、串联 Figma 原型，到写前端逻辑、打磨动效细节。'
       ),
       projects: [
         {
           id: 'ui-meat',
           title: L('Meat Delivery Admin Portal', '生鲜配送管理后台'),
-          tag: L('Freelance UI/UX', '自由接案 UI/UX'),
+          tag: L('Freelance UI/UX', '自由职业 UI/UX'),
           status: L('Delivered', '已交付'),
           meta: [
-            { label: L('Type', '类型'), value: L('Freelance', '自由接案') },
+            { label: L('Type', '类型'), value: L('Freelance', '自由职业') },
             { label: L('Role', '角色'), value: L('UI/UX Designer', 'UI/UX 设计师') },
             { label: L('Tools', '工具'), value: 'Figma' },
             { label: L('Deliverable', '交付物'), value: L('Admin Portal UI', '管理后台 UI') },
@@ -511,7 +511,7 @@
               blocks: [
                 { kind: 'lead', text: L(
                   'Owned the end-to-end design for a meat-delivery admin portal as a freelance contractor, handling everything from initial requirements to the final Figma handoff.',
-                  '作为自由接案者，主导了一个生鲜配送管理后台的端到端设计，从最初的需求到最终的 Figma 交付一手包办。'
+                  '以自由职业者身份主导了一个生鲜配送管理后台的完整设计，从最初的需求梳理到最终的 Figma 交付，全程一手包办。'
                 ) },
               ],
             },
@@ -520,13 +520,13 @@
               blocks: [
                 { kind: 'list', items: [
                   L('Requirements Gathering: Worked with stakeholders to map out business logic and admin workflows.',
-                    'Requirements Gathering: 与相关方一起梳理业务逻辑与后台工作流。'),
+                    'Requirements Gathering：和相关方一起把业务逻辑与后台操作流程梳理清楚。'),
                   L('Journey Mapping: Documented the user flow for order management, inventory, and vendor oversight.',
-                    'Journey Mapping: 记录订单管理、库存与供应商管理的用户流程。'),
+                    'Journey Mapping：梳理并记录订单管理、库存管理和供应商管理的用户操作路径。'),
                   L('Wireframing: Built low-fidelity wireframes to lock in structure and navigation logic.',
-                    'Wireframing: 制作低保真线框，确定结构与导航逻辑。'),
+                    'Wireframing：制作低保真线框图，确定页面结构与导航逻辑。'),
                   L('UI Design: Delivered high-fidelity Figma screens focused on clean, data-heavy functionality.',
-                    'UI Design: 交付高保真 Figma 界面，聚焦干净、数据密集的功能性。'),
+                    'UI Design：交付高保真 Figma 界面，重点保持干净简洁、信息密度高的功能导向风格。'),
                 ] },
               ],
             },
@@ -536,9 +536,9 @@
           id: 'ui-initiative',
           title: L('UX Improvement Initiative', '用户体验改进计划'),
           tag: L('Interaction Design', '交互设计'),
-          status: L('Cross-Project', '跨项目'),
+          status: L('Cross-Project', '跨项目专项'),
           meta: [
-            { label: L('Type', '类型'), value: L('Cross-Project Initiative', '跨项目计划') },
+            { label: L('Type', '类型'), value: L('Cross-Project Initiative', '跨项目专项') },
             { label: L('Tools', '工具'), value: 'Figma / React / Framer' },
             { label: L('Focus', '重点'), value: L('UX Polish & Motion', 'UX 打磨与动效') },
           ],
@@ -548,19 +548,19 @@
               blocks: [
                 { kind: 'lead', text: L(
                   'Implemented dynamic interactions for static UI designs to elevate the overall user experience.',
-                  '为静态UI设计动态化以提升用户体验。'
+                  '主动给静态 UI 设计加上动态交互，整体提升用户体验。'
                 ) },
                 { kind: 'para', text: L(
                   'Analyzed user journeys from initial mockups and implemented fixes to interaction feedback, UI timings, and visual hierarchy.',
-                  '基于早期视觉稿拆解用户行为路径（User Journey），并持续打磨交互反馈、UI 动效时序与视觉层级。'
+                  '从早期视觉稿出发拆解用户操作路径，持续优化交互反馈、UI 动效时序和视觉层级关系。'
                 ) },
                 { kind: 'list', items: [
                   L('Fidelity Upgrades: Converted static Figma frames into responsive, animated frontend components.',
-                    '静态 UI 动态化：将 Figma 静态视觉稿转化为支持响应式与复杂动态的前端组件。'),
+                    '提升还原度：把 Figma 静态设计稿转化为支持响应式和复杂动效的前端组件。'),
                   L('Flow Optimization: Streamlined navigation menus and reduced friction in combat HUDs.',
-                    '交互流优化：精简导航菜单层级，降低战斗 HUD 中的操作顿挫感（Friction）。'),
+                    '流程优化：精简导航菜单层级，降低战斗 HUD 的操作卡顿感。'),
                   L('Game Feel: Improved action feedback through specific UI state changes and motion design.',
-                    '游戏手感（Game Feel）：通过细腻的 UI 状态切换与动态设计，大幅增强玩家的操作反馈体验。'),
+                    '游戏手感：通过精细的 UI 状态切换和动效设计，大幅强化玩家的操作反馈感。'),
                 ] },
               ],
             },
