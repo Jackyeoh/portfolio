@@ -44,7 +44,7 @@
   const AI_NOTE = L(
     [
       'Yes — I use AI heavily to speed up coding and for rapid prototyping.',
-      'But the actual systems design, the tuning, and all the time spent iterating on mechanics—that's all me.',
+      'But the actual systems design, the tuning, and all the time spent iterating on mechanics—that\'s all me.',
       'I prioritize gameplay over features. I build things because I care about the craft, and the logic and feel of what I ship stays authentically mine.',
     ],
     [
@@ -142,10 +142,6 @@
                   'Hovering over a rune projects its exact damage or healing output, factoring in all active modifiers. The same preview system applies to enemy abilities to help players plan their turns.',
                   '鼠标悬停到符文上时，会预览计算好的精确伤害或回血数值，所有当前生效的加成都包含在内。敌人技能同样支持预览，方便玩家提前规划每一回合。'
                 ) },
-                { kind: 'note', text: L(
-                  'Known issue: The preview system has minor bugs in the final build during boss fights. Flagged for a future patch.',
-                  '已知问题：正式版本中，预览系统在 Boss 战期间存在小 bug，已记录，后续版本会修复。'
-                ) },
                 { kind: 'image', label: 'assets/runic-rush-preview.gif', ratio: 'wide' },
               ],
             },
@@ -207,20 +203,44 @@
             { label: L('Role', '角色'), value: L('Gameplay Designer', '玩法设计师') },
             { label: L('Official Title', '正式职称'), value: L('Game Programmer', '游戏程序员') },
             { label: L('Genre', '类型'), value: L('Live Service', '长线运营') },
-            { label: L('Status', '状态'), value: L('In Development', '研发中') },
+            // TODO(jack): replace placeholders with real values you're comfortable disclosing
+            { label: L('Team Size', '团队规模'), value: L('[TEAM SIZE — e.g. ~20]', '[团队规模 — 如 ~20 人]') },
+            { label: L('Project Phase', '项目阶段'), value: L('[PHASE — e.g. Alpha]', '[阶段 — 如 Alpha]') },
             { label: L('Disclosure', '保密'), value: L('NDA Active', 'NDA 生效中') },
           ],
           sections: [
             {
-              heading: L('Under NDA', 'NDA 保密'),
+              heading: L('Owning gameplay design under a programmer title', '以程序员身份承担玩法设计'),
               blocks: [
                 { kind: 'lead', text: L(
-                  'Operating as a gameplay designer on an unannounced live-service title, despite my official title as a game programmer. I own core gameplay design responsibilities at the ground level.',
-                  '在一款尚未公开的长线运营项目中实际承担玩法设计师的职责，虽然我的正式职位是游戏程序员。从最基础的层面负责核心玩法设计。'
+                  'I operate as a gameplay designer on an unannounced live-service title while officially titled a game programmer. That dual position is my edge: I own core gameplay systems design at the ground level, and my engineering seat lets me prototype and validate those designs directly in-engine — closing the usual gap between a design doc and a shippable feature.',
+                  '我在一款尚未公开的长线运营项目中实际承担玩法设计师的职责，正式职位则是游戏程序员。这种双重身份正是我的优势：我从最底层负责核心玩法系统设计，而程序岗的位置让我能亲手在引擎里做原型、验证设计——把「设计文档」到「可上线功能」之间那道常见的鸿沟直接抹平。'
+                ) },
+              ],
+            },
+            {
+              heading: L('What I own', '我负责的部分'),
+              blocks: [
+                { kind: 'list', items: [
+                  L('Systems Design: Own gameplay systems end-to-end — from concept and GDD-framework documentation through to in-engine validation.',
+                    '系统设计：端到端负责玩法系统——从概念、GDD 框架文档，一直到引擎内的实机验证。'),
+                  L('Numerical Balance: Lead balance and tuning passes, iterating through repeated internal playtest reviews.',
+                    '数值平衡：主导平衡与调校，通过多轮内部实测复盘反复迭代。'),
+                  L('Design-to-Code: Translate design intent into buildable specs, then implement and iterate them myself as a programmer.',
+                    '设计落地：把设计意图转化为可实现的方案，再以程序员身份亲自实现并迭代。'),
+                ] },
+              ],
+            },
+            {
+              heading: L('How I work', '我的工作方式'),
+              blocks: [
+                { kind: 'para', text: L(
+                  'On a live-service team, design never ships in isolation. I drive features to the finish line across programming, art, and operations — aligning on scope, unblocking dependencies, and folding playtest and post-mortem feedback back into the next iteration.',
+                  '在长线运营团队里，设计从来不是单打独斗就能上线的。我推动功能跨程序、美术、运营各方落地到底——对齐范围、疏通依赖，并把实测和复盘的反馈重新收进下一轮迭代。'
                 ) },
                 { kind: 'note', text: L(
-                  'Active NDA restricts disclosing specific mechanics or project details.',
-                  '受 NDA 约束，无法透露具体的机制或项目细节。'
+                  'An active NDA prevents me from disclosing specific mechanics or project details — happy to discuss the design methodology in an interview.',
+                  '受 NDA 约束，我无法透露具体机制或项目细节——但很乐意在面试中详聊设计方法论。'
                 ) },
               ],
             },
@@ -272,7 +292,7 @@
                   '我的工作范围从底层角色逻辑一直延伸到前端 UI 对接：'
                 ) },
                 { kind: 'list', items: [
-                  L('Player Controller: Tuned movement logic and responsiveness to support the game's fast-paced combat.',
+                  L('Player Controller: Tuned movement logic and responsiveness to support the game\'s fast-paced combat.',
                     'Player Controller：调校移动逻辑和操作响应感，让手感能撑得住游戏的快节奏战斗。'),
                   L('Custom Ability System: Architected a flexible framework to handle complex ability modifiers and synergies.',
                     'Custom Ability System：搭建了一套灵活的技能框架，用来处理复杂的能力修正和技能联动。'),
@@ -280,48 +300,6 @@
                     'UI Implementation：开发信息密度较高的 HUD，把美术设计稿转化为实际可用的 UI 组件。'),
                   L('Optimization: Profiled, triaged, and fixed a major performance bottleneck within the bullet system.',
                     'Optimization：对子弹系统做了性能分析，定位并修复了一处严重的性能瓶颈。'),
-                ] },
-              ],
-            },
-          ],
-        },
-        {
-          id: 'dev-animara',
-          title: 'Animara World',
-          tag: L('React + Konva R&D', 'React + Konva 研发'),
-          status: L('Shipped', '已上线'),
-          hero: { label: 'assets/animara.png' },
-          meta: [
-            { label: L('Role', '角色'), value: L('Tech Lead', '技术负责人') },
-            { label: L('Tech', '技术'), value: 'React / Konva / Firebase' },
-            { label: L('Infra', '基础设施'), value: 'Cloudflare CDN' },
-            { label: L('Team', '团队'), value: L('2 Juniors + Outsource', '2 名初级 + 外包') },
-          ],
-          links: [{ label: L('Explore the World', '探索这个世界'), url: 'https://www.animara.world/animara' }],
-          sections: [
-            {
-              heading: L('A living world on the web', '网页上的活态世界'),
-              blocks: [
-                { kind: 'lead', text: L(
-                  'Led the technical development alongside two junior developers and an outsource team. Handled the R&D for the interactive world map.',
-                  '带领技术团队开发，成员包括两名初级开发和一支外包团队，负责交互式世界地图的技术预研和落地。'
-                ) },
-              ],
-            },
-            {
-              heading: L('Technical contributions', '技术贡献'),
-              blocks: [
-                { kind: 'list', items: [
-                  L('R&D: Architected the map using React and Konva. Optimized rendering performance to handle high element density and animations.',
-                    'R&D：用 React + Konva 搭建地图，优化渲染性能来承载大量元素和动画的同时运行。'),
-                  L('Asset Pipeline: Defined technical requirements and coordinated the delivery pipeline with the art team.',
-                    'Asset Pipeline：制定技术规范，跟美术团队对齐资源交付流程。'),
-                  L('Backend Integration: Implemented Firebase for real-time data handling and integration.',
-                    'Backend Integration：接入 Firebase，实现实时数据处理和前后端联调。'),
-                  L('Technical Leadership: Managed code reviews and unblocked team members on architectural roadblocks.',
-                    'Technical Leadership：主导代码评审，帮助团队成员解决架构层面的阻塞问题。'),
-                  L('CDN: Set up Cloudflare integration to optimize media load times.',
-                    'CDN：配置 Cloudflare 接入，优化媒体资源的加载速度。'),
                 ] },
               ],
             },
@@ -385,93 +363,110 @@
       ),
       projects: [
         {
-          id: 'num-scaling',
-          title: L('Case 01 — Enemy Scaling', '案例 01 — 敌人数值成长'),
-          tag: L('Moves-to-Kill Math', '击杀步数（MTK）数学'),
+          id: 'num-runic',
+          title: L('Case 01 — Runic Rush', '案例 01 — Runic Rush'),
+          tag: L('Scaling, Encounters & Boons', '数值成长、遭遇战与增益'),
           status: L('Worksheet', '工作表'),
           context: RUNIC_CONTEXT,
-          links: [{ label: L('View Live Worksheet', '查看在线工作表'), url: '#' }],
+          links: [{ label: L('View the Runic Rush Worksheet', '查看 Runic Rush 工作表'), url: 'https://docs.google.com/spreadsheets/d/17Jvu0me8yew0OHK90ydK1pv2RKo5evZk-QY6eTluJyk/edit?gid=1173070294#gid=1173070294' }],
           sections: [
             {
-              heading: L('My process', '我的流程'),
+              heading: L('Pacing fights with a Moves-to-Kill metric', '用「击杀步数」指标把控战斗节奏'),
+              blocks: [
+                { kind: 'lead', text: L(
+                  'Players merge runes at wildly different efficiencies, so the math baseline can\'t assume perfect play. I modeled player skill brackets to find the average moves-per-merge, then built rune-power-vs-enemy-HP scaling curves around a "Moves-to-Kill" (MTK) metric to pace every fight.',
+                  '玩家合成符文的效率差异极大，数学基线不能假设「完美操作」。我对玩家水平分层建模，算出平均每次合成的步数，再围绕「击杀步数」（MTK）指标建立符文强度对敌人 HP 的成长曲线，用它把控每场战斗的节奏。'
+                ) },
+                { kind: 'para', text: L(
+                  'Playtesting exposed that fully random enemy loadouts broke the math—combos like haste + charge + ravage were unsurvivable. A hard cap of 1 support and 2 standard abilities per enemy stabilized it instantly.',
+                  '实测暴露出纯随机的敌人技能组合会把数值搞崩——急速 + 蓄力 + 蹂躏这类组合根本无解。给每个敌人加一条「最多 1 个辅助 + 2 个普通技能」的硬上限，平衡立刻稳住。'
+                ) },
+              ],
+            },
+            {
+              heading: L('Structuring a 10-stage run', '把一局设计成 10 个关卡'),
+              blocks: [
+                { kind: 'lead', text: L(
+                  'I sized the run at 10 stages from a target playtime to hit a "short and concise" goal, with a forced tough fight at stage 5 as a miniboss beat that splits the run into two acts.',
+                  '为了「短小精悍」的目标，我从目标游玩时长反推，把一局定为 10 个关卡，并在第 5 关强制安排一场硬仗作为「小 Boss」节点，把整局切成前后两幕。'
+                ) },
+                { kind: 'para', text: L(
+                  'Enemy scaling then climbs steeply from stage 6 to 9 to separate early- from late-game feel. That curve does double duty: builds that can\'t keep pace wash out faster so the player restarts sooner, while reaching the final boss stays genuinely hard.',
+                  '敌人数值成长在第 6→9 关陡峭拉升，把「前期」和「后期」的手感区分开。这条曲线一举两得：跟不上的 Build 会更快出局，玩家更快重开；同时也让「打到最终 Boss」真正有难度。'
+                ) },
+              ],
+            },
+            {
+              heading: L('Risk-reward boons', '风险回报型增益'),
               blocks: [
                 { kind: 'para', text: L(
-                  'The core problem was that players merge runes at varying efficiencies, meaning the mathematical baseline couldn\'t assume perfect play.',
-                  '核心难点在于玩家合成符文的效率差异很大，数学基线不能直接假设"完美操作"。'
+                  'On top of that, I layered in boons that let players push their own luck:',
+                  '在此之上，我又叠了一批让玩家可以自己搏一把的增益：'
+                ) },
+                { kind: 'list', items: [
+                  L('Extra miniboss stage: opt into an additional miniboss encounter—clear it and earn outsized rewards.',
+                    '额外小 Boss 关：可以主动选择多打一场小 Boss——扛过去就能拿到超额奖励。'),
+                  L('Damage-scaled luck: the more damage you take, intentionally or not, the higher your odds at bonus rewards.',
+                    '受伤越多越走运：无论是不是故意的，你受到的伤害越多，拿到额外奖励的概率就越高。'),
+                ] },
+              ],
+            },
+            {
+              heading: L('Pruning the boon pool', '精简增益池'),
+              blocks: [
+                { kind: 'lead', text: L(
+                  'I needed boons that clearly served the four core synergies—Nuke, Swarm, Sustain, Leech—without bloating the game.',
+                  '我需要一批能明确支撑四条核心联动——Nuke、Swarm、Sustain、Leech——又不会让内容臃肿的增益。'
                 ) },
                 { kind: 'para', text: L(
-                  'So at first, I modeled expected player skill brackets to find the average moves-per-merge. Then, I established scaling curves for rune power versus enemy HP, and calculated the "Moves-to-Kill" (MTK) metric to balance the pacing.',
-                  '所以一开始，我对玩家的预期水平做了分层建模，算出平均每次合成所需步数。然后建立符文强度对敌人 HP 的成长曲线，用"击杀步数"（MTK）这个指标来平衡整体节奏。'
-                ) },
-                { kind: 'para', text: L(
-                  'But during playtesting, I discovered that purely random enemy ability loadouts mathematically broke the game—combinations like haste plus charge plus ravage were completely unsurvivable.',
-                  '但测试时发现，敌人技能纯随机组合在数学上就会把游戏搞崩——比如急速 + 蓄力 + 蹂躏这种组合，玩家根本活不下去。'
-                ) },
-                { kind: 'para', text: L(
-                  'To fix it, I hard-capped enemy generation to a strict rule: a maximum of 1 support ability and 2 standard abilities. This instantly stabilized the encounter balance.',
-                  '为了解决这个问题，给敌人生成加了一条硬性规则：最多 1 个辅助技能加 2 个普通技能。战斗平衡立竿见影地稳住了。'
+                  'My first pool was too diluted with minor buffs, dragging the snappy 10-minute loop into a slog. I aggressively pruned it and tuned drop rates so a player sees the whole pool across roughly three runs—keeping runs short, punchy, and build-focused.',
+                  '最初的池子被大量小加成稀释，把明快的 10 分钟局拖成了苦役。我大刀阔斧地精简，并调整掉率，让玩家大约三局就能见到整个池子——保证每局都短促、有冲劲、Build 导向明确。'
                 ) },
               ],
             },
           ],
         },
         {
-          id: 'num-encounter',
-          title: L('Case 02 — Encounter Balancing', '案例 02 — 遭遇战平衡'),
-          tag: L('Map Nodes', '地图节点'),
-          status: L('Worksheet', '工作表'),
-          context: RUNIC_CONTEXT,
-          links: [{ label: L('View Map-Nodes Worksheet', '查看地图节点工作表'), url: '#' }],
+          id: 'num-econ',
+          title: L('Case 02 — Live-Service Economy', '案例 02 — 长线运营经济系统'),
+          tag: L('Income Streams & Pacing', '收入流与节奏'),
+          status: L('NDA Project', 'NDA 项目'),
+          context: L(
+            'From the unannounced live-service title where I own economy design. Details are generalized to respect an active NDA.',
+            '来自我负责经济系统设计的那款未公开长线运营项目。受 NDA 约束，以下细节已做泛化处理。'
+          ),
           sections: [
             {
-              heading: L('My process', '我的流程'),
+              heading: L('Designing the income streams', '设计收入流'),
               blocks: [
-                { kind: 'para', text: L(
-                  'The problem was pacing the run so the risk and reward felt consistent and fair throughout a procedural map.',
-                  '问题是如何把控整局的节奏，让风险和回报在程序化地图里始终保持合理和公平。'
+                { kind: 'lead', text: L(
+                  'I own economy design on the title. I split the economy into the standard live-service income streams—dailies, weeklies, battle pass, achievements, events, IAP—sort each into one-shot vs recurring, and use one-shot plus first-month recurring to gauge the onboarding curve against pacing goals like initial rush vs slow drip.',
+                  '我负责这个项目的经济设计。我把经济拆成长线运营常见的几条收入流——日常、周常、战令、成就、活动、内购——每条归类为「一次性」或「循环」，再用「一次性 + 第一个月循环」衡量新手上手曲线，对齐「开局爆发」还是「细水长流」这类节奏目标。'
                 ) },
                 { kind: 'para', text: L(
-                  'At first, I defined the basic node archetypes—combat, elites, shops, and events—and mapped out exactly how much economic or power value each node should drop.',
-                  '一开始先定义了基础的节点类型——战斗、精英、商店、事件，并精确规划了每种节点应该给出多少经济价值或强度收益。'
+                  'I tune each stream\'s output—say a twice-monthly 500-gem event—so they sum to target, and use paid-vs-F2P collection-completion rates to balance F2P baseline rewards against purchasable bundles, which drives the IAP store design. Each stream then expands into its own sheet, with sub-sheets simulating player pacing.',
+                  '我调每条流的产出——比如每月两次、每次 500 宝石的活动——让加总正好命中目标；并用付费与免费玩家的收集完成度来平衡 F2P 基础奖励和可购礼包，进而驱动内购商店设计。每条流再展开成独立明细表，底下挂子表模拟玩家节奏。'
                 ) },
-                { kind: 'para', text: L(
-                  'Then I discovered that purely random node distribution created massive difficulty spikes and dead zones in the player\'s economy.',
-                  '然后发现纯随机的节点分布会导致难度剧烈波动，玩家的经济也会出现大段的"空窗期"。'
-                ) },
-                { kind: 'para', text: L(
-                  'So I went back and manually balanced the procedural generation weights, hard-coding the distribution logic to maintain a structured tension-and-release loop.',
-                  '于是回头手动调整程序化生成的权重，把分布逻辑写死，维持有节奏感的张弛循环。'
+                { kind: 'note', text: L(
+                  'These pacing sims are estimates, flagged for tuning once larger-scale playtest data lands. An active NDA restricts specific figures.',
+                  '这些节奏模拟只是估算值，已标记为待更大规模实测数据到位后再精调。受 NDA 约束，无法透露具体数字。'
                 ) },
               ],
             },
           ],
         },
         {
-          id: 'num-power',
-          title: L('Case 03 — Player Power', '案例 03 — 玩家强度'),
-          tag: L('Boons & Synergies', '增益与协同'),
-          status: L('Worksheet', '工作表'),
-          context: RUNIC_CONTEXT,
-          links: [{ label: L('View Boons Worksheet', '查看增益工作表'), url: '#' }],
+          id: 'num-null',
+          title: L('Case 03 — null://protocol', '案例 03 — null://protocol'),
+          tag: L('Full-Game Baseline Balancing', '全局基线数值'),
+          status: L('In Development', '研发中'),
           sections: [
             {
-              heading: L('My process', '我的流程'),
+              heading: L('Baseline numbers at a larger scale', '更大体量下的基线数值'),
               blocks: [
-                { kind: 'para', text: L(
-                  'The problem was building a set of boons that clearly supported the core synergies—Nuke, Swarm, Sustain, and Leech—without bloating the game.',
-                  '难点在于设计出一批能明确支撑核心联动方向——Nuke、Swarm、Sustain、Leech——又不会让内容变得臃肿的增益道具。'
-                ) },
-                { kind: 'para', text: L(
-                  'At first, I designed a massive pool of items, working both top-down to fill mechanical gaps and bottom-up from cool emergent interactions.',
-                  '一开始设计了一个很大的道具池，既自上而下填补机制缺口，也从底层有趣的联动效果出发往上推。'
-                ) },
-                { kind: 'para', text: L(
-                  'But then I discovered the pool was far too diluted with minor buffs. It dragged the fast-paced 10-minute loop into a slog because players couldn\'t consistently finish their builds.',
-                  '结果发现池子被大量小加成道具稀释了，把原本节奏明快的 10 分钟局给拖慢了——玩家很难稳定打出完整的 Build 路线。'
-                ) },
-                { kind: 'para', text: L(
-                  'So I aggressively rescoped and pruned the pool. I tuned the RNG drop rates so a player sees the full pool across roughly three runs, locking in the math to keep runs short, punchy, and strategically dense.',
-                  '于是大刀阔斧地缩减并精简了池子，同时调整 RNG 掉落概率，让玩家大约三局就能把整个池子见一遍——从数学上保证每局都短促、有冲劲，策略密度也拉满。'
+                { kind: 'lead', text: L(
+                  'On null://protocol—a larger, more complex project—I built the baseline numerical design for the whole game: enemy stat progression balanced against player power. Same Moves-to-Kill discipline as Runic Rush, scaled up across many more interacting systems and variables.',
+                  '在 null://protocol 这个体量更大、更复杂的项目里，我为整个游戏搭建了基线数值：平衡敌人属性成长与玩家强度。方法和 Runic Rush 的「击杀步数（MTK）」一脉相承，只是规模更大，需要联动和制衡的系统与变量都多得多。'
                 ) },
               ],
             },
