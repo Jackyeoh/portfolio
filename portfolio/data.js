@@ -203,9 +203,8 @@
             { label: L('Role', '角色'), value: L('Gameplay Designer', '玩法设计师') },
             { label: L('Official Title', '正式职称'), value: L('Game Programmer', '游戏程序员') },
             { label: L('Genre', '类型'), value: L('Live Service', '长线运营') },
-            // TODO(jack): replace placeholders with real values you're comfortable disclosing
-            { label: L('Team Size', '团队规模'), value: L('[TEAM SIZE — e.g. ~20]', '[团队规模 — 如 ~20 人]') },
-            { label: L('Project Phase', '项目阶段'), value: L('[PHASE — e.g. Alpha]', '[阶段 — 如 Alpha]') },
+            { label: L('Team Size', '团队规模'), value: L('~16 (cross-functional)', '约 16 人（跨职能）') },
+            { label: L('Project Phase', '项目阶段'), value: L('Pre-production', '预研阶段') },
             { label: L('Disclosure', '保密'), value: L('NDA Active', 'NDA 生效中') },
           ],
           sections: [
@@ -234,6 +233,10 @@
             {
               heading: L('How I work', '我的工作方式'),
               blocks: [
+                { kind: 'para', text: L(
+                  'I\'m one of two gameplay designers on a cross-functional core team of about 16, working closely with programming and the game director to take features from concept to build.',
+                  '我是一支约 16 人跨职能核心团队里的两名玩法设计师之一，与程序和游戏总监紧密协作，把功能从概念一路推到落地。'
+                ) },
                 { kind: 'para', text: L(
                   'On a live-service team, design never ships in isolation. I drive features to the finish line across programming, art, and operations — aligning on scope, unblocking dependencies, and folding playtest and post-mortem feedback back into the next iteration.',
                   '在长线运营团队里，设计从来不是单打独斗就能上线的。我推动功能跨程序、美术、运营各方落地到底——对齐范围、疏通依赖，并把实测和复盘的反馈重新收进下一轮迭代。'
